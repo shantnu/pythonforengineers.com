@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Build Marvin the Depressed Reddit Bot in Python</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="../../assets/built/screen.css" />
+
+    <link rel="canonical" href="index.html">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    
+    <meta property="og:site_name" content="Python for Engineers">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Build Marvin the Depressed Reddit Bot in Python">
+    <meta property="og:description" content="Part 1: Read posts from reddit
+[https://new.pythonforengineers.com/blog/build-a-reddit-bot-part-1/]
+
+Part 2: Reply to posts
+[https://new.pythonforengineers.com/blog/build-a-reddit-bot-part-2-reply-to-posts/]
+
+Part 3: Automate our Bot
+[https://new.pythonforengineers.com/blog/build-a-reddit-bot-part-3-automate-your-bot/]
+
+Part 4: Marvin the Depressed Bot
+[https://new.pythonforengineers.com/blog/build-marvin-the-depressed-reddit-bot-in-python/]
+
+There are many bots">
+    <meta property="og:url" content="https://new.pythonforengineers.com/blog/build-marvin-the-depressed-reddit-bot-in-python/">
+    <meta property="article:published_time" content="2021-08-16T14:19:37.000Z">
+    <meta property="article:modified_time" content="2021-08-16T14:19:37.000Z">
+    <meta property="article:tag" content="bot">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Build Marvin the Depressed Reddit Bot in Python">
+    <meta name="twitter:description" content="Part 1: Read posts from reddit
+[https://new.pythonforengineers.com/blog/build-a-reddit-bot-part-1/]
+
+Part 2: Reply to posts
+[https://new.pythonforengineers.com/blog/build-a-reddit-bot-part-2-reply-to-posts/]
+
+Part 3: Automate our Bot
+[https://new.pythonforengineers.com/blog/build-a-reddit-bot-part-3-automate-your-bot/]
+
+Part 4: Marvin the Depressed Bot
+[https://new.pythonforengineers.com/blog/build-marvin-the-depressed-reddit-bot-in-python/]
+
+There are many bots">
+    <meta name="twitter:url" content="https://new.pythonforengineers.com/blog/build-marvin-the-depressed-reddit-bot-in-python/">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Shantnu Tiwari">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="bot">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Python for Engineers",
+        "url": "https://new.pythonforengineers.com/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://new.pythonforengineers.com/favicon.ico"
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Shantnu Tiwari",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://new.pythonforengineers.com/content/images/2021/08/shantnu-foto-small-1.jpg"
+        },
+        "url": "https://new.pythonforengineers.com/author/shantnu/",
+        "sameAs": []
+    },
+    "headline": "Build Marvin the Depressed Reddit Bot in Python",
+    "url": "https://new.pythonforengineers.com/blog/build-marvin-the-depressed-reddit-bot-in-python/",
+    "datePublished": "2021-08-16T14:19:37.000Z",
+    "dateModified": "2021-08-16T14:19:37.000Z",
+    "keywords": "bot",
+    "description": "Part 1: Read posts from reddit\n[https://new.pythonforengineers.com/blog/build-a-reddit-bot-part-1/]\n\nPart 2: Reply to posts\n[https://new.pythonforengineers.com/blog/build-a-reddit-bot-part-2-reply-to-posts/]\n\nPart 3: Automate our Bot\n[https://new.pythonforengineers.com/blog/build-a-reddit-bot-part-3-automate-your-bot/]\n\nPart 4: Marvin the Depressed Bot\n[https://new.pythonforengineers.com/blog/build-marvin-the-depressed-reddit-bot-in-python/]\n\nThere are many bots on Reddit (and Twitter etc), most",
+    "mainEntityOfPage": "https://new.pythonforengineers.com/blog/build-marvin-the-depressed-reddit-bot-in-python/"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 5.129">
+    <link rel="alternate" type="application/rss+xml" title="Python for Engineers" href="../rss/index.html">
+        
+    
+    <link href="https://new.pythonforengineers.com/webmentions/receive/" rel="webmention">
+    <script defer src="../../public/cards.min.js%3Fv=ddf1563274"></script>
+    <link rel="stylesheet" type="text/css" href="../../public/cards.min.css%3Fv=ddf1563274.css">
+    <script defer src="../../public/member-attribution.min.js%3Fv=ddf1563274"></script><style>:root {--ghost-accent-color: #FF1A75;}</style>
+    <link rel="stylesheet" href="/assets/css/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="/assets/css/prism-toolbar.min.css" />
+
+</head>
+<body class="post-template tag-bot">
+<div class="viewport">
+
+    <header id="gh-head" class="gh-head ">
+        <nav class="gh-head-inner inner gh-container">
+
+            <div class="gh-head-brand">
+                <a class="gh-head-logo" href="../../home/index.html">
+                        Python for Engineers
+                </a>
+                <a class="gh-burger" role="button">
+                    <div class="gh-burger-box">
+                        <div class="gh-burger-inner"></div>
+                    </div>
+                </a>
+            </div>
+            <div class="gh-head-menu">
+                <ul class="nav">
+    <li class="nav-home"><a href="../../home/index.html">Home</a></li>
+    <li class="nav-about-contact"><a href="../../about/index.html">About/Contact</a></li>
+    <li class="nav-books"><a href="../../books.html">Books</a></li>
+    <li class="nav-blog"><a href="../../author/Shantnu/index.html">Blog</a></li>
+    <li class="nav-search"><a href="index.html#/search">Search</a></li>
+</ul>
+
+            </div>
+            <div class="gh-head-actions">
+                <div class="gh-social">
+                </div>
+
+                    <a class="gh-head-button" href="index.html#/portal/signup">Subscribe</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        
+
+
+
+<article class="article post tag-bot no-image">
+
+    <header class="article-header gh-canvas">
+
+        <section class="article-tag">
+            <a href="../../tag/bot/index.html">bot</a>
+        </section>
+
+        <h1 class="article-title">Build Marvin the Depressed Reddit Bot in Python</h1>
+
+
+        <div class="article-byline">
+            <section class="article-byline-content">
+                <ul class="author-list">
+                    <li class="author-list-item">
+                        <a href="../../author/Shantnu/index.html" class="author-avatar">
+                            <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                        </a>
+                    </li>
+                </ul>
+                <div class="article-byline-meta">
+                    <h4 class="author-name"><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></h4>
+                    <div class="byline-meta-content">
+                        <time class="byline-meta-date" datetime="2021-08-16">Aug 16, 2021</time>
+                        <span class="byline-reading-time"><span class="bull">&bull;</span> 3 min read</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </header>
+
+    <section class="gh-content gh-canvas">
+        <p><a href="../build-a-reddit-bot-part-1/index.html">Part 1: Read posts from reddit</a></p><p><a href="../build-a-reddit-bot-part-2-reply-to-posts/index.html">Part 2: Reply to posts</a></p><p><a href="../build-a-reddit-bot-part-3-automate-your-bot/index.html">Part 3: Automate our Bot</a></p><p><a href="index.html">Part 4: Marvin the Depressed Bot</a></p><!--kg-card-begin: markdown--><p>There are many bots on Reddit (and Twitter etc), most of whom are very helpful.</p>
+<p>There is one bot that reminds of you something; another transcribes xkcd comic strips.</p>
+<p>Our bot is not going to be like that. Our bot will be a depressed loner who will reply to your plea for help with more insults.</p>
+<p>Introducing Marvin the Depressed Robot:</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/en/c/cb/Marvin_%28HHGG%29.jpg" alt="" loading="lazy"></p>
+<p><em>The theory behind bots</em>: Most bots on reddit follow the same formula: They scan for a keyword in the comments, and reply based on a formula. We will follow this formula. To <del>be insulted by</del>  get inspirational quotes from our bot, just add the words: <em>Marvin help</em> to your post.</p>
+<p>Our script will continually monitor all new posts, and when it sees <em>Marvin help</em>, it will jump into action.</p>
+<p><strong>Prerequisites</strong>: Make sure you have done Parts 1 &amp; 2 of the tutorial. Part 3 isn’t necessary, as this blog will try a new approach.</p>
+<p>IMPORTANT: I created a special sub-Reddit for this series. Please please please stick to that. I don’t want you spamming other Reddits. The moderators may ban you, and Reddit may ban my user agent (please read part one if you don’t know what that means). So please stick to practising here:<br>
+<a href="https://www.reddit.com/r/pythonforengineers?ref=new.pythonforengineers.com">https://www.reddit.com/r/pythonforengineers</a></p>
+<p>This is my own sub-Reddit, and you have full permission to play in that region.</p>
+<p>Before we start, all the source code is <a href="https://github.com/shantnu/RedditBot/blob/master/Marvin/marvin_bot.py?ref=new.pythonforengineers.com">here</a>.</p>
+<h2 id="build-our-bot">Build Our Bot</h2>
+<p>The first thing to do is to get some sarcastic Marvin quotes. Imdb is a good source.</p>
+<pre><code class="language-python"># Quotes taken from: https://www.imdb.com/character/ch0007553/quotes
+marvin_quotes = \
+[
+&quot; I've calculated your chance of survival, but I don't think you'll like it. &quot;,
+&quot; Do you want me to sit in a corner and rust or just fall apart where I'm standing?&quot;,
+&quot;Here I am, brain the size of a planet, and they tell me to take you up to the bridge. Call that job satisfaction? Cause I don't. &quot;,
+&quot;Here I am, brain the size of a planet, and they ask me to pick up a piece of paper. &quot;,
+&quot; It gives me a headache just trying to think down to your level. &quot;,
+&quot; You think you've got problems. What are you supposed to do if you are a manically depressed robot? No, don't even bother answering. I'm 50,000 times more intelligent than you and even I don't know the answer.&quot;,
+&quot;Zaphod Beeblebrox: There's a whole new life stretching out in front of you. Marvin: Oh, not another one.&quot;,
+&quot;The first ten million years were the worst. And the second ten million... they were the worst too. The third ten million I didn't enjoy at all. After that, I went into a bit of a decline. &quot;,
+&quot;Sorry, did I say something wrong? Pardon me for breathing which I never do anyway so I don't know why I bother to say it oh God I'm so depressed. &quot;,
+&quot; I have a million ideas, but, they all point to certain death. &quot;,
+]
+</code></pre>
+<p>Let’s create our Reddit bot and point it to our sub-reddit:</p>
+<pre><code class="language-python">reddit = praw.Reddit('bot1')
+
+subreddit = reddit.subreddit(&quot;pythonforengineers&quot;)
+</code></pre>
+<p>Now we come to the crux of the code.</p>
+<p>PRAW added this feature fairly recently, the ability to iterate over all new posts in a subreddit. In their official example, they show you how to<a href="https://praw.readthedocs.io/en/latest/tutorials/reply_bot.html?ref=new.pythonforengineers.com"> track new posts</a>. This method is called monitoring the submission stream, and it does so indefinitely.</p>
+<p>We are going to do something slightly different and monitor all new replies to posts.</p>
+<pre><code class="language-python">for comment in subreddit.stream.comments():
+</code></pre>
+<p>This line will continually monitor all new comments on every single post in the sub-reddit. It will run forever until you press Ctrl+C to kill the program.</p>
+<pre><code class="language-python">if re.search(&quot;Marvin Help&quot;, comment.body, re.IGNORECASE):
+</code></pre>
+<p>We search for our keyword <em>Marvin help</em> in every single comment’s body. If we find it:</p>
+<pre><code class="language-python">marvin_reply = &quot;Marvin the Depressed Robot says: &quot; + random.choice(marvin_quotes)
+comment.reply(marvin_reply)
+</code></pre>
+<p>We choose a random quote from Marvin, and use the <em>comment.reply()</em> to reply to the message.</p>
+<p>Let’s test our bot.</p>
+<p>We create an empty post with a call to help to Marvin:</p>
+<p><img src="../../content/images/2021/08/redditbot4.jpg" alt="redditbot4" loading="lazy"></p>
+<p>Let’s run our bot now.</p>
+<pre><code class="language-python">$ python marvin_bot.py
+I'm depressed!
+
+Justin Bieber hasn't released an album for months.
+
+Marvin help
+
+
+Marvin the Depressed Robot says:  It gives me a headache just trying to think down to your level.
+</code></pre>
+<p>Go to the subreddit page:</p>
+<p><img src="../../content/images/2021/08/redditbot5.jpg" alt="redditbot5" loading="lazy"></p>
+<!--kg-card-end: markdown-->
+    </section>
+
+
+</article>
+
+
+
+<aside class="read-more-wrap">
+    <div class="read-more inner">
+
+
+                    
+<article class="post-card post no-image ">
+
+
+    <div class="post-card-content">
+
+        <a class="post-card-content-link" href="../awesome-python-library-tenacity/index.html">
+            <header class="post-card-header">
+                <h2 class="post-card-title">Awesome Python Library: Tenacity</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>Link: https://tenacity.readthedocs.io/en/latest/
+
+When writing code or tests in Python, one issue I had was when the code would fail due to random things like network issues or external peripherals not responding in time. Just rerunning the tests would make them pass. The unreliability wasn&#39;</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <a href="../../author/Shantnu/index.html" class="static-avatar">
+                        <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></span>
+                <span class="post-card-byline-date"><time datetime="2024-04-10">Apr 10, 2024</time> <span class="bull">&bull;</span> 2 min read</span>
+            </div>
+        </footer>
+
+    </div>
+
+</article>
+                    
+<article class="post-card post no-image ">
+
+
+    <div class="post-card-content">
+
+        <a class="post-card-content-link" href="../so-evidently/index.html">
+            <header class="post-card-header">
+                <h2 class="post-card-title">So Google&#x27;s Gemini Doesn&#x27;t Like Python Programming and Sanskrit?</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>I have been playing around with Googles Gemini Pro.
+
+Recently, I wanted to write a blog on Python&#39;s decorators and wanted to get some ideas for practical projects I could build with them. Tried GPT4 first, it gave me the standard &quot;log analyser&quot; that all blogs</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <a href="../../author/Shantnu/index.html" class="static-avatar">
+                        <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></span>
+                <span class="post-card-byline-date"><time datetime="2024-02-25">Feb 25, 2024</time> <span class="bull">&bull;</span> 4 min read</span>
+            </div>
+        </footer>
+
+    </div>
+
+</article>
+                    
+<article class="post-card post ">
+
+    <a class="post-card-image-link" href="../linkedin-has-become-a-piece-of-garbage-even-more-than-usual/index.html">
+        <img class="post-card-image"
+            srcset="../../content/images/size/w300/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.png 300w,
+                   ../../content/images/size/w600/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.pngg 600w,
+                  ../../content/images/size/w1000/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.pngng 1000w,
+                 ../../content/images/size/w2000/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.pngpng 2000w"
+            sizes="(max-width: 1000px) 400px, 800px"
+            src="../../content/images/size/w600/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.png"
+            alt="LinkedIn Has Become a Pile of Garbage (even more than usual)"
+            loading="lazy"
+        />
+    </a>
+
+    <div class="post-card-content">
+
+        <a class="post-card-content-link" href="../linkedin-has-become-a-piece-of-garbage-even-more-than-usual/index.html">
+            <header class="post-card-header">
+                <h2 class="post-card-title">LinkedIn Has Become a Pile of Garbage (even more than usual)</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>Online forums, especially Hacker News and Reddit, are very hostile to LinkedIn. Everyone makes fun of the self-promotion and silliness that goes there. There are complaints the site is unusable, which I didn&#39;t agree with until now.
+
+I&#39;ve had an account there for a few years.</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <a href="../../author/Shantnu/index.html" class="static-avatar">
+                        <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></span>
+                <span class="post-card-byline-date"><time datetime="2024-01-29">Jan 29, 2024</time> <span class="bull">&bull;</span> 4 min read</span>
+            </div>
+        </footer>
+
+    </div>
+
+</article>
+
+    </div>
+</aside>
+
+
+    </main>
+
+    <footer class="site-footer outer">
+        <div class="inner">
+            <section class="copyright"><a href="../../home/index.html">Python for Engineers</a> &copy; 2025</section>
+            <nav class="site-footer-nav">
+                
+            </nav>
+            
+
+        </div>
+    </footer>
+
+</div>
+
+
+<script
+    src="/assets/js/jquery-3.5.1.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+    crossorigin="anonymous">
+</script>
+<script src="../../assets/built/casper.js"></script>
+<script>
+$(document).ready(function () {
+    // Mobile Menu Trigger
+    $('.gh-burger').click(function () {
+        $('body').toggleClass('gh-head-open');
+    });
+    // FitVids - Makes video embeds responsive
+    $(".gh-content").fitVids();
+});
+</script>
+
+<script src="/assets/js/prism.min.js" integrity="sha512-axJX7DJduStuBB8ePC8ryGzacZPr3rdLaIDZitiEgWWk2gsXxEFlm4UW0iNzj2h3wp5mOylgHAzBzM4nRSvTZA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+
+<script src="/assets/js/prism-toolbar.min.js" integrity="sha512-YrvgEHAi5/3o2OT+/vh1z19oJXk/Kk0qdVKbjEFl9VRmcLTaWRYzVziZCvoGpJ2TrnV7rB8pnJcz1ioVJjgw2A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+</html>

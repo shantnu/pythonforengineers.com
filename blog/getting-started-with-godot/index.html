@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Getting Started with Godot Game Programming for Complete Beginners</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="../../assets/built/screen.css" />
+
+    <link rel="canonical" href="index.html">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    
+    <meta property="og:site_name" content="Python for Engineers">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Getting Started with Godot Game Programming for Complete Beginners">
+    <meta property="og:description" content="In this post, we will start with a very basic Godot script, that will move a
+player left and right, add some gravity.
+
+All the code is here [https://github.com/shantnu/godot-beginners]. Part 1 is the
+directory with the code. I&#x27;m using Godot version 3.x for this tutorial.">
+    <meta property="og:url" content="https://new.pythonforengineers.com/blog/getting-started-with-godot/">
+    <meta property="article:published_time" content="2021-12-05T14:44:00.000Z">
+    <meta property="article:modified_time" content="2021-12-05T14:43:59.000Z">
+    <meta property="article:tag" content="game">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Getting Started with Godot Game Programming for Complete Beginners">
+    <meta name="twitter:description" content="In this post, we will start with a very basic Godot script, that will move a
+player left and right, add some gravity.
+
+All the code is here [https://github.com/shantnu/godot-beginners]. Part 1 is the
+directory with the code. I&#x27;m using Godot version 3.x for this tutorial.">
+    <meta name="twitter:url" content="https://new.pythonforengineers.com/blog/getting-started-with-godot/">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Shantnu Tiwari">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="game">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Python for Engineers",
+        "url": "https://new.pythonforengineers.com/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://new.pythonforengineers.com/favicon.ico"
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Shantnu Tiwari",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://new.pythonforengineers.com/content/images/2021/08/shantnu-foto-small-1.jpg"
+        },
+        "url": "https://new.pythonforengineers.com/author/shantnu/",
+        "sameAs": []
+    },
+    "headline": "Getting Started with Godot Game Programming for Complete Beginners",
+    "url": "https://new.pythonforengineers.com/blog/getting-started-with-godot/",
+    "datePublished": "2021-12-05T14:44:00.000Z",
+    "dateModified": "2021-12-05T14:43:59.000Z",
+    "keywords": "game",
+    "description": "In this post, we will start with a very basic Godot script, that will move a\nplayer left and right, add some gravity.\n\nAll the code is here [https://github.com/shantnu/godot-beginners]. Part 1 is the\ndirectory with the code. I&#x27;m using Godot version 3.x for this tutorial.\n\n\n\nInstall Godot\nFor those who come from Unity, installing Godot is a walk in the park. You\ndownload one file and run it. It starts up immediately, even on older machines\nand takes very little memory. Go here to download: \nhttps",
+    "mainEntityOfPage": "https://new.pythonforengineers.com/blog/getting-started-with-godot/"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 5.129">
+    <link rel="alternate" type="application/rss+xml" title="Python for Engineers" href="../rss/index.html">
+        
+    
+    <link href="https://new.pythonforengineers.com/webmentions/receive/" rel="webmention">
+    <script defer src="../../public/cards.min.js%3Fv=ddf1563274"></script>
+    <link rel="stylesheet" type="text/css" href="../../public/cards.min.css%3Fv=ddf1563274.css">
+    <script defer src="../../public/member-attribution.min.js%3Fv=ddf1563274"></script><style>:root {--ghost-accent-color: #FF1A75;}</style>
+    <link rel="stylesheet" href="/assets/css/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="/assets/css/prism-toolbar.min.css" />
+
+</head>
+<body class="post-template tag-game">
+<div class="viewport">
+
+    <header id="gh-head" class="gh-head ">
+        <nav class="gh-head-inner inner gh-container">
+
+            <div class="gh-head-brand">
+                <a class="gh-head-logo" href="../../home/index.html">
+                        Python for Engineers
+                </a>
+                <a class="gh-burger" role="button">
+                    <div class="gh-burger-box">
+                        <div class="gh-burger-inner"></div>
+                    </div>
+                </a>
+            </div>
+            <div class="gh-head-menu">
+                <ul class="nav">
+    <li class="nav-home"><a href="../../home/index.html">Home</a></li>
+    <li class="nav-about-contact"><a href="../../about/index.html">About/Contact</a></li>
+    <li class="nav-books"><a href="../../books.html">Books</a></li>
+    <li class="nav-blog"><a href="../../author/Shantnu/index.html">Blog</a></li>
+    <li class="nav-search"><a href="index.html#/search">Search</a></li>
+</ul>
+
+            </div>
+            <div class="gh-head-actions">
+                <div class="gh-social">
+                </div>
+
+                    <a class="gh-head-button" href="index.html#/portal/signup">Subscribe</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        
+
+
+
+<article class="article post tag-game no-image">
+
+    <header class="article-header gh-canvas">
+
+        <section class="article-tag">
+            <a href="../../tag/game/index.html">game</a>
+        </section>
+
+        <h1 class="article-title">Getting Started with Godot Game Programming for Complete Beginners</h1>
+
+
+        <div class="article-byline">
+            <section class="article-byline-content">
+                <ul class="author-list">
+                    <li class="author-list-item">
+                        <a href="../../author/Shantnu/index.html" class="author-avatar">
+                            <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                        </a>
+                    </li>
+                </ul>
+                <div class="article-byline-meta">
+                    <h4 class="author-name"><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></h4>
+                    <div class="byline-meta-content">
+                        <time class="byline-meta-date" datetime="2021-12-05">Dec 5, 2021</time>
+                        <span class="byline-reading-time"><span class="bull">&bull;</span> 9 min read</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </header>
+
+    <section class="gh-content gh-canvas">
+        <p>In this post, we will start with a very basic Godot script, that will move a player left and right, add some gravity.</p><p><a href="https://github.com/shantnu/godot-beginners?ref=new.pythonforengineers.com">All the code is here</a>. Part 1 is the directory with the code. I'm using Godot version 3.x for this tutorial.</p><p></p><h3 id="install-godot">Install Godot</h3><p>For those who come from Unity, installing Godot is a walk in the park. You download one file and run it. It starts up immediately, even on older machines and takes very little memory. Go here to download: <a href="https://godotengine.org/download/?ref=new.pythonforengineers.com">https://godotengine.org/download/</a></p><h2 id="starting-a-simple-godot-project">Starting a simple Godot Project</h2><p>Start Godot and click on New project:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/10/image.png" class="kg-image" alt loading="lazy" width="1024" height="646" srcset="../../content/images/size/w600/2021/10/image.png 600w, ../../content/images/size/w1000/2021/10/image.png 1000w, ../../content/images/2021/10/image.png 1024w" sizes="(min-width: 720px) 720px"></figure><p>Click create.</p><h3 id="high-level-view-on-the-godot-ui">High Level View on the Godot UI</h3><p></p><p>Let me explain how the Godot UI works, so you know how to move around:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/image-20.png" class="kg-image" alt loading="lazy" width="1914" height="989" srcset="../../content/images/size/w600/2021/11/image-20.png 600w, ../../content/images/size/w1000/2021/11/image-20.png 1000w, ../../content/images/size/w1600/2021/11/image-20.png 1600w, ../../content/images/2021/11/image-20.png 1914w" sizes="(min-width: 720px) 720px"></figure><p>The red part on the top left part is where you can see the scenes in the game. Scenes in Godot include levels, players, enemies etc; anything you can code or design and the player interacts with.</p><p>The green part below that is the local filesystem, and any files you need for your game, like graphics or sound, can be seen here.</p><p>The big blue part in the middle is where the main game screen is. Here you will see the levels you design visually, or the code you write.</p><p>To move between the graphics and code, the purple box above the blue tells you how. Clicking on 2D (or 3D) will take you to the graphical part. While clicking on the script will take you to the code.</p><p>The yellow box on the top right allows you to play the game.</p><p>The grey box below that is where you can see details of whatever item you chose. For example, if you create a player scene, you can choose the sprite here. For music nodes, you can select which file you want to play, etc.</p><h3 id="starting-the-game">Starting the Game</h3><p>On the left, choose 2d scene and  rename the scene to level 1 (by double clicking on it):</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/p2.gif" class="kg-image" alt loading="lazy" width="739" height="630"></figure><p>Save the scene as Level1.tscn</p><p>Click the + at the top to add a new scene:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/10/image-3.png" class="kg-image" alt loading="lazy" width="913" height="409" srcset="../../content/images/size/w600/2021/10/image-3.png 600w, ../../content/images/2021/10/image-3.png 913w" sizes="(min-width: 720px) 720px"></figure><p>In Godot, a scene is not just the levels but can be things like characters, hazards etc. The advantage of having them as a scene is that you can mix the characters with different levels, for example, without having to create a new character each time.</p><p>Now, in the scene window, click plus to add a node:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/10/image-5.png" class="kg-image" alt loading="lazy" width="301" height="370"></figure><p>In the window that comes up, start typing "kine", and you will see the below:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/p3.gif" class="kg-image" alt loading="lazy" width="1803" height="915"></figure><p>Make sure you choose KinematicBody2D, the blue one, as we are making a 2d game, and rename it to player.</p><p>Save the file as player.tscn</p><h3 id="adding-the-sprite">Adding the Sprite</h3><p></p><p>The next thing to do is to add a sprite to our player. Later on, we'll add an animated sprite (that'll show our player walking when we press left/right), but for now, we'll use a simple sprite.</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/p4.gif" class="kg-image" alt loading="lazy" width="1803" height="915"></figure><p>Click on the Sprite node you created. Add the sprite, which should be in the code, to the Texture button on the right:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/p5.gif" class="kg-image" alt loading="lazy" width="1916" height="915"></figure><p>Now, there is a warning triangle next to our player node:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/image.png" class="kg-image" alt loading="lazy" width="1003" height="435" srcset="../../content/images/size/w600/2021/11/image.png 600w, ../../content/images/size/w1000/2021/11/image.png 1000w, ../../content/images/2021/11/image.png 1003w" sizes="(min-width: 720px) 720px"></figure><p>Godot is complaining there is no shape for our player. So we need to define a shape– the shape will make sure Godot can check if the player collides with other objects. Let's add a shape now.</p><p>Make sure you have the player selected (and not Sprite), click add and add the CollisionShape2d node:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/p6.gif" class="kg-image" alt loading="lazy" width="1613" height="872"></figure><p>There is still a warning--the Collision  Shape doesn't have a "shape" :)</p><p>Let's add a rectangle shape– its the simplest and work for us, as our character is roughly a rectangle:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/p7.gif" class="kg-image" alt loading="lazy" width="1913" height="447"></figure><p>The next thing to do is zoom into our player, and make sure the whole CollisionShape covers it:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/p8.gif" class="kg-image" alt loading="lazy" width="893" height="552"></figure><p>What this means is: Godot now knows what the shape of our player is, and can track if it is colliding with the enemy, platforms etc.</p><p>There are different shape types, and you can even click and select for complex shapes, but we won't go into that now.</p><p>Now we need to add our player to the scene. Click on level1, and make sure you click the link button, not the add new node button:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/p9.gif" class="kg-image" alt loading="lazy" width="987" height="589"></figure><p>That's it. Let's try playing our game now. Click the play button. If this is the 1st time, you will be asked to select a scene:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/image-3.png" class="kg-image" alt loading="lazy" width="1918" height="403" srcset="../../content/images/size/w600/2021/11/image-3.png 600w, ../../content/images/size/w1000/2021/11/image-3.png 1000w, ../../content/images/size/w1600/2021/11/image-3.png 1600w, ../../content/images/2021/11/image-3.png 1918w" sizes="(min-width: 720px) 720px"></figure><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/image-4.png" class="kg-image" alt loading="lazy"></figure><p>Click Select and choose Level1:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/image-5.png" class="kg-image" alt loading="lazy" width="1483" height="838" srcset="../../content/images/size/w600/2021/11/image-5.png 600w, ../../content/images/size/w1000/2021/11/image-5.png 1000w, ../../content/images/2021/11/image-5.png 1483w" sizes="(min-width: 720px) 720px"></figure><p>Our game starts, and our character is at the top right corner:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/image-6.png" class="kg-image" alt loading="lazy" width="1618" height="415" srcset="../../content/images/size/w600/2021/11/image-6.png 600w, ../../content/images/size/w1000/2021/11/image-6.png 1000w, ../../content/images/size/w1600/2021/11/image-6.png 1600w, ../../content/images/2021/11/image-6.png 1618w" sizes="(min-width: 720px) 720px"></figure><p>Let's fix that.</p><p>1st, the purple/green lines are the screen, ie, what the user sees:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/image-7.png" class="kg-image" alt loading="lazy"></figure><p>Our player is at the top right of the screen which is why we can't see him. Move him and play the game again:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/image-8.png" class="kg-image" alt loading="lazy"></figure><p></p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/image-9.png" class="kg-image" alt loading="lazy" width="1441" height="625" srcset="../../content/images/size/w600/2021/11/image-9.png 600w, ../../content/images/size/w1000/2021/11/image-9.png 1000w, ../../content/images/2021/11/image-9.png 1441w" sizes="(min-width: 720px) 720px"></figure><p>That's better. The player doesn't do anything yet. Let's fix that, make it move left and right.</p><h3 id="moving-our-player-using-the-keyboard">Moving our player using the keyboard</h3><p>Go to the player and add a new script:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/image-10.png" class="kg-image" alt loading="lazy" width="979" height="496" srcset="../../content/images/size/w600/2021/11/image-10.png 600w, ../../content/images/2021/11/image-10.png 979w" sizes="(min-width: 720px) 720px"></figure><p>Choose No Comments template:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/image-11.png" class="kg-image" alt loading="lazy"></figure><p>Create a variable for speed:</p><pre><code>const SPEED = 200</code></pre><p>And add a function for physics.  The <em>_physics_process(_delta)</em> is an inbuilt function that is called 60 times a second and can handle game physics.</p><p>And to handle user input, the inbuilt function is<em> Input.is_action_pressed()</em></p><p>Add this code:</p><pre><code>const SPEED = 200
+var velocity = Vector2(0,0)
+func _physics_process(_delta):
+	pass</code></pre><p>We are creating a 2D Vector object– the vector can store positions in 2d Space. <a href="https://docs.godotengine.org/en/stable/classes/class_vector2.html?ref=new.pythonforengineers.com">https://docs.godotengine.org/en/stable/classes/class_vector2.html</a></p><p>The first thing we need to do is map our input keys. Go to Project-&gt; Project settings, and select Input Map:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/image-12.png" class="kg-image" alt loading="lazy" width="1518" height="846" srcset="../../content/images/size/w600/2021/11/image-12.png 600w, ../../content/images/size/w1000/2021/11/image-12.png 1000w, ../../content/images/2021/11/image-12.png 1518w" sizes="(min-width: 720px) 720px"></figure><p>Click the + button to add more keys. In the example below, I add the right key. When it says "<em>Press a Key</em>", press the right key to bind our "right" button to the right key:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/p10.gif" class="kg-image" alt loading="lazy" width="1077" height="761"></figure><p>Do the same for left and up keys.</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/image-13.png" class="kg-image" alt loading="lazy"></figure><p></p><p>Come back to the code. If you are ever lost between the visual part and the code part, you can switch between the 2d view and script view from here:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/image-14.png" class="kg-image" alt loading="lazy" width="1776" height="256" srcset="../../content/images/size/w600/2021/11/image-14.png 600w, ../../content/images/size/w1000/2021/11/image-14.png 1000w, ../../content/images/size/w1600/2021/11/image-14.png 1600w, ../../content/images/2021/11/image-14.png 1776w" sizes="(min-width: 720px) 720px"></figure><p>Add this script:</p><pre><code>func _physics_process(_delta):
+	if Input.is_action_pressed("right"):
+		velocity.x = SPEED
+	elif Input.is_action_pressed("left"):
+		velocity.x = -SPEED
+	else:
+		velocity.x = 0</code></pre><p>If the user presses right, increase the x part of velocity by SPEED, which we described before. Same for the left.</p><p>GdScript, the language, is very similar to Python, so if you know Python you can follow it easily.</p><p>If the user isn't pressing anything, set the x velocity to 0.</p><p>That's good, but though we are changing the velocity, we are not applying this to the player. For that, we will use the<em> move_and_slide()</em> function (<a href="https://docs.godotengine.org/en/stable/tutorials/physics/using_kinematic_body_2d.html?ref=new.pythonforengineers.com">https://docs.godotengine.org/en/stable/tutorials/physics/using_kinematic_body_2d.html</a>)</p><p>From the docs:</p><blockquote>When moving a <code>KinematicBody2D</code>, you should not set its <code>position</code> property directly. Instead, you use the <code>move_and_collide()</code> or <code>move_and_slide()</code> methods. These methods move the body along a given vector and instantly stop if a collision is detected with another body. After a KinematicBody2D has collided, any <em>collision response</em> must be coded manually.</blockquote><blockquote>The <code>move_and_slide()</code> method is intended to simplify the collision response in the common case where you want one body to slide along the other. It is especially useful in platformers or top-down games, for example.</blockquote><p>So let's use this method:</p><pre><code>velocity = move_and_slide(velocity)	</code></pre><p>We update the player body with our velocity variable and return the variable for future use. </p><p>The whole function is:</p><pre><code class="language-python">func _physics_process(_delta):
+	if Input.is_action_pressed("right"):
+		velocity.x = SPEED
+	elif Input.is_action_pressed("left"):
+		velocity.x = -SPEED
+	else:
+		velocity.x = 0
+	velocity = move_and_slide(velocity)		</code></pre><p>Run the game:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/p11.gif" class="kg-image" alt loading="lazy" width="1893" height="924"></figure><p>Our character can move left and right. Let's add gravity now.</p><h3 id="adding-gravity-to-our-game">Adding gravity to our game</h3><p></p><p>Adding gravity is easy. In the script, add:</p><pre><code>const GRAVITY = 20
+
+func _physics_process(_delta):
+ 
+	velocity.y += GRAVITY</code></pre><p>And run the game:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/p12.gif" class="kg-image" alt loading="lazy" width="1893" height="924"></figure><p>The character just falls off the screen. We need to give it a place to stand.</p><p>Later on, we'll create proper levels, but for now, we'll just create a dummy platform for our player to land on.</p><p>Create a new scene of type StaticBody2d:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/p13.gif" class="kg-image" alt loading="lazy" width="1550" height="745"></figure><p>Like we did for the player, we need to add a sprite and collision body. Do it, same as before:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/p14.gif" class="kg-image" alt loading="lazy" width="1677" height="842"></figure><p>In the image above, I use the recent node list to pick up the 2 nodes I want. This is faster than typing the name.</p><p>We now need to add a sprite and a shape. For the sprite, we will just use the standard Godot icon that comes inbuilt with the project. The shape will be a rectangle.</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/p15.gif" class="kg-image" alt loading="lazy" width="1895" height="897"></figure><p>The next thing to do is to zoom in and increase the size of the icon (and the collision layer), so they are big enough for our player to land on.</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/p16.gif" class="kg-image" alt loading="lazy" width="1895" height="897"></figure><p>Before we go on, choose the ground layer we created and click this button:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/image-15.png" class="kg-image" alt loading="lazy"></figure><p>This will make sure when we move the ground around, its children, both the sprite and the collision layer, move with it.</p><p>Next, we need to add this ground to the main level. You've done this before. Click on Level1, then the link button, and add the ground. Move the ground to below the player, but remember to keep it on the screen (the purple and green lines I showed you before):</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/p17.gif" class="kg-image" alt loading="lazy" width="1895" height="897"></figure><p>Run the game:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/p19.gif" class="kg-image" alt loading="lazy" width="1871" height="912"></figure><p>The player falls to the ground and stays there. Why? Because the ground is also a physics object, and Godot figures out the player will land on it. We chose a StaticBody2d node, which is used for immovable objects that don't react or move with the player.</p><p>You can move the player around, and it falls off the screen if you go too far.</p><p></p><p>Phew! That was a lot. Next time, we'll add animation, so the player appears to be walking:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/p20.gif" class="kg-image" alt loading="lazy" width="857" height="462"></figure><p>We'll also start creating and designing the level:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/image-16.png" class="kg-image" alt loading="lazy"></figure><p></p><p>Sign up below to know when the next part is out.</p>
+    </section>
+
+
+</article>
+
+
+
+<aside class="read-more-wrap">
+    <div class="read-more inner">
+
+
+                    
+<article class="post-card post no-image ">
+
+
+    <div class="post-card-content">
+
+        <a class="post-card-content-link" href="../awesome-python-library-tenacity/index.html">
+            <header class="post-card-header">
+                <h2 class="post-card-title">Awesome Python Library: Tenacity</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>Link: https://tenacity.readthedocs.io/en/latest/
+
+When writing code or tests in Python, one issue I had was when the code would fail due to random things like network issues or external peripherals not responding in time. Just rerunning the tests would make them pass. The unreliability wasn&#39;</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <a href="../../author/Shantnu/index.html" class="static-avatar">
+                        <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></span>
+                <span class="post-card-byline-date"><time datetime="2024-04-10">Apr 10, 2024</time> <span class="bull">&bull;</span> 2 min read</span>
+            </div>
+        </footer>
+
+    </div>
+
+</article>
+                    
+<article class="post-card post no-image ">
+
+
+    <div class="post-card-content">
+
+        <a class="post-card-content-link" href="../so-evidently/index.html">
+            <header class="post-card-header">
+                <h2 class="post-card-title">So Google&#x27;s Gemini Doesn&#x27;t Like Python Programming and Sanskrit?</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>I have been playing around with Googles Gemini Pro.
+
+Recently, I wanted to write a blog on Python&#39;s decorators and wanted to get some ideas for practical projects I could build with them. Tried GPT4 first, it gave me the standard &quot;log analyser&quot; that all blogs</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <a href="../../author/Shantnu/index.html" class="static-avatar">
+                        <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></span>
+                <span class="post-card-byline-date"><time datetime="2024-02-25">Feb 25, 2024</time> <span class="bull">&bull;</span> 4 min read</span>
+            </div>
+        </footer>
+
+    </div>
+
+</article>
+                    
+<article class="post-card post ">
+
+    <a class="post-card-image-link" href="../linkedin-has-become-a-piece-of-garbage-even-more-than-usual/index.html">
+        <img class="post-card-image"
+            srcset="../../content/images/size/w300/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.png 300w,
+                   ../../content/images/size/w600/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.pngg 600w,
+                  ../../content/images/size/w1000/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.pngng 1000w,
+                 ../../content/images/size/w2000/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.pngpng 2000w"
+            sizes="(max-width: 1000px) 400px, 800px"
+            src="../../content/images/size/w600/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.png"
+            alt="LinkedIn Has Become a Pile of Garbage (even more than usual)"
+            loading="lazy"
+        />
+    </a>
+
+    <div class="post-card-content">
+
+        <a class="post-card-content-link" href="../linkedin-has-become-a-piece-of-garbage-even-more-than-usual/index.html">
+            <header class="post-card-header">
+                <h2 class="post-card-title">LinkedIn Has Become a Pile of Garbage (even more than usual)</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>Online forums, especially Hacker News and Reddit, are very hostile to LinkedIn. Everyone makes fun of the self-promotion and silliness that goes there. There are complaints the site is unusable, which I didn&#39;t agree with until now.
+
+I&#39;ve had an account there for a few years.</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <a href="../../author/Shantnu/index.html" class="static-avatar">
+                        <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></span>
+                <span class="post-card-byline-date"><time datetime="2024-01-29">Jan 29, 2024</time> <span class="bull">&bull;</span> 4 min read</span>
+            </div>
+        </footer>
+
+    </div>
+
+</article>
+
+    </div>
+</aside>
+
+
+    </main>
+
+    <footer class="site-footer outer">
+        <div class="inner">
+            <section class="copyright"><a href="../../home/index.html">Python for Engineers</a> &copy; 2025</section>
+            <nav class="site-footer-nav">
+                
+            </nav>
+            
+
+        </div>
+    </footer>
+
+</div>
+
+
+<script
+    src="/assets/js/jquery-3.5.1.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+    crossorigin="anonymous">
+</script>
+<script src="../../assets/built/casper.js"></script>
+<script>
+$(document).ready(function () {
+    // Mobile Menu Trigger
+    $('.gh-burger').click(function () {
+        $('body').toggleClass('gh-head-open');
+    });
+    // FitVids - Makes video embeds responsive
+    $(".gh-content").fitVids();
+});
+</script>
+
+<script src="/assets/js/prism.min.js" integrity="sha512-axJX7DJduStuBB8ePC8ryGzacZPr3rdLaIDZitiEgWWk2gsXxEFlm4UW0iNzj2h3wp5mOylgHAzBzM4nRSvTZA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+
+<script src="/assets/js/prism-toolbar.min.js" integrity="sha512-YrvgEHAi5/3o2OT+/vh1z19oJXk/Kk0qdVKbjEFl9VRmcLTaWRYzVziZCvoGpJ2TrnV7rB8pnJcz1ioVJjgw2A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+</html>

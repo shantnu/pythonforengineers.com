@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Add a UI to our Game and Export the Project</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="../../assets/built/screen.css" />
+
+    <link rel="canonical" href="index.html">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    
+    <meta property="og:site_name" content="Python for Engineers">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Add a UI to our Game and Export the Project">
+    <meta property="og:description" content="This is Part 6 of the Godot series. Read Previous Parts here.
+[https://new.pythonforengineers.com/godot-games-programming/]
+
+All the code is here [https://github.com/shantnu/godot-beginners], under Part 6
+
+In this post, we will prety-fy our game a little– add game start and over
+screens, add a heads up">
+    <meta property="og:url" content="https://new.pythonforengineers.com/blog/add-a-ui-to-our-game/">
+    <meta property="article:published_time" content="2022-01-10T16:16:02.000Z">
+    <meta property="article:modified_time" content="2022-01-10T16:16:02.000Z">
+    <meta property="article:tag" content="game">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Add a UI to our Game and Export the Project">
+    <meta name="twitter:description" content="This is Part 6 of the Godot series. Read Previous Parts here.
+[https://new.pythonforengineers.com/godot-games-programming/]
+
+All the code is here [https://github.com/shantnu/godot-beginners], under Part 6
+
+In this post, we will prety-fy our game a little– add game start and over
+screens, add a heads up">
+    <meta name="twitter:url" content="https://new.pythonforengineers.com/blog/add-a-ui-to-our-game/">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Shantnu Tiwari">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="game">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Python for Engineers",
+        "url": "https://new.pythonforengineers.com/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://new.pythonforengineers.com/favicon.ico"
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Shantnu Tiwari",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://new.pythonforengineers.com/content/images/2021/08/shantnu-foto-small-1.jpg"
+        },
+        "url": "https://new.pythonforengineers.com/author/shantnu/",
+        "sameAs": []
+    },
+    "headline": "Add a UI to our Game and Export the Project",
+    "url": "https://new.pythonforengineers.com/blog/add-a-ui-to-our-game/",
+    "datePublished": "2022-01-10T16:16:02.000Z",
+    "dateModified": "2022-01-10T16:16:02.000Z",
+    "keywords": "game",
+    "description": "This is Part 6 of the Godot series. Read Previous Parts here.\n[https://new.pythonforengineers.com/godot-games-programming/]\n\nAll the code is here [https://github.com/shantnu/godot-beginners], under Part 6\n\nIn this post, we will prety-fy our game a little– add game start and over\nscreens, add a heads up display to show how many coins we have etc.\n\nLet&#x27;s start\n\nAdd a HUD (Head Up Display)\nA Hud is a window that remains in a fixed position on the screen, and can be\nused to show such things as the n",
+    "mainEntityOfPage": "https://new.pythonforengineers.com/blog/add-a-ui-to-our-game/"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 5.129">
+    <link rel="alternate" type="application/rss+xml" title="Python for Engineers" href="../rss/index.html">
+        
+    
+    <link href="https://new.pythonforengineers.com/webmentions/receive/" rel="webmention">
+    <script defer src="../../public/cards.min.js%3Fv=ddf1563274"></script>
+    <link rel="stylesheet" type="text/css" href="../../public/cards.min.css%3Fv=ddf1563274.css">
+    <script defer src="../../public/member-attribution.min.js%3Fv=ddf1563274"></script><style>:root {--ghost-accent-color: #FF1A75;}</style>
+    <link rel="stylesheet" href="/assets/css/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="/assets/css/prism-toolbar.min.css" />
+
+</head>
+<body class="post-template tag-game">
+<div class="viewport">
+
+    <header id="gh-head" class="gh-head ">
+        <nav class="gh-head-inner inner gh-container">
+
+            <div class="gh-head-brand">
+                <a class="gh-head-logo" href="../../home/index.html">
+                        Python for Engineers
+                </a>
+                <a class="gh-burger" role="button">
+                    <div class="gh-burger-box">
+                        <div class="gh-burger-inner"></div>
+                    </div>
+                </a>
+            </div>
+            <div class="gh-head-menu">
+                <ul class="nav">
+    <li class="nav-home"><a href="../../home/index.html">Home</a></li>
+    <li class="nav-about-contact"><a href="../../about/index.html">About/Contact</a></li>
+    <li class="nav-books"><a href="../../books.html">Books</a></li>
+    <li class="nav-blog"><a href="../../author/Shantnu/index.html">Blog</a></li>
+    <li class="nav-search"><a href="index.html#/search">Search</a></li>
+</ul>
+
+            </div>
+            <div class="gh-head-actions">
+                <div class="gh-social">
+                </div>
+
+                    <a class="gh-head-button" href="index.html#/portal/signup">Subscribe</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        
+
+
+
+<article class="article post tag-game no-image">
+
+    <header class="article-header gh-canvas">
+
+        <section class="article-tag">
+            <a href="../../tag/game/index.html">game</a>
+        </section>
+
+        <h1 class="article-title">Add a UI to our Game and Export the Project</h1>
+
+
+        <div class="article-byline">
+            <section class="article-byline-content">
+                <ul class="author-list">
+                    <li class="author-list-item">
+                        <a href="../../author/Shantnu/index.html" class="author-avatar">
+                            <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                        </a>
+                    </li>
+                </ul>
+                <div class="article-byline-meta">
+                    <h4 class="author-name"><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></h4>
+                    <div class="byline-meta-content">
+                        <time class="byline-meta-date" datetime="2022-01-10">Jan 10, 2022</time>
+                        <span class="byline-reading-time"><span class="bull">&bull;</span> 7 min read</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </header>
+
+    <section class="gh-content gh-canvas">
+        <p>This is Part 6 of the Godot series. Read <a href="../../godot-games-programming/index.html">Previous Parts here.</a></p><p>All the <a href="https://github.com/shantnu/godot-beginners?ref=new.pythonforengineers.com">code is here</a>, under Part 6</p><p>In this post, we will prety-fy our game a little– add game start and over screens, add a heads up display to show how many coins we have etc.</p><p>Let's start</p><h3 id="add-a-hud-head-up-display">Add a HUD (Head Up Display)</h3><p>A Hud is a window that remains in a fixed position on the screen, and can be used to show such things as the number of lives, coins etc.</p><p>A CanvasLayer can be used for drawing to the screen; it will be separate from the game logic, so it won't be affected when you move the player etc.</p><p>Add a CanvasLayer, rename it to hud, and add a child Panel:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2022/01/image.png" class="kg-image" alt loading="lazy" width="1052" height="583" srcset="../../content/images/size/w600/2022/01/image.png 600w, ../../content/images/size/w1000/2022/01/image.png 1000w, ../../content/images/2022/01/image.png 1052w" sizes="(min-width: 720px) 720px"></figure><p>As you can see, the Panel is black and overwriting our screen. We want to make it see thru, so it doesn't interferere with the game.</p><p>With Panel selected, choose New Style box on the right and choose Flat:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2022/01/image-1.png" class="kg-image" alt loading="lazy" width="364" height="922"></figure><p>Why flat? As we dont need a special texture file for it (<a href="https://docs.godotengine.org/en/stable/classes/class_styleboxflat.html?ref=new.pythonforengineers.com#class-styleboxflat">https://docs.godotengine.org/en/stable/classes/class_styleboxflat.html#class-styleboxflat</a>)</p><p>Click on the new stylebox you just created and select BG color:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2022/01/image-2.png" class="kg-image" alt loading="lazy" width="529" height="775"></figure><p>The only thing we want to change is the 'A' field, which stands for Alpha. Reduce it till our box becomes see thru:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2022/01/image-3.png" class="kg-image" alt loading="lazy" width="1717" height="844" srcset="../../content/images/size/w600/2022/01/image-3.png 600w, ../../content/images/size/w1000/2022/01/image-3.png 1000w, ../../content/images/size/w1600/2022/01/image-3.png 1600w, ../../content/images/2022/01/image-3.png 1717w" sizes="(min-width: 720px) 720px"></figure><p>Back to our hud: add 2 Label nodes. For the 1st one, add the text Coins Found, and click "Uppercase" option below it</p><figure class="kg-card kg-image-card"><img src="../../content/images/2022/01/image-4.png" class="kg-image" alt loading="lazy" width="1899" height="631" srcset="../../content/images/size/w600/2022/01/image-4.png 600w, ../../content/images/size/w1000/2022/01/image-4.png 1000w, ../../content/images/size/w1600/2022/01/image-4.png 1600w, ../../content/images/2022/01/image-4.png 1899w" sizes="(min-width: 720px) 720px"></figure><p>Try the game, move the coins found box if you want:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2022/01/image-5.png" class="kg-image" alt loading="lazy" width="1165" height="804" srcset="../../content/images/size/w600/2022/01/image-5.png 600w, ../../content/images/size/w1000/2022/01/image-5.png 1000w, ../../content/images/2022/01/image-5.png 1165w" sizes="(min-width: 720px) 720px"></figure><p>You will note it remains at the same place on the screen.</p><p>Let's add the coin data now. There are multiple ways to do it, the most ideal is to use signals; I will use the lazy approach and directly change the text on the coins_found label. Update the code:</p><pre><code>func _on_coin_body_entered(_body):
+	coins_found += 1
+	print("coins found =", coins_found)
+	get_parent().get_node("hud/coins_found").text = str(coins_found) + " / " + str(TOTAL_COINS)</code></pre><p>We get the node "hud/coins_found", and update its text to show the coins found / total coins.</p><p>Give the game a play.</p><figure class="kg-card kg-image-card"><img src="../../content/images/2022/01/image-6.png" class="kg-image" alt loading="lazy" width="1267" height="685" srcset="../../content/images/size/w600/2022/01/image-6.png 600w, ../../content/images/size/w1000/2022/01/image-6.png 1000w, ../../content/images/2022/01/image-6.png 1267w" sizes="(min-width: 720px) 720px"></figure><p>Great. Let's add a game start and game over scene.</p><h3 id="adding-player-lives">Adding player lives</h3><p>Let's give the player 3 lives, after which the game ends.</p><p>Copy the coins found hud code and add lives left:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2022/01/image-9.png" class="kg-image" alt loading="lazy" width="1206" height="640" srcset="../../content/images/size/w600/2022/01/image-9.png 600w, ../../content/images/size/w1000/2022/01/image-9.png 1000w, ../../content/images/2022/01/image-9.png 1206w" sizes="(min-width: 720px) 720px"></figure><p>Create a new function die(), to be called everywhere we were manually changing the scene to level 1 (like when we touched the spikes and died):</p><pre><code>func die():
+	# warning-ignore:return_value_discarded
+	get_tree().change_scene("res://level1.tscn")
+
+func _on_fallzone_body_entered(_body):
+	print("fallzone entered")
+	die()
+
+
+func _on_spikes_body_entered(_body):
+# warning-ignore:return_value_discarded
+	print("spikes entered")
+	die()</code></pre><p>Now we need to update the lives left variable.</p><p>We could just create a new variable, with:</p><pre><code>var lives_left = 3</code></pre><p> but the problem with that is: Every time the level reloads, like when the player dies, lives_left will be reset to 3. Try it and see for yourself.</p><p>We need a way to remember the lives left variable between games. The way to do that in Godot is to use the Singleton pattern <a href="https://docs.godotengine.org/en/stable/getting_started/step_by_step/singletons_autoload.html?ref=new.pythonforengineers.com">https://docs.godotengine.org/en/stable/getting_started/step_by_step/singletons_autoload.html</a></p><p></p><h3 id="using-the-autoload-singleton-pattern-to-remember-player-state">Using the Autoload (singleton) pattern to remember player state</h3><p>In the scripts window (File-&gt;New Script), create a new script called global.gd:</p><pre><code>extends Node
+
+var  player_lives = 3
+</code></pre><p>Now go to Project- &gt; Project Settings -&gt; Autoload, and add our script:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2022/01/p40.gif" class="kg-image" alt loading="lazy" width="1554" height="699"></figure><p>Update the _ready and  die function:</p><pre><code>func _ready():
+	coins_found = 0
+	TOTAL_COINS=get_parent().get_node("coins").get_child_count()
+	get_parent().get_node("hud/coins_found").text = str(coins_found) + " / " + str(TOTAL_COINS)
+	get_parent().get_node("hud/lives_left").text = str(Globals.player_lives)
+
+func die():
+	Globals.player_lives -= 1
+	if Globals.player_lives &gt; 0:
+		# warning-ignore:return_value_discarded
+		get_parent().get_node("hud/lives_left").text = str(Globals.player_lives)
+		get_tree().change_scene("res://level1.tscn")
+	else:
+		print("You died!")
+		# Go to End SCreen</code></pre><p>We don't have the end screen (when the player loses all lives), we need to create one. </p><h3 id="creating-the-start-and-end-screens">Creating the Start and End Screens</h3><p>Create a new scene of type "User Interface", adn add a child ColorRect:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2022/01/image-10.png" class="kg-image" alt loading="lazy" width="685" height="331" srcset="../../content/images/size/w600/2022/01/image-10.png 600w, ../../content/images/2022/01/image-10.png 685w"></figure><p>For the ColorRect, change the color (to whatever you want) and size to your window size (1024x600 in our case):</p><figure class="kg-card kg-image-card"><img src="../../content/images/2022/01/image-11.png" class="kg-image" alt loading="lazy" width="382" height="756"></figure><p>Here's what mine looks like:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2022/01/image-12.png" class="kg-image" alt loading="lazy" width="1906" height="775" srcset="../../content/images/size/w600/2022/01/image-12.png 600w, ../../content/images/size/w1000/2022/01/image-12.png 1000w, ../../content/images/size/w1600/2022/01/image-12.png 1600w, ../../content/images/2022/01/image-12.png 1906w" sizes="(min-width: 720px) 720px"></figure><p>Add a new Label as a child to the top start node.</p><p>In the Inspector, go to Theme overrides, choose Fonts, and add a new Dynamic font:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2022/01/image-13.png" class="kg-image" alt loading="lazy" width="1917" height="883" srcset="../../content/images/size/w600/2022/01/image-13.png 600w, ../../content/images/size/w1000/2022/01/image-13.png 1000w, ../../content/images/size/w1600/2022/01/image-13.png 1600w, ../../content/images/2022/01/image-13.png 1917w" sizes="(min-width: 720px) 720px"></figure><p>Click on the new font you created:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2022/01/image-14.png" class="kg-image" alt loading="lazy"></figure><p>For this project, Im using IndieFlower font by Google. Drag the ttf file to Font data.</p><p>In the text section of the Label, add:</p><pre><code>My Jumpy  Game
+
+Keys: Left/Right to Move
+Up to jump
+
+Collect all the coins to win!</code></pre><figure class="kg-card kg-image-card"><img src="../../content/images/2022/01/image-15.png" class="kg-image" alt loading="lazy" width="1906" height="544" srcset="../../content/images/size/w600/2022/01/image-15.png 600w, ../../content/images/size/w1000/2022/01/image-15.png 1000w, ../../content/images/size/w1600/2022/01/image-15.png 1600w, ../../content/images/2022/01/image-15.png 1906w" sizes="(min-width: 720px) 720px"></figure><p>The text isn't clear. Luckily, since we are using our own font, we can change the size / clarity etc.</p><p>Go back to the Font settings, where we created the font, and change the size. I also changed the color and outline:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2022/01/image-16.png" class="kg-image" alt loading="lazy" width="1527" height="792" srcset="../../content/images/size/w600/2022/01/image-16.png 600w, ../../content/images/size/w1000/2022/01/image-16.png 1000w, ../../content/images/2022/01/image-16.png 1527w" sizes="(min-width: 720px) 720px"></figure><p>Also add a Sprite and a button to the UI. For the sprite, I used our player:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2022/01/image-17.png" class="kg-image" alt loading="lazy" width="1915" height="588" srcset="../../content/images/size/w600/2022/01/image-17.png 600w, ../../content/images/size/w1000/2022/01/image-17.png 1000w, ../../content/images/size/w1600/2022/01/image-17.png 1600w, ../../content/images/2022/01/image-17.png 1915w" sizes="(min-width: 720px) 720px"></figure><p>For the button, add a Font as before, and add the text "Start Game". also click on "Flat button":</p><figure class="kg-card kg-image-card"><img src="../../content/images/2022/01/image-18.png" class="kg-image" alt loading="lazy" width="1593" height="748" srcset="../../content/images/size/w600/2022/01/image-18.png 600w, ../../content/images/size/w1000/2022/01/image-18.png 1000w, ../../content/images/2022/01/image-18.png 1593w" sizes="(min-width: 720px) 720px"></figure><p>Increase the font size as before.</p><p>I also set the pressed and hover colors:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2022/01/image-22.png" class="kg-image" alt loading="lazy" width="1731" height="691" srcset="../../content/images/size/w600/2022/01/image-22.png 600w, ../../content/images/size/w1000/2022/01/image-22.png 1000w, ../../content/images/size/w1600/2022/01/image-22.png 1600w, ../../content/images/2022/01/image-22.png 1731w" sizes="(min-width: 720px) 720px"></figure><p>This will ensure I will see a green color when I hover on the button, and red when I press it. Try it by playing just the scene:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2022/01/image-23.png" class="kg-image" alt loading="lazy"></figure><p></p><figure class="kg-card kg-image-card"><img src="../../content/images/2022/01/p41.gif" class="kg-image" alt loading="lazy"></figure><p>The button doesn't do anything at the moment. Let's fix that.</p><p>Click on the script icon next to button and add a script button.gd.</p><p>Now, with the button selected, go to the inspector and a function for what happens when the button is pressed:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2022/01/image-25.png" class="kg-image" alt loading="lazy" width="1914" height="613" srcset="../../content/images/size/w600/2022/01/image-25.png 600w, ../../content/images/size/w1000/2022/01/image-25.png 1000w, ../../content/images/size/w1600/2022/01/image-25.png 1600w, ../../content/images/2022/01/image-25.png 1914w" sizes="(min-width: 720px) 720px"></figure><p>Connect to our new button.gd script, and update it:</p><pre><code>extends Button
+
+
+func _on_Button_pressed():
+	get_tree().change_scene("res://level1.tscn")
+</code></pre><p></p><p>It just starts the game.</p><p>Now, we need to ensure this start screen is shown at the beginning. Go to Project Settings, and change it to our new start scene:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2022/01/image-24.png" class="kg-image" alt loading="lazy" width="934" height="510" srcset="../../content/images/size/w600/2022/01/image-24.png 600w, ../../content/images/2022/01/image-24.png 934w" sizes="(min-width: 720px) 720px"></figure><p>Run the game, and it should work:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2022/01/p42.gif" class="kg-image" alt loading="lazy" width="1573" height="885"></figure><p>Pretty good so far! Just need to do 2 more things. We need to add screens for when the player wins or loses.</p><h3 id="add-the-win-and-lose-screens">Add the Win and lose screens</h3><p>With the start scene selected, click on scene-&gt; New inherited scene</p><figure class="kg-card kg-image-card"><img src="../../content/images/2022/01/image-26.png" class="kg-image" alt loading="lazy" width="1255" height="304" srcset="../../content/images/size/w600/2022/01/image-26.png 600w, ../../content/images/size/w1000/2022/01/image-26.png 1000w, ../../content/images/2022/01/image-26.png 1255w" sizes="(min-width: 720px) 720px"></figure><p></p><p>Choose start.tscn, and save the new scene as lose.tscn</p><p>I update my scene to change the message :</p><figure class="kg-card kg-image-card"><img src="../../content/images/2022/01/image-27.png" class="kg-image" alt loading="lazy" width="1480" height="790" srcset="../../content/images/size/w600/2022/01/image-27.png 600w, ../../content/images/size/w1000/2022/01/image-27.png 1000w, ../../content/images/2022/01/image-27.png 1480w" sizes="(min-width: 720px) 720px"></figure><p>And create a win scene:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2022/01/image-28.png" class="kg-image" alt loading="lazy" width="1539" height="790" srcset="../../content/images/size/w600/2022/01/image-28.png 600w, ../../content/images/size/w1000/2022/01/image-28.png 1000w, ../../content/images/2022/01/image-28.png 1539w" sizes="(min-width: 720px) 720px"></figure><p></p><p>We now need to update the code so  it goes to the win/lose screen.</p><p>Update the die function:</p><pre><code>func die():
+	Globals.player_lives -= 1
+	if Globals.player_lives &gt; 0:
+		# warning-ignore:return_value_discarded
+		get_parent().get_node("hud/lives_left").text = str(Globals.player_lives)
+		get_tree().change_scene("res://level1.tscn")
+	else:
+		print("You died!")
+		get_tree().change_scene("res://lose.tscn") ==&gt; THIS IS THE NEW LINE</code></pre><p>Update on_coins_body_entered:</p><pre><code>	if coins_found == TOTAL_COINS:
+		print("You win!")
+		get_tree().change_scene("res://win.tscn")</code></pre><p></p><p>And that's it! Try the game now, you should be able to play it.</p><h3 id="export-our-game-to-a-web-project">Export our game to a web project</h3><p></p><p>Click Editor-&gt;Manage Export Templates:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2022/01/image-29.png" class="kg-image" alt loading="lazy" width="1777" height="859" srcset="../../content/images/size/w600/2022/01/image-29.png 600w, ../../content/images/size/w1000/2022/01/image-29.png 1000w, ../../content/images/size/w1600/2022/01/image-29.png 1600w, ../../content/images/2022/01/image-29.png 1777w" sizes="(min-width: 720px) 720px"></figure><p>If this is the 1st time, you'll have to download the templates by clicking "Download and Install"</p><p>Click Projects-&gt; Export and choose HTML5:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2022/01/image-30.png" class="kg-image" alt loading="lazy"></figure><p>Click export project, and choose an empty folder. It will ask you to create an html file, make sure you name it as index.html</p><p>You will have a folder like:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2022/01/image-31.png" class="kg-image" alt loading="lazy"></figure><p>Zip up this folder. You can now upload it to itch.io (or similar) to play it offline.</p><p>Note, you cannot play on your machine due to security restrictions (at least, not without running a local server. To do so, run this command in the export directory:</p><pre><code> python -m http.server</code></pre><p>You can now go to <a href="http://127.0.0.1:8000/?ref=new.pythonforengineers.com">http://127.0.0.1:8000/</a> to play the game:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2022/01/image-32.png" class="kg-image" alt loading="lazy"></figure><p>And there you go. To play my version, go here: <a href="https://shantnutiwari.itch.io/my-first-jumpy-game?ref=new.pythonforengineers.com">https://shantnutiwari.itch.io/my-first-jumpy-game</a></p>
+    </section>
+
+
+</article>
+
+
+
+<aside class="read-more-wrap">
+    <div class="read-more inner">
+
+
+                    
+<article class="post-card post no-image ">
+
+
+    <div class="post-card-content">
+
+        <a class="post-card-content-link" href="../awesome-python-library-tenacity/index.html">
+            <header class="post-card-header">
+                <h2 class="post-card-title">Awesome Python Library: Tenacity</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>Link: https://tenacity.readthedocs.io/en/latest/
+
+When writing code or tests in Python, one issue I had was when the code would fail due to random things like network issues or external peripherals not responding in time. Just rerunning the tests would make them pass. The unreliability wasn&#39;</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <a href="../../author/Shantnu/index.html" class="static-avatar">
+                        <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></span>
+                <span class="post-card-byline-date"><time datetime="2024-04-10">Apr 10, 2024</time> <span class="bull">&bull;</span> 2 min read</span>
+            </div>
+        </footer>
+
+    </div>
+
+</article>
+                    
+<article class="post-card post no-image ">
+
+
+    <div class="post-card-content">
+
+        <a class="post-card-content-link" href="../so-evidently/index.html">
+            <header class="post-card-header">
+                <h2 class="post-card-title">So Google&#x27;s Gemini Doesn&#x27;t Like Python Programming and Sanskrit?</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>I have been playing around with Googles Gemini Pro.
+
+Recently, I wanted to write a blog on Python&#39;s decorators and wanted to get some ideas for practical projects I could build with them. Tried GPT4 first, it gave me the standard &quot;log analyser&quot; that all blogs</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <a href="../../author/Shantnu/index.html" class="static-avatar">
+                        <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></span>
+                <span class="post-card-byline-date"><time datetime="2024-02-25">Feb 25, 2024</time> <span class="bull">&bull;</span> 4 min read</span>
+            </div>
+        </footer>
+
+    </div>
+
+</article>
+                    
+<article class="post-card post ">
+
+    <a class="post-card-image-link" href="../linkedin-has-become-a-piece-of-garbage-even-more-than-usual/index.html">
+        <img class="post-card-image"
+            srcset="../../content/images/size/w300/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.png 300w,
+                   ../../content/images/size/w600/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.pngg 600w,
+                  ../../content/images/size/w1000/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.pngng 1000w,
+                 ../../content/images/size/w2000/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.pngpng 2000w"
+            sizes="(max-width: 1000px) 400px, 800px"
+            src="../../content/images/size/w600/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.png"
+            alt="LinkedIn Has Become a Pile of Garbage (even more than usual)"
+            loading="lazy"
+        />
+    </a>
+
+    <div class="post-card-content">
+
+        <a class="post-card-content-link" href="../linkedin-has-become-a-piece-of-garbage-even-more-than-usual/index.html">
+            <header class="post-card-header">
+                <h2 class="post-card-title">LinkedIn Has Become a Pile of Garbage (even more than usual)</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>Online forums, especially Hacker News and Reddit, are very hostile to LinkedIn. Everyone makes fun of the self-promotion and silliness that goes there. There are complaints the site is unusable, which I didn&#39;t agree with until now.
+
+I&#39;ve had an account there for a few years.</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <a href="../../author/Shantnu/index.html" class="static-avatar">
+                        <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></span>
+                <span class="post-card-byline-date"><time datetime="2024-01-29">Jan 29, 2024</time> <span class="bull">&bull;</span> 4 min read</span>
+            </div>
+        </footer>
+
+    </div>
+
+</article>
+
+    </div>
+</aside>
+
+
+    </main>
+
+    <footer class="site-footer outer">
+        <div class="inner">
+            <section class="copyright"><a href="../../home/index.html">Python for Engineers</a> &copy; 2025</section>
+            <nav class="site-footer-nav">
+                
+            </nav>
+            
+
+        </div>
+    </footer>
+
+</div>
+
+
+<script
+    src="/assets/js/jquery-3.5.1.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+    crossorigin="anonymous">
+</script>
+<script src="../../assets/built/casper.js"></script>
+<script>
+$(document).ready(function () {
+    // Mobile Menu Trigger
+    $('.gh-burger').click(function () {
+        $('body').toggleClass('gh-head-open');
+    });
+    // FitVids - Makes video embeds responsive
+    $(".gh-content").fitVids();
+});
+</script>
+
+<script src="/assets/js/prism.min.js" integrity="sha512-axJX7DJduStuBB8ePC8ryGzacZPr3rdLaIDZitiEgWWk2gsXxEFlm4UW0iNzj2h3wp5mOylgHAzBzM4nRSvTZA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+
+<script src="/assets/js/prism-toolbar.min.js" integrity="sha512-YrvgEHAi5/3o2OT+/vh1z19oJXk/Kk0qdVKbjEFl9VRmcLTaWRYzVziZCvoGpJ2TrnV7rB8pnJcz1ioVJjgw2A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+</html>

@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Machine Learning with an Amazon like Recommendation Engine</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="../../assets/built/screen.css" />
+
+    <link rel="canonical" href="index.html">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    
+    <meta property="og:site_name" content="Python for Engineers">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Machine Learning with an Amazon like Recommendation Engine">
+    <meta property="og:description" content="Intro: Start here
+[https://new.pythonforengineers.com/blog/python-for-scientists-and-engineers/]
+
+Beginners Start Here:
+
+Create a Word Counter in Python
+[https://new.pythonforengineers.com/blog/create-a-word-counter-in-python/]
+
+An introduction to Numpy and Matplotlib
+[https://new.pythonforengineers.com/blog/an-introduction-to-numpy-and-matplotlib/]
+
+Introduction to Pandas with Practical Examples (New)
+[https://new.pythonforengineers.com/blog/introduction-to-pandas/]
+
+Main">
+    <meta property="og:url" content="https://new.pythonforengineers.com/blog/machine-learning-with-an-amazon-like-recommendation-engine/">
+    <meta property="article:published_time" content="2021-08-17T14:10:15.000Z">
+    <meta property="article:modified_time" content="2021-08-17T14:10:15.000Z">
+    <meta property="article:tag" content="pfse-book">
+    <meta property="article:tag" content="data-science">
+    <meta property="article:tag" content="machine-learning">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Machine Learning with an Amazon like Recommendation Engine">
+    <meta name="twitter:description" content="Intro: Start here
+[https://new.pythonforengineers.com/blog/python-for-scientists-and-engineers/]
+
+Beginners Start Here:
+
+Create a Word Counter in Python
+[https://new.pythonforengineers.com/blog/create-a-word-counter-in-python/]
+
+An introduction to Numpy and Matplotlib
+[https://new.pythonforengineers.com/blog/an-introduction-to-numpy-and-matplotlib/]
+
+Introduction to Pandas with Practical Examples (New)
+[https://new.pythonforengineers.com/blog/introduction-to-pandas/]
+
+Main">
+    <meta name="twitter:url" content="https://new.pythonforengineers.com/blog/machine-learning-with-an-amazon-like-recommendation-engine/">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Shantnu Tiwari">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="pfse-book, data-science, machine-learning">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Python for Engineers",
+        "url": "https://new.pythonforengineers.com/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://new.pythonforengineers.com/favicon.ico"
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Shantnu Tiwari",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://new.pythonforengineers.com/content/images/2021/08/shantnu-foto-small-1.jpg"
+        },
+        "url": "https://new.pythonforengineers.com/author/shantnu/",
+        "sameAs": []
+    },
+    "headline": "Machine Learning with an Amazon like Recommendation Engine",
+    "url": "https://new.pythonforengineers.com/blog/machine-learning-with-an-amazon-like-recommendation-engine/",
+    "datePublished": "2021-08-17T14:10:15.000Z",
+    "dateModified": "2021-08-17T14:10:15.000Z",
+    "keywords": "pfse-book, data-science, machine-learning",
+    "description": "Intro: Start here\n[https://new.pythonforengineers.com/blog/python-for-scientists-and-engineers/]\n\nBeginners Start Here:\n\nCreate a Word Counter in Python\n[https://new.pythonforengineers.com/blog/create-a-word-counter-in-python/]\n\nAn introduction to Numpy and Matplotlib\n[https://new.pythonforengineers.com/blog/an-introduction-to-numpy-and-matplotlib/]\n\nIntroduction to Pandas with Practical Examples (New)\n[https://new.pythonforengineers.com/blog/introduction-to-pandas/]\n\nMain Book\n\nImage and Video ",
+    "mainEntityOfPage": "https://new.pythonforengineers.com/blog/machine-learning-with-an-amazon-like-recommendation-engine/"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 5.129">
+    <link rel="alternate" type="application/rss+xml" title="Python for Engineers" href="../rss/index.html">
+        
+    
+    <link href="https://new.pythonforengineers.com/webmentions/receive/" rel="webmention">
+    <script defer src="../../public/cards.min.js%3Fv=ddf1563274"></script>
+    <link rel="stylesheet" type="text/css" href="../../public/cards.min.css%3Fv=ddf1563274.css">
+    <script defer src="../../public/member-attribution.min.js%3Fv=ddf1563274"></script><style>:root {--ghost-accent-color: #FF1A75;}</style>
+    <link rel="stylesheet" href="/assets/css/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="/assets/css/prism-toolbar.min.css" />
+
+</head>
+<body class="post-template tag-pfse-book tag-data-science tag-machine-learning">
+<div class="viewport">
+
+    <header id="gh-head" class="gh-head ">
+        <nav class="gh-head-inner inner gh-container">
+
+            <div class="gh-head-brand">
+                <a class="gh-head-logo" href="../../home/index.html">
+                        Python for Engineers
+                </a>
+                <a class="gh-burger" role="button">
+                    <div class="gh-burger-box">
+                        <div class="gh-burger-inner"></div>
+                    </div>
+                </a>
+            </div>
+            <div class="gh-head-menu">
+                <ul class="nav">
+    <li class="nav-home"><a href="../../home/index.html">Home</a></li>
+    <li class="nav-about-contact"><a href="../../about/index.html">About/Contact</a></li>
+    <li class="nav-books"><a href="../../books.html">Books</a></li>
+    <li class="nav-blog"><a href="../../author/Shantnu/index.html">Blog</a></li>
+    <li class="nav-search"><a href="index.html#/search">Search</a></li>
+</ul>
+
+            </div>
+            <div class="gh-head-actions">
+                <div class="gh-social">
+                </div>
+
+                    <a class="gh-head-button" href="index.html#/portal/signup">Subscribe</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        
+
+
+
+<article class="article post tag-pfse-book tag-data-science tag-machine-learning no-image">
+
+    <header class="article-header gh-canvas">
+
+        <section class="article-tag">
+            <a href="../../tag/pfse-book/index.html">pfse-book</a>
+        </section>
+
+        <h1 class="article-title">Machine Learning with an Amazon like Recommendation Engine</h1>
+
+
+        <div class="article-byline">
+            <section class="article-byline-content">
+                <ul class="author-list">
+                    <li class="author-list-item">
+                        <a href="../../author/Shantnu/index.html" class="author-avatar">
+                            <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                        </a>
+                    </li>
+                </ul>
+                <div class="article-byline-meta">
+                    <h4 class="author-name"><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></h4>
+                    <div class="byline-meta-content">
+                        <time class="byline-meta-date" datetime="2021-08-17">Aug 17, 2021</time>
+                        <span class="byline-reading-time"><span class="bull">&bull;</span> 14 min read</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </header>
+
+    <section class="gh-content gh-canvas">
+        <p><a href="../python-for-scientists-and-engineers/index.html"><strong>Intro: Start here</strong></a></p><p><strong>Beginners Start Here:</strong></p><p><a href="../create-a-word-counter-in-python/index.html"><strong>Create a Word Counter in Python</strong></a></p><p><a href="../an-introduction-to-numpy-and-matplotlib/index.html"><strong>An introduction to Numpy and Matplotlib</strong></a></p><p><a href="../introduction-to-pandas/index.html"><strong>Introduction to Pandas with Practical Examples (New)</strong></a></p><p><strong>Main Book</strong></p><p><a href="../image-and-video-processing-in-python/index.html"><strong>Image and Video Processing in Python</strong></a></p><p><a href="../data-analysis-with-pandas/index.html"><strong>Data Analysis with Pandas</strong></a></p><p><a href="../audio-and-digital-signal-processingdsp-in-python/index.html"><strong>Audio and Digital Signal Processing (DSP)</strong></a></p><p><strong>Machine Learning Section</strong></p><p><a href="index.html"><strong>Machine Learning with an Amazon like Recommendation Engine</strong></a></p><!--kg-card-begin: markdown--><p>If you have been to Amazon, you must have seen the “also bought” section, which recommends which other movies / books you will like, based on the movies your currently bought/rated.</p>
+<p>Amazon is a special case of this, as it hires hundreds of engineers whose job is to tweak this algorithm. And it works great for things like books. I have bought many great books based on Amazon’s recommendation. It works for movies as well. Where it fails is for items that are not usually rated/reviewed, at least as much as books/movies. Things like household products. I recently bought a drain cleaner, and was immediately bombarded with toilet cleaning products, even though the cleaner had been a one time buy.</p>
+<p>That said, their algorithm works well in the general case, and is the main reason Amazon has become such a powerhouse. Amazon always recommends the items it thinks you will like. If you think that is a big deal, try going to Amazon’s rivals for books, like B&amp;N, Apple or Kobo. They always have the same 4-5 books they always recommend, a list that is updated once a month, and usually represents books by big publishers who have paid top dollar to be featured.</p>
+<p>Like I said, Amazon’s algorithm is highly tweaked (and secret), and is based on years of experience. While we can’t replicate what they did, we can understand the theory of how the algorithm works.</p>
+<p>At its heart, the algorithm looks at items you have rated, and tries to find people who rated the same items in the same way as you. It then checks which other books/movies they liked that you haven’t bought yet, and recommends it to you.</p>
+<p>So if you constantly rate action movies as high, the algorithm will show you other highly recommended action movies. But what if you like both action and scifi? Based on my experience, you will get recommendations for both.</p>
+<p>So how does the algorithm know which movies to recommend? In technical terms, it looks which movies are most co-related to the ones you rated.</p>
+<p><strong>Pearson Correlation</strong></p>
+<p>The Pearson Correlation coefficient measures how strongly related two items are, ie, will increasing one increase the other as well? The easiest way to understand this is via a diagram.</p>
+<p><img src="../../content/images/2021/08/pearson.jpg" alt="pearson" loading="lazy"></p>
+<p>The first image is of positive correlation- the values are moving up in step. The second is an example of negative correlation, ie, increasing one will decrease the other. That means they are inversely related. The third is random data- it shows no correlation. This is actually the most common case, as not everything has correlation to everything else (unless you believe in weird psychic phenomena).</p>
+<p>How does this work in practice? Simple. Again, numpy already has functions for Pearson correlation. All you need to do is call them with different inputs.</p>
+<p>In fact, numpy has two functions for the Pearson coefficient. One is really slow, and one is fast. I don’t know why they have two functions, must be a historical thing. I will only use the faster function. Let me give you a few quick examples on how it works.</p>
+<pre><code class="language-python">a = [1, 2, 3, 4, 5]
+b = [1, 3, 9, 20, 22]
+
+np.corrcoef(a,b)[1][0]
+
+Out[8]: 0.969954025101608
+
+
+</code></pre>
+<p><em>np.corrcoef()</em> is the function we are using. It returns a value from -1 to 1. -1 is strong negative correlation, while +1 is strong positive correlation. 0 means no correlation. You may also note that it returns an array, and I’m reading the _[1][0]_th value. That is because this function can be used to compare multiple arrays, and so it returns a matrix of correlated values. For our case with only two arrays, we just need one of the values returned, and we read this one.</p>
+<p>I declare two arrays, <em>a</em> and <em>b</em>. Notice that both contain increasing numbers. When I call the <em>np.corrcoef()</em> function on them, I get a value of 0.9, very high correlation.</p>
+<p>Now let’s try a more random input:</p>
+<pre><code class="language-python">a = [1, 2, 3, 4, 5]
+c = [2 , 7, 9, 1, 0]
+np.corrcoef(a,c)[1][0]
+Out[9]: -0.39904344223381105
+
+</code></pre>
+<p>This time I get -0.3, which makes sense, as there is no correlation between random data.</p>
+<p>This will become more clear as we look at the example.</p>
+<h2 id="dive-into-the-code">Dive into the code</h2>
+<p>Okay, now that we know the theory, let’s dive into the code.</p>
+<p>I have generated some random data for a few movie ratings. Let’s have a look at it (ml_data1.py):</p>
+<pre><code class="language-python">{'Terminator': {'Tom': 4.0,
+'Jack': 1.5,
+'Lisa': 3.0,
+'Sally': 2.0},
+
+'Terminator 2': {'Tom': 5.0,
+'Jack' : 1.0,
+'Lisa': 3.5,
+'Sally': 2.0},
+
+'It happened one night': {'Tom': 3.5,
+'Jack': 3.5,
+'Tiger': 4.0,
+'Lisa': 5.0,
+'Michele': 3.0,
+'Sally': 4.0,},
+
+'27 Dresses': {'Tom': 3.0,
+'Jack': 3.5,
+'Tiger': 3.0,
+'Lisa': 5.0,
+'Michele': 4.0,
+'Sally': 4.0},
+
+'Poirot': {'Tom': 4.0,
+'Jack': 3.0,
+'Tiger': 5.0,
+'Lisa': 4.0,
+'Michele': 3.5,
+'Sally': 3.0,
+},
+
+'Sherlock Holmes': {'Tom': 4.0,
+'Jack': 3.0,
+'Tiger': 3.5,
+'Lisa': 3.5,
+'Sally': 2.0,
+}}
+
+
+</code></pre>
+<p>The movie data is stored as a dictionary. Each dictionary has its own sub-dictionary. Let’s have a look at the first movie:</p>
+<pre><code class="language-python">'Terminator': {'Tom': 4.0,
+'Jack': 1.5,
+'Lisa': 3.0,
+'Sally': 2.0},
+
+
+</code></pre>
+<p>The movie Terminator has been rated by four people: Tom has given it a score of 4.0, while Jack has given it 1.5, and so on. These numbers are random (ie, I just made them up).</p>
+<p>You will notice that not all people have rated all the movies. This is something we will need to take into account when we are calculating the correlation.</p>
+<p>Let’s open up the file <em>calc_correlation.py</em> Ignore the function for now, let’s see the main code:</p>
+<pre><code class="language-python">if len(sys.argv) &lt; 2:
+    print(&quot;Usage: python calc_correlation.py &lt;data file.py&gt;&quot;)
+    exit(1)
+</code></pre>
+<p>We want to give the script a data file to calculate the correlation on, in this case, ml_data1.py, the file we looked at before. If the file is not given, we print the usage and exit.</p>
+<pre><code class="language-python">with open(sys.argv[1], 'r') as f:
+  temp = f.read()
+  movies_list = ast.literal_eval(temp)
+  print(movies_list)
+</code></pre>
+<p>If you have never used the <em>with</em> function in Python, it’s a cool fairly new feature. Normally, when you open a file, you have to close it, deal with any errors etc. <em>with</em> does all that for you. It will open the file, close it at the end, and handle any errors that may arise.</p>
+<p>Looking at the code line by line.</p>
+<pre><code class="language-python">with open(sys.argv[1], 'r') as f:
+
+</code></pre>
+<p>We open the file passed as first argument as read only.</p>
+<pre><code class="language-python">temp = f.read()
+movies_list = ast.literal_eval(temp)
+
+</code></pre>
+<p>The first thing we do is read the file into a <em>temp</em> variable. The next line may require some explanation.</p>
+<p>A nifty feature in Python is the <em>eval()</em> function. It allows you to generate Python code in real time and run it. Obviously, this is very dangerous, as you don’t know what you are reading. Someone may put in code to delete all your files. For this reason, <em>eval</em> is almost never used in practice.</p>
+<p>The <em>literal_eval()</em> function in the <em>ast</em> library gets around the risks of <em>eval</em>. <em>literal_eval</em> will only allow Python data structures like lists, dictionaries, or any other Python data structure to be read. If you try to read anything else, it will throw an error.</p>
+<p>But why do I need it anyway? The file I am reading, <em>ml_data1.py</em> contains a Python dictionary. However, when we read the file, it is read as a text file. I need to convert it to a Python dictionary. That is what <em>literal_eval</em> will do. It takes the data it read and converts it to a Python dictionary I can use. If I try to pass in something dangerous, the function will throw an error.</p>
+<p>There are other ways to do this, like using the <em>json</em> module, which I will show you later.</p>
+<p>Anyway, now we have read the data into a file.</p>
+<pre><code class="language-python">correlated_dict = {}
+for movie in movies_list:
+  correlated_dict[movie] =  find_correlation(movies_list, movie)
+</code></pre>
+<p><em>movies_list</em> is what we read in from the file. We loop over that and find the correlation for each movie. Let’s looks at how the function <em>find_correlation()</em> does that.</p>
+<pre><code class="language-python">def find_correlation(movie_list, movie_for_correlation):
+    '''
+    Input:
+    movie_list - List of movies
+    movie_for_correlation: The movie to calculate the correlation for
+
+    Return:
+    Dictionary of correlation for movie_for_correlation
+    '''
+</code></pre>
+<p>The function takes two parameters: A list of movies, and the movie to find the correlation for (within that list). It returns a dictionary of correlated values.</p>
+<pre><code class="language-python">correlate_dict = {}
+for movie in movie_list:
+
+</code></pre>
+<p>We declare <em>correlate_dict</em>, the final dictionary we will return. We then loop over the movie list.</p>
+<pre><code class="language-python"># Don't include current movie in correlation, as you can't compare a movie to itself!
+if movie != movie_for_correlation:
+
+  movie_for_correlation_list = []
+  movie_to_compare_list = []
+</code></pre>
+<p>When doing the calculations, we don’t want to compare a movie to itself (as that would always show perfect correlation). So we check for that, and then declare a few empty arrays.</p>
+<p>Remember our data file?</p>
+<pre><code class="language-python">{'Terminator': {'Tom': 4.0,
+'Jack': 1.5,
+'Lisa': 3.0,
+'Sally': 2.0},
+
+</code></pre>
+<p>See that we have the movie, and then the people who reviewed it? Now, we loop over the reviewers.</p>
+<pre><code class="language-python">for reviewer_name in movie_list[movie_for_correlation]:
+
+    # Check that the reviewer has reviewed the current movie.
+    # If so, calculate the correlation coefficient.
+    # If they haven't reviewed the movie, then it makes no sense doing a correlation.
+
+    if reviewer_name in movie_list[movie]:
+</code></pre>
+<p>One check we do (in the last line above) is to check that <em>this</em> reviewer (the one we are looping over), reviewed the current movie. If s/he didn’t, we move to the next one.</p>
+<pre><code class="language-python">if reviewer_name in movie_list[movie]:
+   movie_for_correlation_list.append(movie_list[movie_for_correlation][reviewer_name])
+   movie_to_compare_list.append(movie_list[movie][reviewer_name])
+</code></pre>
+<p>We are still in the for loop. If the reviewer reviewed the movie, we save their score for the current movie, as well as their score for the movie under consideration.</p>
+<p>To make it clear, let’s look at the whole for loop:</p>
+<pre><code class="language-python"># Loop through the people who reviewed the movie
+for reviewer_name in movie_list[movie_for_correlation]:
+
+    # Check that the reviewer has reviewed the current movie.
+    # If so, calculate the correlation coefficient.
+    # If they haven't reviewed the movie, then it makes no sense doing a correlation.
+
+    if reviewer_name in movie_list[movie]:
+        movie_for_correlation_list.append(movie_list[movie_for_correlation][reviewer_name])
+        movie_to_compare_list.append(movie_list[movie][reviewer_name])
+</code></pre>
+<p>This for loop will loop over the reviewers, and if they reviewed both the movies, will store their scores in two arrays. That’s all we are doing. The complicated code is to compensate for the fact that not all people reviewed all movies.</p>
+<pre><code class="language-python">correlate_dict[movie] = np.corrcoef(movie_for_correlation_list,movie_to_compare_list)[1][0]
+
+return correlate_dict
+
+</code></pre>
+<p>Finally, we calculate the correlation using the <em>np.corrcoef()</em> function we saw earlier. The function creates a dictionary with correlation scores for the current movie. For example, if the movie is <em>Terminator</em>, the dictionary would store what correlation score <em>Terminator</em> has to <em>Poirot</em>, to <em>Sherlock Holmes</em> etc.</p>
+<p>Each movie will have its own list. So <em>Poirot</em> will have its own dictionary which will store its relation to <em>Terminator</em> and other movies.</p>
+<p>We return the dictionary.</p>
+<p>Back in the main loop:</p>
+<pre><code class="language-python">for movie in movies_list:
+    correlated_dict[movie] =  find_correlation(movies_list, movie)
+
+print(correlated_dict)
+</code></pre>
+<p>As I said, we are creating a correlation dictionary for each movie. The goal is to create a correlation index we can use later to make recommendations.</p>
+<pre><code class="language-python">json.dump(correlated_dict, open(&quot;corr_dict.py&quot;,'w'))
+
+</code></pre>
+<p>Remember I said I’d show you another way to write Python dictionaries to file? This is the easier way, using the json module. It opens the file and dumps our dictionary in one go. Let’s open our file <em>corr_dict.py</em> and look at it. I’ve cleaned it a bit.</p>
+<pre><code class="language-python">&quot;27 Dresses&quot;: {&quot;Poirot&quot;: -0.30434782608695654, &quot;Terminator 2&quot;: -0.12547286652195427, &quot;It happened one night&quot;: 0.5791405068790082, &quot;Sherlock Holmes&quot;: -0.27583864218368526, &quot;Terminator&quot;: -0.15404159684748153},
+
+</code></pre>
+<p>So <em>27 Dresses</em> has a -0.3 correlation to <em>Poirot</em>, but a +0.5 to <em>It happened one night</em>, which makes sense as both as romantic movies (or not, as I deliberately made up these examples to have this correlation).</p>
+<h2 id="building-the-recommendation-engine">Building the recommendation engine</h2>
+<p>To understand what I’m doing, let’s work through a few examples.</p>
+<p><strong>Using correlation to rate movies</strong></p>
+<p>Say you have two movies, A and B. You have given a rating of 4.0 to A.</p>
+<p>The correlation between A and B is 1.0. Since 1.0 is the highest value, that means the movies are perfectly correlated, and the person who likes one will like the other.</p>
+<p>So your estimated score for B will be:</p>
+<p><em>4.0 x 1.0 = 4.0</em></p>
+<p>So you would give a rating of 4.0 to movie B as well (at least according to the algorithm).</p>
+<p>What if the correlation was 0.5? Your calculated score for B would be:</p>
+<p><em>4.0 x 0.5 = 2.0</em></p>
+<p>And what if it was -0.5? Your score would be <em>-2.0</em> , which means you would hate the movie.</p>
+<p>Remember, what I’m doing is looking at the movies I’ve rated, what their correlation is to movies I haven’t rated, and then try to find my anticipated score. And I do this for all the 3 movies I’ve rated.</p>
+<p>Before we start on that, I’ve cleaned up corr_dict.py for humans (as it’s originally only used by machines). The cleaned copy is in <em>corr_dict_cleaned.py</em>:</p>
+<pre><code class="language-python">{
+&quot;27 Dresses&quot;: {&quot;Poirot&quot;: -0.30434782608695654, &quot;Terminator 2&quot;: -0.13998740998253317, &quot;It happened one night&quot;: 0.5791405068790082, &quot;Sherlock Holmes&quot;: -0.27583864218368526, &quot;Terminator&quot;: -0.16796775328675631},
+
+&quot;It happened one night&quot;: {&quot;Terminator 2&quot;: 0.25275763912268084, &quot;27 Dresses&quot;: 0.5791405068790082, &quot;Terminator&quot;: 0.42437890059987993, &quot;Sherlock Holmes&quot;: 0.0, &quot;Poirot&quot;: 0.2895702534395041},
+
+&quot;Terminator 2&quot;: {&quot;Poirot&quot;: 0.87845527687491742, &quot;27 Dresses&quot;: -0.13998740998253317, &quot;It happened one night&quot;: 0.25275763912268084, &quot;Sherlock Holmes&quot;: 0.73889576951817515, &quot;Terminator&quot;: 0.92184471452179317},
+
+&quot;Terminator&quot;: {&quot;Terminator 2&quot;: 0.92184471452179317, &quot;27 Dresses&quot;: -0.16796775328675631, &quot;It happened one night&quot;: 0.42437890059987993, &quot;Sherlock Holmes&quot;: 0.77020798423740755, &quot;Poirot&quot;: 0.72664794872022465},
+
+&quot;Poirot&quot;: {&quot;Terminator 2&quot;: 0.87845527687491742, &quot;27 Dresses&quot;: -0.30434782608695654, &quot;It happened one night&quot;: 0.2895702534395041, &quot;Sherlock Holmes&quot;: 0.6698938453032357, &quot;Terminator&quot;: 0.72664794872022465},
+
+&quot;Sherlock Holmes&quot;: {&quot;Poirot&quot;: 0.6698938453032357, &quot;Terminator 2&quot;: 0.73889576951817515, &quot;27 Dresses&quot;: -0.27583864218368526, &quot;It happened one night&quot;: 0.0, &quot;Terminator&quot;: 0.77020798423740755}
+
+}
+
+</code></pre>
+<p>Let’s start with 27 dresses, and try to calculate its anticipated score:</p>
+<table>
+<thead>
+<tr>
+<th>My Movie (A) </th>
+<th>  My rating for movie (B) </th>
+<th>  Correlation of (B) with 27 dresses (C) </th>
+<th>  My calculated score: (B) * (C)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Terminator </td>
+<td>5.0</td>
+<td>-0.16</td>
+<td>-0.8</td>
+</tr>
+<tr>
+<td>Sherlock Holmes </td>
+<td>4.0</td>
+<td>-0.27</td>
+<td>-1.08</td>
+</tr>
+<tr>
+<td>Poirot</td>
+<td>4.5</td>
+<td>-0.3</td>
+<td>-1.35</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>Total: -3.23</td>
+</tr>
+</tbody>
+</table>
+<p>So table A lists the movies I rated, B is the score I gave them. C is the correlation the current movie (27 Dresses) to the movie I rated (Terminator). I multiply B by C to get the score I would be expected to give to the current movie (27 dresses).</p>
+<p>So for the very first movie, Terminator, we get a score of <em>5.0 x -0.16 = -0.8</em>.</p>
+<p>I then do this for all three movies I have rated, and total them up to get one score.</p>
+<p>The total score is -3.23. There are many ways to get the average score, but I will use the simplest: Average. I divide the above with number of movies I rated (three) to get -1.07. This is my expected rating for <em>27 Dresses</em>. Clearly, this movie is not recommended.</p>
+<p>Let’s do the same for Terminator 2:</p>
+<table>
+<thead>
+<tr>
+<th>My Movie (A) </th>
+<th>  My rating for movie (B) </th>
+<th>  Correlation of (B) with 27 dresses (C) </th>
+<th>  My calculated score: (B) * (C)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Terminator </td>
+<td>5.0</td>
+<td>0.92</td>
+<td>4.6</td>
+</tr>
+<tr>
+<td>Sherlock Holmes </td>
+<td>4.0</td>
+<td>0.73</td>
+<td>2.92</td>
+</tr>
+<tr>
+<td>Poirot</td>
+<td>4.5</td>
+<td>0.87</td>
+<td>3.9</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>Total: 11.43</td>
+</tr>
+</tbody>
+</table>
+<p>Dividing by 3, the average score is 3.8 for <em>Terminator 2</em>. This movie would be strong recommended.</p>
+<p>Let’s now look at the code in <em>ml_main.py</em>:</p>
+<pre><code class="language-python">import pdb
+import json
+
+# My ratings for movies.
+my_movies = {'Terminator': 5.0,
+'Sherlock Holmes' : 4.0,
+'Poirot' : 4.5
+}
+
+</code></pre>
+<p>After importing the modules we need, we declare a dictionary called <em>my_movies</em>, which contains a few movies that I have rated. This will be used to drive our recommendation engine.</p>
+<pre><code class="language-python"># Read the data from the correlation dictionary we calculated earlier
+correlated_dict = json.load(open(&quot;corr_dict.py&quot;))
+
+# A dictionary to store the total of my calculated votes
+total_my_votes = {}
+
+# A running total  to store intermediate results.
+running_total = 0
+
+</code></pre>
+<p>We open the dictionary we created, <em>corr_dict.py</em>, and declare some variables. We are using the <em>json</em> library we used last time.</p>
+<pre><code class="language-python"># Loop over rated movies
+for movie_key in my_movies.keys():
+
+</code></pre>
+<p>We loop over the movies we rated.</p>
+<pre><code class="language-python"># Loop over the dictionary of correlation coefficients
+for movie_to_compare in correlated_dict[movie_key]:
+    running_total = 0
+</code></pre>
+<p>For the current movie we are looping over, we look at the correlation coefficients. To remind you what that means, for our first movie <em>Terminator</em>, these are the coefficients:</p>
+<pre><code class="language-python">&quot;Terminator&quot;:
+{
+&quot;Terminator 2&quot;: 0.92184471452179317,
+&quot;27 Dresses&quot;: -0.16796775328675631,
+&quot;It happened one night&quot;: 0.42437890059987993,
+&quot;Sherlock Holmes&quot;: 0.77020798423740755,
+&quot;Poirot&quot;: 0.72664794872022465
+}
+
+
+</code></pre>
+<p>The above shows that Terminator has a 0.92 correlation with Terminator 2. Since 1.0 is the max value, this shows a very strong correlation.</p>
+<p>In the next line, we loop over all the movies we have a correlation for. Obviously, this will include movies we have already rated. So our next step is to get rid of them, as we only want the correlation for movies we have not seen or rated.</p>
+<pre><code class="language-python">if movie_to_compare not in my_movies.keys():
+
+</code></pre>
+<p>Next line:</p>
+<pre><code class="language-python"># If this is the first time we are running the code, we won't have anything stored.
+# In that case, create a new dictionary element.
+if movie_to_compare not in total_my_votes:
+    # Line below creates a new dictionary element for total_my_votes and gives it a value.
+    total_my_votes.setdefault(movie_to_compare, (correlated_dict[movie_key][movie_to_compare] * my_movies[movie_key]) )
+
+else:
+    # If this is not the first time, merely update the values we have created before
+    total_my_votes[movie_to_compare] += correlated_dict[movie_key][movie_to_compare] * my_movies[movie_key]
+</code></pre>
+<p>What I am doing is calculating the correlation for all the movies. The first time we enter the loop, this code is called:</p>
+<pre><code class="language-python">if movie_to_compare not in total_my_votes:
+    # Line below creates a new dictionary element for total_my_votes and gives it a value.
+    total_my_votes.setdefault(movie_to_compare, (correlated_dict[movie_key][movie_to_compare] * my_movies[movie_key]) )
+</code></pre>
+<p>It merely says that if this is the first time, create a new dictionary element for <em>total_my_votes[movie_to_compare]</em> , and give it the value of <em>correlated_dict[movie_key][movie_to_compare] x my_movies[movie_key]</em>, which is the same as the calculations I showed you earlier. That’s all the function <em>setdefault</em> does: It creates a dictionary element if none exists.</p>
+<p>The second time we enter the loop, we update the dictionary value:</p>
+<pre><code class="language-python">else:
+   # If this is not the first time, merely update the values we have created before
+   total_my_votes[movie_to_compare] += correlated_dict[movie_key][movie_to_compare] * my_movies[movie_key]
+</code></pre>
+<p>As you can see, I am keeping the total. As I explained in the example above, I keep the total, and later average it. We do it like this:</p>
+<pre><code class="language-python">recommended_movies = {}
+for movie_key in total_my_votes.keys():
+    recommended_movies[movie_key] =  total_my_votes[movie_key] / len(total_my_votes.keys())
+</code></pre>
+<p>Finally, we run our code to see which movies would be recommended. I’m using &gt; 3.0 as strong recommendation, &gt;0.0 as normal recommendation, 0 or less as not recommended.</p>
+<pre><code class="language-python">for movie_key in recommended_movies:
+    if recommended_movies[movie_key] &gt; 3.0:
+        print (&quot;Strongly recommended for you: &quot;, movie_key)
+    elif recommended_movies[movie_key] &gt; 0.0:
+        print(&quot;Recommended for you: &quot;, movie_key)
+    else :
+        print(&quot;Not recommended: &quot;, movie_key)
+</code></pre>
+<p>Running the code:</p>
+<pre><code class="language-python">$$ python ml_main.py
+
+total_my_votes =  {u'Terminator 2': 11.517855396618794, u'27 Dresses': -3.312758552559827, u'It happened one night': 3.424960643477168}
+
+{u'Terminator 2': 3.8392851322062644, u'27 Dresses': -1.1042528508532756, u'It happened one night': 1.1416535478257226}
+
+Strongly recommended for you:  Terminator 2
+Not recommended:  27 Dresses
+Recommended for you:  It happened one night
+
+
+</code></pre>
+<p>We are getting the same results for Terminator 2 and 27 dresses as we calculated by hand.</p>
+<h2 id="in-real-life">In real life</h2>
+<p>You will have seen that the I kept the code to calculate the correlation coefficients separate from the main code. That’s because these would change every day and every hour, based on what users were buying.</p>
+<p>You would then have to run <em>calc_correlation.py</em> regularly with the updated data. This would typically be done at night, when the servers were not loaded. If you are someone like Amazon, you’d have millions and millions of entries in your dataset, and this could take a fair bit of time. Of course, then you’d be using optimised database technologies to handle this large amount of data.</p>
+<p>And, that’s it. Hopefully, you know a bit about machine learning now. If you want some challenge, or want to improve your machine learning skills, the next step is to take some real life data, like the MoviesLens database, and build a recommendation engine based on that.</p>
+<!--kg-card-end: markdown-->
+    </section>
+
+
+</article>
+
+
+
+<aside class="read-more-wrap">
+    <div class="read-more inner">
+
+
+                    
+<article class="post-card post no-image ">
+
+
+    <div class="post-card-content">
+
+        <a class="post-card-content-link" href="../awesome-python-library-tenacity/index.html">
+            <header class="post-card-header">
+                <h2 class="post-card-title">Awesome Python Library: Tenacity</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>Link: https://tenacity.readthedocs.io/en/latest/
+
+When writing code or tests in Python, one issue I had was when the code would fail due to random things like network issues or external peripherals not responding in time. Just rerunning the tests would make them pass. The unreliability wasn&#39;</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <a href="../../author/Shantnu/index.html" class="static-avatar">
+                        <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></span>
+                <span class="post-card-byline-date"><time datetime="2024-04-10">Apr 10, 2024</time> <span class="bull">&bull;</span> 2 min read</span>
+            </div>
+        </footer>
+
+    </div>
+
+</article>
+                    
+<article class="post-card post no-image ">
+
+
+    <div class="post-card-content">
+
+        <a class="post-card-content-link" href="../so-evidently/index.html">
+            <header class="post-card-header">
+                <h2 class="post-card-title">So Google&#x27;s Gemini Doesn&#x27;t Like Python Programming and Sanskrit?</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>I have been playing around with Googles Gemini Pro.
+
+Recently, I wanted to write a blog on Python&#39;s decorators and wanted to get some ideas for practical projects I could build with them. Tried GPT4 first, it gave me the standard &quot;log analyser&quot; that all blogs</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <a href="../../author/Shantnu/index.html" class="static-avatar">
+                        <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></span>
+                <span class="post-card-byline-date"><time datetime="2024-02-25">Feb 25, 2024</time> <span class="bull">&bull;</span> 4 min read</span>
+            </div>
+        </footer>
+
+    </div>
+
+</article>
+                    
+<article class="post-card post ">
+
+    <a class="post-card-image-link" href="../linkedin-has-become-a-piece-of-garbage-even-more-than-usual/index.html">
+        <img class="post-card-image"
+            srcset="../../content/images/size/w300/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.png 300w,
+                   ../../content/images/size/w600/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.pngg 600w,
+                  ../../content/images/size/w1000/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.pngng 1000w,
+                 ../../content/images/size/w2000/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.pngpng 2000w"
+            sizes="(max-width: 1000px) 400px, 800px"
+            src="../../content/images/size/w600/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.png"
+            alt="LinkedIn Has Become a Pile of Garbage (even more than usual)"
+            loading="lazy"
+        />
+    </a>
+
+    <div class="post-card-content">
+
+        <a class="post-card-content-link" href="../linkedin-has-become-a-piece-of-garbage-even-more-than-usual/index.html">
+            <header class="post-card-header">
+                <h2 class="post-card-title">LinkedIn Has Become a Pile of Garbage (even more than usual)</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>Online forums, especially Hacker News and Reddit, are very hostile to LinkedIn. Everyone makes fun of the self-promotion and silliness that goes there. There are complaints the site is unusable, which I didn&#39;t agree with until now.
+
+I&#39;ve had an account there for a few years.</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <a href="../../author/Shantnu/index.html" class="static-avatar">
+                        <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></span>
+                <span class="post-card-byline-date"><time datetime="2024-01-29">Jan 29, 2024</time> <span class="bull">&bull;</span> 4 min read</span>
+            </div>
+        </footer>
+
+    </div>
+
+</article>
+
+    </div>
+</aside>
+
+
+    </main>
+
+    <footer class="site-footer outer">
+        <div class="inner">
+            <section class="copyright"><a href="../../home/index.html">Python for Engineers</a> &copy; 2025</section>
+            <nav class="site-footer-nav">
+                
+            </nav>
+            
+
+        </div>
+    </footer>
+
+</div>
+
+
+<script
+    src="/assets/js/jquery-3.5.1.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+    crossorigin="anonymous">
+</script>
+<script src="../../assets/built/casper.js"></script>
+<script>
+$(document).ready(function () {
+    // Mobile Menu Trigger
+    $('.gh-burger').click(function () {
+        $('body').toggleClass('gh-head-open');
+    });
+    // FitVids - Makes video embeds responsive
+    $(".gh-content").fitVids();
+});
+</script>
+
+<script src="/assets/js/prism.min.js" integrity="sha512-axJX7DJduStuBB8ePC8ryGzacZPr3rdLaIDZitiEgWWk2gsXxEFlm4UW0iNzj2h3wp5mOylgHAzBzM4nRSvTZA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+
+<script src="/assets/js/prism-toolbar.min.js" integrity="sha512-YrvgEHAi5/3o2OT+/vh1z19oJXk/Kk0qdVKbjEFl9VRmcLTaWRYzVziZCvoGpJ2TrnV7rB8pnJcz1ioVJjgw2A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+</html>

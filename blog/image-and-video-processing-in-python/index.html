@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Image and Video Processing in Python</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="../../assets/built/screen.css" />
+
+    <link rel="canonical" href="index.html">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    
+    <meta property="og:site_name" content="Python for Engineers">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Image and Video Processing in Python">
+    <meta property="og:description" content="Intro: Start here
+[https://new.pythonforengineers.com/blog/python-for-scientists-and-engineers/]
+
+Beginners Start Here:
+
+Create a Word Counter in Python
+[https://new.pythonforengineers.com/blog/create-a-word-counter-in-python/]
+
+An introduction to Numpy and Matplotlib
+[https://new.pythonforengineers.com/blog/an-introduction-to-numpy-and-matplotlib/]
+
+Introduction to Pandas with Practical Examples (New)
+[https://new.pythonforengineers.com/blog/introduction-to-pandas/]
+
+Main">
+    <meta property="og:url" content="https://new.pythonforengineers.com/blog/image-and-video-processing-in-python/">
+    <meta property="article:published_time" content="2021-08-17T13:43:21.000Z">
+    <meta property="article:modified_time" content="2021-08-17T13:43:21.000Z">
+    <meta property="article:tag" content="pfse-book">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Image and Video Processing in Python">
+    <meta name="twitter:description" content="Intro: Start here
+[https://new.pythonforengineers.com/blog/python-for-scientists-and-engineers/]
+
+Beginners Start Here:
+
+Create a Word Counter in Python
+[https://new.pythonforengineers.com/blog/create-a-word-counter-in-python/]
+
+An introduction to Numpy and Matplotlib
+[https://new.pythonforengineers.com/blog/an-introduction-to-numpy-and-matplotlib/]
+
+Introduction to Pandas with Practical Examples (New)
+[https://new.pythonforengineers.com/blog/introduction-to-pandas/]
+
+Main">
+    <meta name="twitter:url" content="https://new.pythonforengineers.com/blog/image-and-video-processing-in-python/">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Shantnu Tiwari">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="pfse-book">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Python for Engineers",
+        "url": "https://new.pythonforengineers.com/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://new.pythonforengineers.com/favicon.ico"
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Shantnu Tiwari",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://new.pythonforengineers.com/content/images/2021/08/shantnu-foto-small-1.jpg"
+        },
+        "url": "https://new.pythonforengineers.com/author/shantnu/",
+        "sameAs": []
+    },
+    "headline": "Image and Video Processing in Python",
+    "url": "https://new.pythonforengineers.com/blog/image-and-video-processing-in-python/",
+    "datePublished": "2021-08-17T13:43:21.000Z",
+    "dateModified": "2021-08-17T13:43:21.000Z",
+    "keywords": "pfse-book",
+    "description": "Intro: Start here\n[https://new.pythonforengineers.com/blog/python-for-scientists-and-engineers/]\n\nBeginners Start Here:\n\nCreate a Word Counter in Python\n[https://new.pythonforengineers.com/blog/create-a-word-counter-in-python/]\n\nAn introduction to Numpy and Matplotlib\n[https://new.pythonforengineers.com/blog/an-introduction-to-numpy-and-matplotlib/]\n\nIntroduction to Pandas with Practical Examples (New)\n[https://new.pythonforengineers.com/blog/introduction-to-pandas/]\n\nMain Book\n\nImage and Video ",
+    "mainEntityOfPage": "https://new.pythonforengineers.com/blog/image-and-video-processing-in-python/"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 5.129">
+    <link rel="alternate" type="application/rss+xml" title="Python for Engineers" href="../rss/index.html">
+        
+    
+    <link href="https://new.pythonforengineers.com/webmentions/receive/" rel="webmention">
+    <script defer src="../../public/cards.min.js%3Fv=ddf1563274"></script>
+    <link rel="stylesheet" type="text/css" href="../../public/cards.min.css%3Fv=ddf1563274.css">
+    <script defer src="../../public/member-attribution.min.js%3Fv=ddf1563274"></script><style>:root {--ghost-accent-color: #FF1A75;}</style>
+    <link rel="stylesheet" href="/assets/css/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="/assets/css/prism-toolbar.min.css" />
+
+</head>
+<body class="post-template tag-pfse-book">
+<div class="viewport">
+
+    <header id="gh-head" class="gh-head ">
+        <nav class="gh-head-inner inner gh-container">
+
+            <div class="gh-head-brand">
+                <a class="gh-head-logo" href="../../home/index.html">
+                        Python for Engineers
+                </a>
+                <a class="gh-burger" role="button">
+                    <div class="gh-burger-box">
+                        <div class="gh-burger-inner"></div>
+                    </div>
+                </a>
+            </div>
+            <div class="gh-head-menu">
+                <ul class="nav">
+    <li class="nav-home"><a href="../../home/index.html">Home</a></li>
+    <li class="nav-about-contact"><a href="../../about/index.html">About/Contact</a></li>
+    <li class="nav-books"><a href="../../books.html">Books</a></li>
+    <li class="nav-blog"><a href="../../author/Shantnu/index.html">Blog</a></li>
+    <li class="nav-search"><a href="index.html#/search">Search</a></li>
+</ul>
+
+            </div>
+            <div class="gh-head-actions">
+                <div class="gh-social">
+                </div>
+
+                    <a class="gh-head-button" href="index.html#/portal/signup">Subscribe</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        
+
+
+
+<article class="article post tag-pfse-book no-image">
+
+    <header class="article-header gh-canvas">
+
+        <section class="article-tag">
+            <a href="../../tag/pfse-book/index.html">pfse-book</a>
+        </section>
+
+        <h1 class="article-title">Image and Video Processing in Python</h1>
+
+
+        <div class="article-byline">
+            <section class="article-byline-content">
+                <ul class="author-list">
+                    <li class="author-list-item">
+                        <a href="../../author/Shantnu/index.html" class="author-avatar">
+                            <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                        </a>
+                    </li>
+                </ul>
+                <div class="article-byline-meta">
+                    <h4 class="author-name"><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></h4>
+                    <div class="byline-meta-content">
+                        <time class="byline-meta-date" datetime="2021-08-17">Aug 17, 2021</time>
+                        <span class="byline-reading-time"><span class="bull">&bull;</span> 16 min read</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </header>
+
+    <section class="gh-content gh-canvas">
+        <p><a href="../python-for-scientists-and-engineers/index.html"><strong>Intro: Start here</strong></a></p><p><strong>Beginners Start Here:</strong></p><p><a href="../create-a-word-counter-in-python/index.html"><strong>Create a Word Counter in Python</strong></a></p><p><a href="../an-introduction-to-numpy-and-matplotlib/index.html"><strong>An introduction to Numpy and Matplotlib</strong></a></p><p><a href="../introduction-to-pandas/index.html"><strong>Introduction to Pandas with Practical Examples (New)</strong></a></p><p><strong>Main Book</strong></p><p><a href="index.html"><strong>Image and Video Processing in Python</strong></a></p><p><a href="../data-analysis-with-pandas/index.html"><strong>Data Analysis with Pandas</strong></a></p><p><a href="../audio-and-digital-signal-processingdsp-in-python/index.html"><strong>Audio and Digital Signal Processing (DSP)</strong></a></p><p><strong>Machine Learning Section</strong></p><p><a href="../machine-learning-with-an-amazon-like-recommendation-engine/index.html"><strong>Machine Learning with an Amazon like Recommendation Engine</strong></a></p><!--kg-card-begin: markdown--><p><strong>A bit about the RGB model</strong></p>
+<p>Computer graphics often use the <em>RBG</em> model, which stands for Red, Green and Blue. These are the three primary colors that can be used to create other colors. If you want an overview, <a href="https://en.wikipedia.org/wiki/RGB_color_model?ref=new.pythonforengineers.com">Wikipedia </a>has a good one.</p>
+<p>The main thing you need to know is that you can create different colors by combining these primary colors. RGB colors usually have values of 0-255, where 0 means the color isn’t present at all, and 255 means it’s present with full strength. So the Rgb values for the color red are:</p>
+<pre><code class="language-python">255, 0 , 0
+
+</code></pre>
+<p>So the first part is 255, which is Red. The other two are zero. This will create pure red.</p>
+<p>You can create other colors by mixing these three. For example, pink is:</p>
+<pre><code class="language-python">255, 51, 255
+
+</code></pre>
+<p>Red part is 255, green; is 51 and blue is 255 again.</p>
+<p>I found these values by Googling <em>rgb codes</em>, and opening one the dozens of results that come up.</p>
+<p>The only other thing you need to know is OpenCv inverts this. So instead of RGB, you have BGR, or Blue, green, red.</p>
+<h2 id="display-an-image">Display an image</h2>
+<p>So we are going to start really simple. How to display an image on the screen.</p>
+<p>You might be surprised at how hard even this simple thing is. Try to search for how to display an image with Python, and you won’t find many results. I had to find a complicated example and extract the code from that.</p>
+<p>Fire up a Python prompt and type:</p>
+<pre><code class="language-python">import cv2
+
+</code></pre>
+<p>If you see no problems, you’re good. Open the file <em>display.py</em></p>
+<p>To our code:</p>
+<pre><code class="language-python">import cv2
+import sys
+
+</code></pre>
+<p>We import OpenCv and sys. sys will be used for reading from the command line.</p>
+<pre><code class="language-python"># Read the image. The first command line argument is the image
+image = cv2.imread(sys.argv[1])
+
+</code></pre>
+<p>The function to read from an image into OpenCv is <em>imread()</em>. We give it the arugment of <em>sys.argv[1]</em>, which is just the first commandline argument. The image is read in a variable called <em>image</em>.</p>
+<pre><code class="language-python">cv2.imshow(&quot;Image&quot;, image)
+cv2.waitKey(0)
+
+</code></pre>
+<p><em>imshow()</em> is the function that displays the image on the screen. The first value is the title of the window, the second is the image file we have previously read. <em>cv2.waitKey(0)</em> is required so that the image doesn’t close immediately. It will wait for a key press before closing the image.</p>
+<pre><code class="language-python">python display.py ship.jpg
+
+</code></pre>
+<p><img src="../../content/images/2021/08/image1.png" alt="image1" loading="lazy"></p>
+<p>And you should see the image.</p>
+<h2 id="blur-and-grayscale">Blur and grayscale</h2>
+<p>Two important functions in image processing are blurring and grayscale. Many image processing operations take place on grayscale (or black and white) images, as they are simpler to process (having just two colors).</p>
+<p>Similarly, blurring is also useful in edge detection, as we will see in later examples. Open the file <em>blur.py</em>.</p>
+<pre><code class="language-python">import cv2
+import sys
+
+# The first argument is the image
+image = cv2.imread(sys.argv[1])
+</code></pre>
+<p>This is the same as before.</p>
+<pre><code class="language-python">#convert to grayscale
+gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+</code></pre>
+<p>First, we convert the image to gray. The function that does that is <em>cvtColor()</em>. The first argument is the image to be converted, the second is the color mode. <em>COLOR_BGR2GRAY</em> stands; for <em>Blue Green Red to Gray</em>.</p>
+<p>You must have heard of the RGB color scheme. OpenCv does it the other way round- so blue is first, then green, then red.</p>
+<pre><code class="language-python">#blur it
+blurred_image = cv2.GaussianBlur(image, (7,7), 0)
+
+</code></pre>
+<p>If you have ever used Photoshop (or its ugly cousin Gimp), you may have heard of the Gaussian blur. It is the most popular function to blur images, as it offers good blurring at fairly fast speed. That’s what we’ll use.</p>
+<p>The first argument is the image itself.</p>
+<p>The second argument is the window size. Gaussian Blur works over a small window, and blurs all the pixels in that window (by averaging their values). The larger the window, the more blurring will be done, but the code will also be slower. I’m choosing a window of <em>(7,7)</em> pixels, which is a box 7 pixels long and 7 pixels wide. The last value is not important, so I’m setting it to the default_(0)_.</p>
+<pre><code class="language-python"># Show all 3 images
+cv2.imshow(&quot;Original Image&quot;, image)
+cv2.imshow(&quot;Gray Image&quot;, gray_image)
+cv2.imshow(&quot;Blurred Image&quot;, blurred_image)
+
+cv2.waitKey(0)
+
+</code></pre>
+<p>And now we show all images.</p>
+<pre><code class="language-python">python blur.py ship.jpg
+
+</code></pre>
+<p><img src="../../content/images/2021/08/image2.png" alt="image2" loading="lazy"></p>
+<h2 id="edge-detection">Edge detection</h2>
+<p>Edge detection is a very useful function in image processing. Edge detection means detecting where the edges of an object in an image are. The algorithm looks for things like change in color, brightness etc to find the edges.</p>
+<p>The most pioneering work in this domain was done by John Canny, and his algorithm is still the most popular. You don’t need to understand how the algorithms work under the hood to use them, but if you are interested in learning more, Wikipedia has good summaries:</p>
+<p>&lt;<a href="https://en.wikipedia.org/wiki/Edge_detection?ref=new.pythonforengineers.com">https://en.wikipedia.org/wiki/Edge_detection</a>&gt;</p>
+<p>&lt;<a href="https://en.wikipedia.org/wiki/Canny_edge_detector?ref=new.pythonforengineers.com">https://en.wikipedia.org/wiki/Canny_edge_detector</a>&gt;</p>
+<p>We will jump straight into the code. Open edge_detect.py.</p>
+<pre><code class="language-python">import cv2
+import sys
+
+# The first argument is the image
+image = cv2.imread(sys.argv[1])
+
+#convert to grayscale
+gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+#blur it
+blurred_image = cv2.GaussianBlur(gray_image, (7,7), 0)
+
+cv2.imshow(&quot;Orignal Image&quot;, image)
+
+</code></pre>
+<p>All this should be familiar, as it is similar to the last section.</p>
+<pre><code class="language-python">canny = cv2.Canny(blurred_image, 10, 30)
+cv2.imshow(&quot;Canny with low thresholds&quot;, canny)
+
+</code></pre>
+<p>The function for Canny edge detection is, unsurprisingly, called <em>Canny()</em>. It takes three; arguments. The first is the image. The second and third are the lower and upper thresholds respectively.</p>
+<p>The Canny edge detector detects edges by looking in the difference of pixel intensities. Now, I could spend hours explaining what that means, or I could just show you. So bear with me for a moment. For the first example above, I’m using low thresholds of <em>10, 30</em>, which means a lot of thresholds will be detected.</p>
+<pre><code class="language-python">canny2 = cv2.Canny(blurred_image, 50, 150)
+cv2.imshow(&quot;Canny with high thresholds&quot;, canny2)
+
+</code></pre>
+<p>In this second example, we will use higher thresholds. Let’s see what that means.</p>
+<pre><code class="language-python">python edge_detect.py ship.jpg
+
+</code></pre>
+<p><img src="../../content/images/2021/08/image3.png" alt="image3" loading="lazy"></p>
+<p>The leftmost is the original image. The middle is the one with low thresholds. You can see it detected a lot of edges. Look inside the ship. The algorithm detected the windows of the ship, as well as a small hatch near the front. But it also detected a lot of unnecessary details in the sea. The rightmost image has the high thresholds. It didn’t detect the unneeded info in the sea, but it also failed to detect the windows in the ship.</p>
+<p>So how will you choose the thresholds? One thing I will say repeatedly in this chapter- there are no fixed answers. Try different values till you find ones you like. This is because the values will depend on your application and the type of images you are working with.</p>
+<p>Before I close this section, a bit of info about the image. I took the photo in Southampton when on a river cruise. The ship is at the exact place where the Titanic sailed from. That parking spot costs £1000 a day (around $1500). Still cheap for a £30 million ship.</p>
+<h2 id="count-objects">Count objects</h2>
+<p>Okay, now that we can detect the edges of an object, we can do useful stuff with it. Like detect objects. Let’s start.</p>
+<pre><code class="language-python">import cv2
+import sys
+
+
+# Read the image
+image = cv2.imread(sys.argv[1])
+
+
+#convert to grayscale
+gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+#blur it
+blurred_image = cv2.GaussianBlur(gray_image, (7,7), 0)
+
+# Show both our images
+cv2.imshow(&quot;Original image&quot;, image)
+cv2.imshow(&quot;Blurred image&quot;, blurred_image)
+
+# Run the Canny edge detector
+canny = cv2.Canny(blurred_image, 30, 100)
+cv2.imshow(&quot;Canny&quot;, canny)
+</code></pre>
+<p>This code is the same as before. We have detected the edges in the image and the blurred image.</p>
+<p><img src="../../content/images/2021/08/image4.jpg" alt="image4" loading="lazy"></p>
+<p><img src="../../content/images/2021/08/image5.jpg" alt="image5" loading="lazy"></p>
+<p>Now, we are going to find the contours (which is just a fancy word for edges) in the image. If you are wondering why we need to do that, since we can clearly see the edges in the image above, it’s because the code isn’t aware of it. The code below finds the edges programatically:</p>
+<pre><code class="language-python">contours, hierarchy= cv2.findContours(canny, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+</code></pre>
+<p>The <em>findContours()</em> finds the contours in the given image. The first option is the output of the canny edge detector. <em>RETR_EXTERNAL</em> tells OpenCv to only find the outermost edges (as you can find contours within contours). The second arguments tells OpenCv to use the simple approximation.</p>
+<p>The function returns two values: A list of contours found, and the hierarchy (which we’ll ignore. It is used if you have many contours embedded within others).</p>
+<p>The <em>contours</em> return value is a simple list that contains the number of contours found. Taking the length of it will give us number of objects found.</p>
+<pre><code class="language-python">print(&quot;Number of objects found = &quot;, len(contours))
+
+</code></pre>
+<pre><code class="language-python">cv2.drawContours(image, contours, -1, (0,255,0), 2)
+cv2.imshow(&quot;objects Found&quot;, image)
+cv2.waitKey(0)
+
+</code></pre>
+<p>Finally, we use the <em>drawContours()</em> function. The first argument is the image we want to draw on. The second is the contours we found in the last function. The 3rd is -1, to say that we want all contours to be drawn (we can choose to only draw certain contours). The fourth is the color, green in this case, and the last is the thickness.</p>
+<p>Finally, we show the image.</p>
+<p><img src="../../content/images/2021/08/image6.jpg" alt="image6" loading="lazy"></p>
+<p>If you want to use your own images, make sure they are not too high quality. In the first attempt, I was using Hd quality images, and opencv was detecting carpet swirls as objects. It also detected shadows as objects (including my own). Though blurring is supposed to get rid of this, if the photo is of very high quality, you will need to do a lot of blurring.</p>
+<p>Also, make sure you have a plain background. If you have fancy tiles or something in the background, that will be detected too.</p>
+<h2 id="face-detection">Face Detection</h2>
+<p><strong>Face detection with OpenCV</strong></p>
+<p>OpenCV uses machine learning algorithms to search for faces within a picture. For something as complicated as a face, there isn’t one simple test that will tell you if it found a face or not. Instead, there are thousands of small patterns/features that must be matched. The algorithms break the task of identifying the face into thousands of smaller, bite-sized tasks, each of which is easy to solve. These tasks are also called classifiers.</p>
+<p>For something like a face, you might have 6,000 or more classifiers, all of which must match for a face to be detected (within error limits, of course). But therein lies the problem: For face detection, the algorithm starts at the top left of a picture and moves down across small blocks of data, looking at each block, constantly asking, “Is this a face? … Is this a face? … Is this a face?” Since there are 6,000 or more tests per block, you might have millions of calculations to do, which will grind your computer to a halt.</p>
+<p><img src="../../content/images/2021/08/face1.jpg" alt="face1" loading="lazy"></p>
+<p>The image above is a rough example of how face detection works. The algorithm breaks the image into small blocks of pixels, and does the face detection on each.</p>
+<p>To get around this, OpenCV uses cascades. What’s a cascade? The best answer can be found from the dictionary: A waterfall or series of waterfalls</p>
+<p>Like a series of waterfalls, the OpenCV cascade breaks the problem of detecting faces into multiple stages. For each block, it does a very rough and quick test. If that passes, it does a slightly more detailed test, and so on.</p>
+<p><img src="../../content/images/2021/08/face2.jpg" alt="face2" loading="lazy"></p>
+<p>The algorithm may have 30-50 of these stages or cascades, and it will only detect a face if all stages pass. The advantage is that the majority of the pictures will return negative during the first few stages, which means the algorithm won’t waste time testing all 6,000 features on it. Instead of taking hours, face detection can now be done in real time.</p>
+<p><strong>Cascades in practice</strong></p>
+<p>Though the theory may sound complicated, in practice it is quite easy. The cascades themselves are just a bunch of XML files that contain OpenCV data used to detect objects. You initialize your code with the cascade you want, and then it does the work for you.</p>
+<p>Since face detection is such a common case, OpenCV comes with a number of built-in cascades for detecting everything from faces to eyes to hands and legs. There are even cascades for non-human things. For example, if you run a banana shop and want to track people stealing bananas, <a href="https://coding-robin.de/2013/07/22/train-your-own-opencv-haar-classifier.html?ref=new.pythonforengineers.com">this guy</a> has built one for that!</p>
+<h2 id="understanding-the-code">Understanding the code</h2>
+<p>Let’s break down the actual code, face_detect.py.</p>
+<pre><code class="language-python"># Get user supplied values
+imagePath = sys.argv[1]
+cascPath = &quot;haarcascade_frontalface_default.xml&quot;
+
+</code></pre>
+<p>You first pass in the image and cascade names as command-line arguments. We’ll use the Abba image as well as the default cascade for detecting faces provided by OpenCV.</p>
+<pre><code class="language-python"># Create the haar cascade
+face_cascade &amp;lt;span class=&quot;pl-k&quot;&amp;gt;=&amp;lt;/span&amp;gt; cv2.CascadeClassifier(cascasdepath)
+
+</code></pre>
+<p>Now we create the cascade and initialize it with our face cascade. This loads the face cascade into memory so it’s ready for use. Remember, the cascade is just an XML file that contains the data to detect faces.</p>
+<pre><code class="language-python"># Read the image
+image = cv2.imread(imagePath)
+gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+</code></pre>
+<p>Here we read the image and convert it to grayscale. Many operations in OpenCv are done in grayscale.</p>
+<pre><code class="language-python"># Detect faces in the image
+faces = face_cascade.detectMultiScale(
+    gray,
+    scaleFactor = 1.2,
+    minNeighbors = 5,
+    minSize = (30,30)
+
+    )
+</code></pre>
+<p>This function detects the actual face – and is the key part of our code, so let’s go over the options.</p>
+<p>The detectMultiScale function is a general function that detects objects. Since we are calling it on the face cascade, that’s what it detects. The first option is the grayscale image.</p>
+<p>The second is the scaleFactor. Since some faces may be closer to the camera, they would appear bigger than those faces in the back. The scale factor compensates for this.</p>
+<p>The detection algorithm uses a moving window to detect objects. minNeighbors defines how many objects are detected near the current one before it declares the face found. minSize, meanwhile, gives the size of each window.</p>
+<p>I took commonly used values for these fields. In real life, you would experiment with different values for the window size, scale factor, etc., until you find one that best works for you.</p>
+<p>The function returns a list of rectangles where it believes it found a face. Next, we will loop over where it thinks it found something.</p>
+<pre><code class="language-python">print(&quot;Found {0} faces!&quot;.format(len(faces)))
+
+# Draw a rectangle around the faces
+for (x, y, w, h) in faces:
+    cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 2)
+</code></pre>
+<p>This function returns 4 values: the x and y location of the rectangle, and the rectangle’s width and height (w , h).</p>
+<p>We use these values to draw a rectangle using the built-in rectangle() function.</p>
+<pre><code class="language-python">cv2.imshow(&quot;Faces found&quot; ,image)
+cv2.waitKey(0)
+
+</code></pre>
+<p>In the end, we display the image, and wait for the user to press a key.<br>
+Checking the results</p>
+<p>Let’s test against the Abba photo:</p>
+<pre><code class="language-python">$ python face_detect.py abba.png
+
+</code></pre>
+<p><img src="../../content/images/2021/08/abba.jpg" alt="abba" loading="lazy"></p>
+<p><img src="../../content/images/2021/08/image8.jpg" alt="image8" loading="lazy"></p>
+<p>That worked. How about another photo:</p>
+<p><img src="../../content/images/2021/08/little_mix.jpg" alt="little_mix" loading="lazy"></p>
+<p><img src="../../content/images/2021/08/image9.jpg" alt="image9" loading="lazy"></p>
+<p>That… is not a face. Let’s try again. I changed the parameters and found that setting the scaleFactor to 1.2 got rid of the wrong face.</p>
+<p><img src="../../content/images/2021/08/image10.jpg" alt="image10" loading="lazy"></p>
+<p>What happened? Well, the first photo was taken fairly close up with a high quality camera. The second one seems to have been taken from afar and possibly from a mobile phone. This is why the scaleFactor had to be modified. As I said, you’ll have to tweak the algorithm on a case by case basis to avoid false positives.</p>
+<p>Be warned though that since this is based on machine learning, the results will never be 100% accurate. You will get good enough results in most cases, but occasionally the algorithm will identify incorrect objects as faces.</p>
+<h2 id="extending-to-a-webcam">Extending to a webcam</h2>
+<p>So what if you want to use a webcam? OpenCV grabs each frame from the webcam and you can then detect faces by processing each frame. You do the same processing as you do with a single image, except this time you do it frame by frame. This will require a lot of processing, though. I saw close to 90% CPU usage on my laptop.</p>
+<pre><code class="language-python">import cv2
+import sys
+
+cascPath = &quot;haarcascade_frontalface_default.xml&quot;
+face_cascade &amp;lt;span class=&quot;pl-k&quot;&amp;gt;=&amp;lt;/span&amp;gt; cv2.CascadeClassifier(cascasdepath)
+
+</code></pre>
+<p>This should be familiar to you. We are creating a face cascade, as we did in the image example.</p>
+<pre><code class="language-python">if len(sys.argv) &lt; 2:
+    video_capture = cv2.VideoCapture(0)
+else:
+    video_capture = cv2.VideoCapture(sys.argv[1])
+</code></pre>
+<p>This line sets the video source to the default webcam (<em>VideoCapture(0)</em> always points to the default webcam) if no video file is specified. Else, it loads the file.</p>
+<pre><code class="language-python">while True:
+    # Capture frame-by-frame
+    ret, image = video_capture.read()
+</code></pre>
+<p>Here, we capture the video. The read() function reads one frame from the video source, which in this example is the webcam. This returns:</p>
+<ul>
+<li>The actual video frame read (one frame on each loop)</li>
+<li>A return code</li>
+</ul>
+<p>The return code tells us if we have run out of frames, which will happen if we are reading from a file. This doesn’t matter when reading from the webcam, since we can read forever.</p>
+<pre><code class="language-python">    ret, image = video_capture.read()
+
+    if not ret:
+        break
+
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+    faces = face_cascade.detectMultiScale(
+        gray,
+        scaleFactor = 1.2,
+        minNeighbors = 5,
+        minSize = (30,30)
+
+        )
+
+    #print(&quot;The number of faces found = &quot;, len(faces))
+
+    for (x,y,w,h) in faces:
+        cv2.rectangle(image, (x,y), (x+h, y+h), (0, 255, 0), 2)
+
+    cv2.imshow(&quot;Faces found&quot;, image)
+</code></pre>
+<p>Again, this code should be familiar as it’s the same as before. We are merely searching for the face in our captured frame.</p>
+<pre><code class="language-python">if cv2.waitKey(1) &amp; 0xFF == ord('q'):
+    break
+</code></pre>
+<p>We wait for the ‘q’ key to be pressed. If it is, we exit the script.</p>
+<pre><code class="language-python"># When everything is done, release the capture
+video_capture.release()
+cv2.destroyAllWindows()
+
+</code></pre>
+<p>Here, we are just cleaning up.</p>
+<p>If you want to use the webcam:</p>
+<pre><code class="language-python">python webcam_face_detect.py
+
+</code></pre>
+<p>If you want to check for video:</p>
+<pre><code class="language-python">python webcam_face_detect.py webcam.mp4
+
+
+</code></pre>
+<p>This will play the file I provided. It may not work unless you have a video decoder like Ffmpeg installed.</p>
+<p><img src="../../content/images/2021/08/image11.jpg" alt="image11" loading="lazy"></p>
+<p>So, that’s me with a passport sized photo in my hand. And you can see that the algorithm tracks both the real me and the photo me.</p>
+<p>Like I said in the last section, machine learning based algorithms are rarely 100% accurate. We aren’t at the stage where Robocop driving his motorcycle at 100 mph can track criminals using low quality CCTV cameras… yet.</p>
+<h2 id="motion-detection">Motion detection</h2>
+<p>We’ll use our webcam example, and extend it so it can detect motion.</p>
+<p>How do you detect motion? You take two consecutive frames, and find the difference between them. If the difference is minor, that means no motion occurred. If you find a large difference between frames, then motion must have occurred.</p>
+<pre><code class="language-python">#!/usr/bin/python
+
+import cv2
+import sys
+import numpy as np
+
+if len(sys.argv) &lt; 2:
+    video_capture = cv2.VideoCapture(0)
+else:
+    video_capture = cv2.VideoCapture(sys.argv[1])
+</code></pre>
+<p>This code is the same as before. We are creating a video capture instance.</p>
+<pre><code class="language-python"># Read two frames, last and current, and convert current to gray.
+ret, last_frame = video_capture.read()
+ret, current_frame = video_capture.read()
+gray = cv2.cvtColor(current_frame, cv2.COLOR_BGR2GRAY)
+</code></pre>
+<p>Here we read two frames and convert the current to gray. You may notice we are doing this outside the while loop. This is because we want two consecutive frames captured before the main loop starts. We call them <em>last_frame</em> and <em>current_frame</em>. Why do we need two? So that we can see the difference between them.</p>
+<pre><code class="language-python">
+i = 0
+while(True):
+    # We want two frames- last and current, so that we can calculate the different between them.
+    # Store the current frame as last_frame, and then read a new one
+    last_frame = current_frame
+</code></pre>
+<p>We enter our while loop now, and the first thing we do is store the <em>current_frame</em> as the last frame. That’s because we are going to read a new frame, and each loop iteration, the <em>current_frame</em> from last iteration will become the <em>last_frame</em> of this iteration.</p>
+<pre><code class="language-python">ret, current_frame = video_capture.read()
+gray = cv2.cvtColor(current_frame, cv2.COLOR_BGR2GRAY)
+
+</code></pre>
+<p>We read a new frame and convert it to grayscale.</p>
+<pre><code class="language-python"># Find the absolute difference between frames
+diff = cv2.absdiff(last_frame, current_frame)
+
+</code></pre>
+<p>We use the inbuilt <em>absdiff()</em> to find the absolute difference between consecutive frames.</p>
+<p>Now, I have some code that will show us what the difference is. Before that, you must understand that OpenCv video and image frames are just numpy arrays that contain the values of all the pixels in the image or video. If you want, you can do something like to print the whole array.</p>
+<pre><code class="language-python">print(current_frame)
+
+[[[10 35  5]
+[ 9 34  4]
+[13 32  8]
+...,
+[87 66 68]
+[87 70 62]
+[86 69 61]]
+
+[[12 34  9]
+[12 34  9]
+[19 31  8]
+...,
+[87 66 68]
+[86 69 61]
+[86 69 61]]
+
+[[14 32 10]
+[14 32 10]
+[21 30  9]
+...,
+[85 68 65]
+[86 69 61]
+[86 69 61]]
+
+</code></pre>
+<p>The above is just a snippet-you can see the array is huge.</p>
+<p>What I will do is just print the average of the array.</p>
+<p>I have some code that I’ve commented out. It prints the values of the average of the current_frame and the difference. I only print once every ten times, to avoid too much data on the screen.</p>
+<pre><code class="language-python"># Uncomment the below to see the difference values
+'''
+i += 1
+if i % 10 == 0:
+i = 0
+print np.mean(current_frame)
+print np.mean(diff)
+'''
+
+</code></pre>
+<p>Here is some sample output:</p>
+<pre><code class="language-python">Current frame =  83.9231391059
+Diff =  5.06139973958
+Current frame =  84.3319932726
+Diff =  4.31867404514
+Current frame =  88.6718229167
+Diff =  0.461206597222
+Current frame =  88.5050021701
+Diff =  0.156022135417
+Current frame =  89.7750976562
+Diff =  2.8298578559
+
+</code></pre>
+<p>The above is without motion. With motion:</p>
+<pre><code class="language-python">Current frame =  82.5932790799
+Diff =  7.46467230903
+
+</code></pre>
+<p>As you can see, the average of the difference frame is very little when you aren’t moving. Try it yourself (if you have a webcam). Sit silently for a few seconds, and you will see the difference is 1.0 or less. Start moving around, and it will jump to 10 or even more.</p>
+<p>That’s how I got the values I’m going to use- by experimentation:</p>
+<pre><code class="language-python">    # If difference is greater than a threshold, that means motion detected.
+    if np.mean(diff) &gt; 10:
+        print(&quot;Achtung! Motion detected.&quot;)
+</code></pre>
+<p>If the average difference is greater than 10 (a value I got by experiment), I take it to mean motion has been detected, and print the warning.</p>
+<pre><code class="language-python"># Display the resulting frame
+cv2.imshow('Video',diff)
+if cv2.waitKey(1) &amp; 0xFF == ord('q'):
+    break
+# When everything done, release the capture
+video_capture.release()
+cv2.destroyAllWindows()
+</code></pre>
+<p>Finally, we display our difference image and exit.</p>
+<p><img src="../../content/images/2021/08/image12.jpg" alt="image12" loading="lazy"></p>
+<p><img src="../../content/images/2021/08/motion1.jpg" alt="motion1" loading="lazy"></p>
+<p style="text-align: center;"><em>No movement, hence the image is black</em></p>
+<p><img src="../../content/images/2021/08/motion2.jpg" alt="motion2" loading="lazy"></p>
+<!--kg-card-end: markdown-->
+    </section>
+
+
+</article>
+
+
+
+<aside class="read-more-wrap">
+    <div class="read-more inner">
+
+
+                    
+<article class="post-card post no-image ">
+
+
+    <div class="post-card-content">
+
+        <a class="post-card-content-link" href="../awesome-python-library-tenacity/index.html">
+            <header class="post-card-header">
+                <h2 class="post-card-title">Awesome Python Library: Tenacity</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>Link: https://tenacity.readthedocs.io/en/latest/
+
+When writing code or tests in Python, one issue I had was when the code would fail due to random things like network issues or external peripherals not responding in time. Just rerunning the tests would make them pass. The unreliability wasn&#39;</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <a href="../../author/Shantnu/index.html" class="static-avatar">
+                        <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></span>
+                <span class="post-card-byline-date"><time datetime="2024-04-10">Apr 10, 2024</time> <span class="bull">&bull;</span> 2 min read</span>
+            </div>
+        </footer>
+
+    </div>
+
+</article>
+                    
+<article class="post-card post no-image ">
+
+
+    <div class="post-card-content">
+
+        <a class="post-card-content-link" href="../so-evidently/index.html">
+            <header class="post-card-header">
+                <h2 class="post-card-title">So Google&#x27;s Gemini Doesn&#x27;t Like Python Programming and Sanskrit?</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>I have been playing around with Googles Gemini Pro.
+
+Recently, I wanted to write a blog on Python&#39;s decorators and wanted to get some ideas for practical projects I could build with them. Tried GPT4 first, it gave me the standard &quot;log analyser&quot; that all blogs</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <a href="../../author/Shantnu/index.html" class="static-avatar">
+                        <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></span>
+                <span class="post-card-byline-date"><time datetime="2024-02-25">Feb 25, 2024</time> <span class="bull">&bull;</span> 4 min read</span>
+            </div>
+        </footer>
+
+    </div>
+
+</article>
+                    
+<article class="post-card post ">
+
+    <a class="post-card-image-link" href="../linkedin-has-become-a-piece-of-garbage-even-more-than-usual/index.html">
+        <img class="post-card-image"
+            srcset="../../content/images/size/w300/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.png 300w,
+                   ../../content/images/size/w600/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.pngg 600w,
+                  ../../content/images/size/w1000/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.pngng 1000w,
+                 ../../content/images/size/w2000/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.pngpng 2000w"
+            sizes="(max-width: 1000px) 400px, 800px"
+            src="../../content/images/size/w600/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.png"
+            alt="LinkedIn Has Become a Pile of Garbage (even more than usual)"
+            loading="lazy"
+        />
+    </a>
+
+    <div class="post-card-content">
+
+        <a class="post-card-content-link" href="../linkedin-has-become-a-piece-of-garbage-even-more-than-usual/index.html">
+            <header class="post-card-header">
+                <h2 class="post-card-title">LinkedIn Has Become a Pile of Garbage (even more than usual)</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>Online forums, especially Hacker News and Reddit, are very hostile to LinkedIn. Everyone makes fun of the self-promotion and silliness that goes there. There are complaints the site is unusable, which I didn&#39;t agree with until now.
+
+I&#39;ve had an account there for a few years.</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <a href="../../author/Shantnu/index.html" class="static-avatar">
+                        <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></span>
+                <span class="post-card-byline-date"><time datetime="2024-01-29">Jan 29, 2024</time> <span class="bull">&bull;</span> 4 min read</span>
+            </div>
+        </footer>
+
+    </div>
+
+</article>
+
+    </div>
+</aside>
+
+
+    </main>
+
+    <footer class="site-footer outer">
+        <div class="inner">
+            <section class="copyright"><a href="../../home/index.html">Python for Engineers</a> &copy; 2025</section>
+            <nav class="site-footer-nav">
+                
+            </nav>
+            
+
+        </div>
+    </footer>
+
+</div>
+
+
+<script
+    src="/assets/js/jquery-3.5.1.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+    crossorigin="anonymous">
+</script>
+<script src="../../assets/built/casper.js"></script>
+<script>
+$(document).ready(function () {
+    // Mobile Menu Trigger
+    $('.gh-burger').click(function () {
+        $('body').toggleClass('gh-head-open');
+    });
+    // FitVids - Makes video embeds responsive
+    $(".gh-content").fitVids();
+});
+</script>
+
+<script src="/assets/js/prism.min.js" integrity="sha512-axJX7DJduStuBB8ePC8ryGzacZPr3rdLaIDZitiEgWWk2gsXxEFlm4UW0iNzj2h3wp5mOylgHAzBzM4nRSvTZA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+
+<script src="/assets/js/prism-toolbar.min.js" integrity="sha512-YrvgEHAi5/3o2OT+/vh1z19oJXk/Kk0qdVKbjEFl9VRmcLTaWRYzVziZCvoGpJ2TrnV7rB8pnJcz1ioVJjgw2A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+</html>

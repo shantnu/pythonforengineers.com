@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Godot Tips &#x27;n Tricks &#x27;n Gotchas</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="../../assets/built/screen.css" />
+
+    <link rel="canonical" href="index.html">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    
+    <meta property="og:site_name" content="Python for Engineers">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Godot Tips &#x27;n Tricks &#x27;n Gotchas">
+    <meta property="og:description" content="In this post I want to document all the useful tips and gotchas I found when
+using Godot. It&#x27;s a living document, so will be updated regularly as I learn
+more
+
+ * Area vs StaticBody vs RigidBody vs Kinematic Body * Vehicle Body
+   
+   
+ * Animated Sprite vs Animation Player vs Animation Tree * Animation">
+    <meta property="og:url" content="https://new.pythonforengineers.com/blog/godot-tips-n-tricks-n-gotchas/">
+    <meta property="article:published_time" content="2022-02-08T17:01:00.000Z">
+    <meta property="article:modified_time" content="2022-02-08T17:00:59.000Z">
+    <meta property="article:tag" content="game">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Godot Tips &#x27;n Tricks &#x27;n Gotchas">
+    <meta name="twitter:description" content="In this post I want to document all the useful tips and gotchas I found when
+using Godot. It&#x27;s a living document, so will be updated regularly as I learn
+more
+
+ * Area vs StaticBody vs RigidBody vs Kinematic Body * Vehicle Body
+   
+   
+ * Animated Sprite vs Animation Player vs Animation Tree * Animation">
+    <meta name="twitter:url" content="https://new.pythonforengineers.com/blog/godot-tips-n-tricks-n-gotchas/">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Shantnu Tiwari">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="game">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Python for Engineers",
+        "url": "https://new.pythonforengineers.com/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://new.pythonforengineers.com/favicon.ico"
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Shantnu Tiwari",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://new.pythonforengineers.com/content/images/2021/08/shantnu-foto-small-1.jpg"
+        },
+        "url": "https://new.pythonforengineers.com/author/shantnu/",
+        "sameAs": []
+    },
+    "headline": "Godot Tips &#x27;n Tricks &#x27;n Gotchas",
+    "url": "https://new.pythonforengineers.com/blog/godot-tips-n-tricks-n-gotchas/",
+    "datePublished": "2022-02-08T17:01:00.000Z",
+    "dateModified": "2022-02-08T17:00:59.000Z",
+    "keywords": "game",
+    "description": "In this post I want to document all the useful tips and gotchas I found when\nusing Godot. It&#x27;s a living document, so will be updated regularly as I learn\nmore\n\n * Area vs StaticBody vs RigidBody vs Kinematic Body * Vehicle Body\n   \n   \n * Animated Sprite vs Animation Player vs Animation Tree * Animation Player\n      Gotchas\n    * Animation Tree\n      Gotchas\n   \n   \n * Layers and Layer Masks, and the Gotchas with them\n\nArea vs StaticBody vs RigidBody vs Kinematic Body\nThe Area body is used when ",
+    "mainEntityOfPage": "https://new.pythonforengineers.com/blog/godot-tips-n-tricks-n-gotchas/"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 5.129">
+    <link rel="alternate" type="application/rss+xml" title="Python for Engineers" href="../rss/index.html">
+        
+    
+    <link href="https://new.pythonforengineers.com/webmentions/receive/" rel="webmention">
+    <script defer src="../../public/cards.min.js%3Fv=ddf1563274"></script>
+    <link rel="stylesheet" type="text/css" href="../../public/cards.min.css%3Fv=ddf1563274.css">
+    <script defer src="../../public/member-attribution.min.js%3Fv=ddf1563274"></script><style>:root {--ghost-accent-color: #FF1A75;}</style>
+    <link rel="stylesheet" href="/assets/css/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="/assets/css/prism-toolbar.min.css" />
+
+</head>
+<body class="post-template tag-game">
+<div class="viewport">
+
+    <header id="gh-head" class="gh-head ">
+        <nav class="gh-head-inner inner gh-container">
+
+            <div class="gh-head-brand">
+                <a class="gh-head-logo" href="../../home/index.html">
+                        Python for Engineers
+                </a>
+                <a class="gh-burger" role="button">
+                    <div class="gh-burger-box">
+                        <div class="gh-burger-inner"></div>
+                    </div>
+                </a>
+            </div>
+            <div class="gh-head-menu">
+                <ul class="nav">
+    <li class="nav-home"><a href="../../home/index.html">Home</a></li>
+    <li class="nav-about-contact"><a href="../../about/index.html">About/Contact</a></li>
+    <li class="nav-books"><a href="../../books.html">Books</a></li>
+    <li class="nav-blog"><a href="../../author/Shantnu/index.html">Blog</a></li>
+    <li class="nav-search"><a href="index.html#/search">Search</a></li>
+</ul>
+
+            </div>
+            <div class="gh-head-actions">
+                <div class="gh-social">
+                </div>
+
+                    <a class="gh-head-button" href="index.html#/portal/signup">Subscribe</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        
+
+
+
+<article class="article post tag-game no-image">
+
+    <header class="article-header gh-canvas">
+
+        <section class="article-tag">
+            <a href="../../tag/game/index.html">game</a>
+        </section>
+
+        <h1 class="article-title">Godot Tips &#x27;n Tricks &#x27;n Gotchas</h1>
+
+
+        <div class="article-byline">
+            <section class="article-byline-content">
+                <ul class="author-list">
+                    <li class="author-list-item">
+                        <a href="../../author/Shantnu/index.html" class="author-avatar">
+                            <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                        </a>
+                    </li>
+                </ul>
+                <div class="article-byline-meta">
+                    <h4 class="author-name"><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></h4>
+                    <div class="byline-meta-content">
+                        <time class="byline-meta-date" datetime="2022-02-08">Feb 8, 2022</time>
+                        <span class="byline-reading-time"><span class="bull">&bull;</span> 5 min read</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </header>
+
+    <section class="gh-content gh-canvas">
+        <!--kg-card-begin: markdown--><p>In this post I want to document all the useful tips and gotchas I found when using Godot. It's a living document, so will be updated regularly as I learn more</p>
+<ul>
+<li><a href="index.html#area-vs-staticbody-vs-rigidbody-vs-kinematic-body">Area vs StaticBody vs RigidBody vs Kinematic Body</a>
+<ul>
+<li><a href="index.html#vehicle-body">Vehicle Body</a></li>
+</ul>
+</li>
+<li><a href="index.html#animated-sprite-vs-animation-player-vs-animation-tree">Animated Sprite vs Animation Player vs Animation Tree</a>
+<ul>
+<li><a href="index.html#animation-player-gotchas">Animation Player Gotchas</a></li>
+<li><a href="index.html#animation-tree-gotchas">Animation Tree Gotchas</a></li>
+</ul>
+</li>
+<li><a href="index.html#layers-and-layer-masks-and-the-gotchas-with-them">Layers and Layer Masks, and the Gotchas with them</a></li>
+</ul>
+<h2 id="area-vs-staticbody-vs-rigidbody-vs-kinematic-body">Area vs StaticBody vs RigidBody vs Kinematic Body</h2>
+<p>The <strong>Area body</strong> is used when you want to detect when a body enters a region. Like a coin in a game-- you want to detect when the player collects it.</p>
+<p>Use the <strong>Static Body</strong> for objects that will never move-- like the floor, walls etc.</p>
+<p><strong>Kinematic Body</strong> is used for objects you want to control directly-- as the player. For this, you provide input (via the keyboard, for example), and the player moves. Usually, you have to write some code on how the player will move, though Godot provides helpful functions.</p>
+<p>The <strong>Rigid Body</strong> is used for bodies that are affected by physics-- you don't move these directly, but provide a force and Godot calculates the physics required to get it to move.</p>
+<p>An example of this-- in a football game, the ball. When your player(which you control) kicks the ball, the ball will fly away. In this case, you will provide a force, but then Godot will calculate how high/far the ball flies based on the physics engine.</p>
+<p>Another example is if your player throws a hand grenade, or if there are rocks in your way that bounce off as you hit them.</p>
+<h3 id="vehicle-body">Vehicle Body</h3>
+<p>A <strong>Vehicle body</strong> is used in 3d games only, used for controlling cars. Surprisingly, it's a Rigidbody, not a Kinematicbody.</p>
+<p>That's because you define the body of the car, the wheels, steering wheel etc, and then provide the force (acceleration). Godot then moves the car for you. This gives a very realistic game, as the car can skid around corners, take some time to accelerate from stopped etc.</p>
+<p>But it also means extra complexity.</p>
+<h2 id="animated-sprite-vs-animation-player-vs-animation-tree">Animated Sprite vs Animation Player vs Animation Tree</h2>
+<p>I was always confused between these 3 players. The simple rule is: For simple animations, always use AnimatedSprite. It is really easy to create and use Animations with it.</p>
+<p>As for when the others are needed, I'll tell you the problem I hit.</p>
+<p>I had a game with stickmen and dozens of animations. Punch, kick, jump, jump kick, block, fall, die etc.</p>
+<p>And the code to move between them got more and more complex. I would add some code and an animation would break. Or the animation would cut off-- like if I was doing a roundhouse kick and pressed punch, it would stop the kick animation and jump to punch, which isn't what I wanted. I wanted the current animation to be complete. So I added some code so the animation would always be complete.</p>
+<p>But then I hit the problem-- if the enemy died while I was kicking him, the death animation wouldn't play, because, by the time the kick animation finished, the enemy had been deleted.</p>
+<p>And so I was adding more and more code to cope with all situations. Till it became so painful I abandoned the project.</p>
+<p>I had heard of <strong>Animation Player</strong>, but never understood why I would use it, as it's a lot more complex than Animated Sprite. Till I saw this video series: <a href="https://www.youtube.com/watch?v=KAZX4qfD06E&ref=new.pythonforengineers.com">https://www.youtube.com/watch?v=KAZX4qfD06E</a> and it showed me why to use Animation Player.</p>
+<p>Basically, <strong>Animation Player</strong> and <strong>Animation Tree</strong> are used together. The player allows you to create animations, and in Animation Tree, you can set the transitions. Here is a sample from my code:</p>
+<p><img src="../../content/images/2022/01/ani_tree.jpg" alt="ani_tree" loading="lazy"></p>
+<p>It shows the various animations I have-- like idle, hit, jump, and how I can move between them. We can define how to move, like should the current animation finish playing, or should we cut immediately?</p>
+<p>The advantage of this approach is: Godot handles all the animations logic, and a lot of code is removed. And it makes testing the game a lot more pleasurable.</p>
+<p>But Animation Player is more complex and takes time to setup properly. If you only have a few animations and simple transitions, then stick to AnimatedSprite. An example is a standard 2d platformer, where you have run, jump and maybe attack. In this case, I would just use AnimatedSprite.</p>
+<h3 id="animation-player-gotchas">Animation Player Gotchas</h3>
+<p>One problem with the animation player is: IT only works with sprite sheets (there are hacky youtube tutorials to get it working with individual sprites, but I had problems with them).</p>
+<p>The problem is: When you download sprites, you may not always get them in a spritesheet. All the ones I'm using currently come as individual sprites.</p>
+<p>Rather than trying to hack the player, I found it easy to just take the individual sprites and turn them into a sheet. There are multiple webapps online that will do it for free, as well as downloadable programs. I recommend <a href="https://www.codeandweb.com/texturepacker?ref=new.pythonforengineers.com">TexturePacker</a>-- its free version is good enough for majority of cases.</p>
+<p>Another gotcha: The animation player has an <em>is_playing()</em> flag, but it only returns true if you manually stopped the animation!</p>
+<p>I spent hours trying to find out why <em>is_playing()</em> was returning true when the animation had clearly finished.</p>
+<p>If you to check a particular animation finished: Create a signal for <em>animation_finished()</em>, which you can see in the Nodes for the AnimationPlayer, and add a check. Some example code:</p>
+<pre><code>func _on_AnimatedSprite_animation_finished():
+	if ($AnimatedSprite.animation == &quot;explode&quot;):
+		print(&quot;emit signal bomb xploded&quot;)
+		emit_signal(&quot;bomb_exploded&quot;)
+		queue_free()
+</code></pre>
+<h3 id="animation-tree-gotchas">Animation Tree Gotchas</h3>
+<p>I was following an online example and kept hitting this error:</p>
+<blockquote>
+<p>Can't travel to 'idle' if state machine is not playing. Maybe you need to enable Autoplay on Load for one of the nodes in your state machine or call .start() first?</p>
+</blockquote>
+<p>Googling was no help. The solution, not always well documented, is:</p>
+<p><img src="../../content/images/2022/01/ani_tree2.jpg" alt="ani_tree2" loading="lazy"></p>
+<p>Make sure the active flag is checked.</p>
+<p>Also make sure you have a <em>Start</em> animation, which in the above is done by the red circled button on the left.</p>
+<h2 id="layers-and-layer-masks-and-the-gotchas-with-them">Layers and Layer Masks, and the Gotchas with them</h2>
+<p>Layers make sure we don't have situations like the enemy hitting a spike and then dying, or taking a coin and increasing our score. While we could write code for it, layers are easy, as they enforce separation for us.</p>
+<p>The Layer defines which layer the object is on, while the mask defines which layers it can interact with.</p>
+<p>So you can have a layer for players, enemies and objects (like coins). The layer mask will then define that the player can interact with the coin, but not the enemies.</p>
+<p><strong>The problem with layers and masks</strong></p>
+<p>The biggest problem with layers is that they are non-intuitive, or act in strange ways. For me, I found that 2 objects were on different layers would still interact in strange ways. So I spent 45 minutes debugging a problem where my game just froze. Everything was running, I could put prints and see the functions were being called, keyboard input was being processed, yet nothing was updating.</p>
+<p>The problem was-- a spike was touching the ground layer, and this was killing the &quot;player&quot; so the game was continuously restarting. Even though I had the spike and ground on different layers, they would still &quot;interact&quot;, causing my game to freeze.</p>
+<p>Spent hours googling, till I found this video:</p>
+<p><a href="https://youtu.be/UZu8NwlkXcU?ref=new.pythonforengineers.com">https://youtu.be/UZu8NwlkXcU</a></p>
+<p>You don't have to watch the whole thing, I'll give you the tldw:</p>
+<p>For things like coins, spikes etc, that the player can interact with but you don't want anything else to interact with, the video recommends not putting them on any layer, but only setting the layer mask.</p>
+<p>Personally, this doesn't make any sense to me, but I guess this is how Godot works...</p>
+<p>For examples, see this post in my series on building a 2d platformer: <a href="../setting-up-layers-and-masks-in-godot/index.html">https://new.pythonforengineers.com/blog/setting-up-layers-and-masks-in-godot/</a></p>
+<p><strong>Recommendation</strong>: Don't wait till the end to add layers/masks, do it as early as possible, otherwise you might hit strange errors as I did.</p>
+<!--kg-card-end: markdown-->
+    </section>
+
+
+</article>
+
+
+
+<aside class="read-more-wrap">
+    <div class="read-more inner">
+
+
+                    
+<article class="post-card post no-image ">
+
+
+    <div class="post-card-content">
+
+        <a class="post-card-content-link" href="../awesome-python-library-tenacity/index.html">
+            <header class="post-card-header">
+                <h2 class="post-card-title">Awesome Python Library: Tenacity</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>Link: https://tenacity.readthedocs.io/en/latest/
+
+When writing code or tests in Python, one issue I had was when the code would fail due to random things like network issues or external peripherals not responding in time. Just rerunning the tests would make them pass. The unreliability wasn&#39;</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <a href="../../author/Shantnu/index.html" class="static-avatar">
+                        <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></span>
+                <span class="post-card-byline-date"><time datetime="2024-04-10">Apr 10, 2024</time> <span class="bull">&bull;</span> 2 min read</span>
+            </div>
+        </footer>
+
+    </div>
+
+</article>
+                    
+<article class="post-card post no-image ">
+
+
+    <div class="post-card-content">
+
+        <a class="post-card-content-link" href="../so-evidently/index.html">
+            <header class="post-card-header">
+                <h2 class="post-card-title">So Google&#x27;s Gemini Doesn&#x27;t Like Python Programming and Sanskrit?</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>I have been playing around with Googles Gemini Pro.
+
+Recently, I wanted to write a blog on Python&#39;s decorators and wanted to get some ideas for practical projects I could build with them. Tried GPT4 first, it gave me the standard &quot;log analyser&quot; that all blogs</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <a href="../../author/Shantnu/index.html" class="static-avatar">
+                        <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></span>
+                <span class="post-card-byline-date"><time datetime="2024-02-25">Feb 25, 2024</time> <span class="bull">&bull;</span> 4 min read</span>
+            </div>
+        </footer>
+
+    </div>
+
+</article>
+                    
+<article class="post-card post ">
+
+    <a class="post-card-image-link" href="../linkedin-has-become-a-piece-of-garbage-even-more-than-usual/index.html">
+        <img class="post-card-image"
+            srcset="../../content/images/size/w300/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.png 300w,
+                   ../../content/images/size/w600/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.pngg 600w,
+                  ../../content/images/size/w1000/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.pngng 1000w,
+                 ../../content/images/size/w2000/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.pngpng 2000w"
+            sizes="(max-width: 1000px) 400px, 800px"
+            src="../../content/images/size/w600/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.png"
+            alt="LinkedIn Has Become a Pile of Garbage (even more than usual)"
+            loading="lazy"
+        />
+    </a>
+
+    <div class="post-card-content">
+
+        <a class="post-card-content-link" href="../linkedin-has-become-a-piece-of-garbage-even-more-than-usual/index.html">
+            <header class="post-card-header">
+                <h2 class="post-card-title">LinkedIn Has Become a Pile of Garbage (even more than usual)</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>Online forums, especially Hacker News and Reddit, are very hostile to LinkedIn. Everyone makes fun of the self-promotion and silliness that goes there. There are complaints the site is unusable, which I didn&#39;t agree with until now.
+
+I&#39;ve had an account there for a few years.</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <a href="../../author/Shantnu/index.html" class="static-avatar">
+                        <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></span>
+                <span class="post-card-byline-date"><time datetime="2024-01-29">Jan 29, 2024</time> <span class="bull">&bull;</span> 4 min read</span>
+            </div>
+        </footer>
+
+    </div>
+
+</article>
+
+    </div>
+</aside>
+
+
+    </main>
+
+    <footer class="site-footer outer">
+        <div class="inner">
+            <section class="copyright"><a href="../../home/index.html">Python for Engineers</a> &copy; 2025</section>
+            <nav class="site-footer-nav">
+                
+            </nav>
+            
+
+        </div>
+    </footer>
+
+</div>
+
+
+<script
+    src="/assets/js/jquery-3.5.1.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+    crossorigin="anonymous">
+</script>
+<script src="../../assets/built/casper.js"></script>
+<script>
+$(document).ready(function () {
+    // Mobile Menu Trigger
+    $('.gh-burger').click(function () {
+        $('body').toggleClass('gh-head-open');
+    });
+    // FitVids - Makes video embeds responsive
+    $(".gh-content").fitVids();
+});
+</script>
+
+<script src="/assets/js/prism.min.js" integrity="sha512-axJX7DJduStuBB8ePC8ryGzacZPr3rdLaIDZitiEgWWk2gsXxEFlm4UW0iNzj2h3wp5mOylgHAzBzM4nRSvTZA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+
+<script src="/assets/js/prism-toolbar.min.js" integrity="sha512-YrvgEHAi5/3o2OT+/vh1z19oJXk/Kk0qdVKbjEFl9VRmcLTaWRYzVziZCvoGpJ2TrnV7rB8pnJcz1ioVJjgw2A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+</html>

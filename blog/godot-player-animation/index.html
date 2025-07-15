@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Godot: Player Animation</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="../../assets/built/screen.css" />
+
+    <link rel="canonical" href="index.html">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    
+    <meta property="og:site_name" content="Python for Engineers">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Godot: Player Animation">
+    <meta property="og:description" content="This post continues from the 1st one– Read Part 1 if you haven&#x27;t
+[https://new.pythonforengineers.com/blog/getting-started-with-godot/]. In this
+post, we&#x27;ll add player animation
+
+All the code is here [https://github.com/shantnu/godot-beginners], under Part 2
+
+Player Animation
+Till now, our player moves, but isn&#x27;t really animated.">
+    <meta property="og:url" content="https://new.pythonforengineers.com/blog/godot-player-animation/">
+    <meta property="article:published_time" content="2021-12-12T14:03:00.000Z">
+    <meta property="article:modified_time" content="2021-12-13T16:41:40.000Z">
+    <meta property="article:tag" content="game">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Godot: Player Animation">
+    <meta name="twitter:description" content="This post continues from the 1st one– Read Part 1 if you haven&#x27;t
+[https://new.pythonforengineers.com/blog/getting-started-with-godot/]. In this
+post, we&#x27;ll add player animation
+
+All the code is here [https://github.com/shantnu/godot-beginners], under Part 2
+
+Player Animation
+Till now, our player moves, but isn&#x27;t really animated.">
+    <meta name="twitter:url" content="https://new.pythonforengineers.com/blog/godot-player-animation/">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Shantnu Tiwari">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="game">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Python for Engineers",
+        "url": "https://new.pythonforengineers.com/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://new.pythonforengineers.com/favicon.ico"
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Shantnu Tiwari",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://new.pythonforengineers.com/content/images/2021/08/shantnu-foto-small-1.jpg"
+        },
+        "url": "https://new.pythonforengineers.com/author/shantnu/",
+        "sameAs": []
+    },
+    "headline": "Godot: Player Animation",
+    "url": "https://new.pythonforengineers.com/blog/godot-player-animation/",
+    "datePublished": "2021-12-12T14:03:00.000Z",
+    "dateModified": "2021-12-13T16:41:40.000Z",
+    "keywords": "game",
+    "description": "This post continues from the 1st one– Read Part 1 if you haven&#x27;t\n[https://new.pythonforengineers.com/blog/getting-started-with-godot/]. In this\npost, we&#x27;ll add player animation\n\nAll the code is here [https://github.com/shantnu/godot-beginners], under Part 2\n\nPlayer Animation\nTill now, our player moves, but isn&#x27;t really animated. Let&#x27;s fix that.\n\nOpen Player.tscn, and add a new node for AnimatedSprite:\n\nOn the right, choose New Sprite  Frame:\n\nAnd then click on the SpriteFrame you just created– t",
+    "mainEntityOfPage": "https://new.pythonforengineers.com/blog/godot-player-animation/"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 5.129">
+    <link rel="alternate" type="application/rss+xml" title="Python for Engineers" href="../rss/index.html">
+        
+    
+    <link href="https://new.pythonforengineers.com/webmentions/receive/" rel="webmention">
+    <script defer src="../../public/cards.min.js%3Fv=ddf1563274"></script>
+    <link rel="stylesheet" type="text/css" href="../../public/cards.min.css%3Fv=ddf1563274.css">
+    <script defer src="../../public/member-attribution.min.js%3Fv=ddf1563274"></script><style>:root {--ghost-accent-color: #FF1A75;}</style>
+    <link rel="stylesheet" href="/assets/css/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="/assets/css/prism-toolbar.min.css" />
+
+</head>
+<body class="post-template tag-game">
+<div class="viewport">
+
+    <header id="gh-head" class="gh-head ">
+        <nav class="gh-head-inner inner gh-container">
+
+            <div class="gh-head-brand">
+                <a class="gh-head-logo" href="../../home/index.html">
+                        Python for Engineers
+                </a>
+                <a class="gh-burger" role="button">
+                    <div class="gh-burger-box">
+                        <div class="gh-burger-inner"></div>
+                    </div>
+                </a>
+            </div>
+            <div class="gh-head-menu">
+                <ul class="nav">
+    <li class="nav-home"><a href="../../home/index.html">Home</a></li>
+    <li class="nav-about-contact"><a href="../../about/index.html">About/Contact</a></li>
+    <li class="nav-books"><a href="../../books.html">Books</a></li>
+    <li class="nav-blog"><a href="../../author/Shantnu/index.html">Blog</a></li>
+    <li class="nav-search"><a href="index.html#/search">Search</a></li>
+</ul>
+
+            </div>
+            <div class="gh-head-actions">
+                <div class="gh-social">
+                </div>
+
+                    <a class="gh-head-button" href="index.html#/portal/signup">Subscribe</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        
+
+
+
+<article class="article post tag-game no-image">
+
+    <header class="article-header gh-canvas">
+
+        <section class="article-tag">
+            <a href="../../tag/game/index.html">game</a>
+        </section>
+
+        <h1 class="article-title">Godot: Player Animation</h1>
+
+
+        <div class="article-byline">
+            <section class="article-byline-content">
+                <ul class="author-list">
+                    <li class="author-list-item">
+                        <a href="../../author/Shantnu/index.html" class="author-avatar">
+                            <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                        </a>
+                    </li>
+                </ul>
+                <div class="article-byline-meta">
+                    <h4 class="author-name"><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></h4>
+                    <div class="byline-meta-content">
+                        <time class="byline-meta-date" datetime="2021-12-12">Dec 12, 2021</time>
+                        <span class="byline-reading-time"><span class="bull">&bull;</span> 5 min read</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </header>
+
+    <section class="gh-content gh-canvas">
+        <p>This post continues from the 1st one– <a href="../getting-started-with-godot/index.html">Read Part 1 if you haven't</a>. In this post, we'll add player animation</p><p>All the <a href="https://github.com/shantnu/godot-beginners?ref=new.pythonforengineers.com">code is here</a>, under Part 2</p><h2 id="player-animation">Player Animation</h2><p>Till now, our player moves, but isn't really animated. Let's fix that.</p><p>Open Player.tscn, and add a new node for AnimatedSprite:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/12/p21.gif" class="kg-image" alt loading="lazy" width="1369" height="757"></figure><p>On the right, choose New Sprite  Frame:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/12/image-3.png" class="kg-image" alt loading="lazy" width="346" height="351"></figure><p>And then click on the SpriteFrame you just created– this is slightly confusing, so I will show you what you need to click:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/12/image-5.png" class="kg-image" alt loading="lazy"></figure><p>This will open a new animation window at the bottom:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/12/image-7.png" class="kg-image" alt loading="lazy" width="1375" height="370" srcset="../../content/images/size/w600/2021/12/image-7.png 600w, ../../content/images/size/w1000/2021/12/image-7.png 1000w, ../../content/images/2021/12/image-7.png 1375w" sizes="(min-width: 720px) 720px"></figure><p>Double click on the default animation and rename it to idle.</p><p>Then, drag across the idle image from the filesystem:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/12/p22.gif" class="kg-image" alt loading="lazy" width="1695" height="945"></figure><p>Create another animation for jump by clicking the New animation button:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/12/image-8.png" class="kg-image" alt loading="lazy" width="564" height="357"></figure><p>Rename it to jump, and drag across the jump image.</p><p>So far, the animations only have one image, so they really aren't animations. Let's create a walking animation.</p><p>Create a new animation called walk as before.</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/12/p23.gif" class="kg-image" alt loading="lazy" width="1695" height="945"></figure><p>And this time, drag the walk1 and walk2 image files:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/12/p24.gif" class="kg-image" alt loading="lazy" width="1695" height="945"></figure><p>Click the Playing button on the right, and you should see the player animate:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/12/p25.gif" class="kg-image" alt loading="lazy" width="1695" height="945"></figure><p>Good, so we have a simple animation setup. Let's use this in our code.</p><h3 id="using-the-animationplayer-with-our-script">Using the AnimationPlayer with our Script</h3><p></p><p>Using the  new animation is quite simple. Modify the code to add:</p><pre><code>func _physics_process(_delta):
+	if Input.is_action_pressed("right"):
+		velocity.x = SPEED
+		$AnimatedSprite.play("walk")  # ==&gt; This is the new line
+    elif Input.is_action_pressed("left"):
+		velocity.x = -SPEED
+		$AnimatedSprite.play("walk") # ==&gt; This is the new line
+    else:
+		velocity.x = 0
+		$AnimatedSprite.play("idle")  # ==&gt; This is the new line</code></pre><p>If the player presses left or right, we play the <em>walk</em> animation, otherwise we play <em>idle</em>.</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/12/p26.gif" class="kg-image" alt loading="lazy" width="1195" height="567"></figure><p>Good, but the character always faces right, even when walking left. Let's fix that.</p><p>Godot has an inbuilt property to flip images. On the AnimatedSprite settings:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/12/image-10.png" class="kg-image" alt loading="lazy"></figure><p>Flip H flips horizontally, while Flip V does it vertically. And even better, we can call these from the code:</p><pre><code>	if Input.is_action_pressed("right"):
+		velocity.x = SPEED
+		$AnimatedSprite.play("walk")
+		$AnimatedSprite.flip_h = false # ==&gt; new code
+	elif Input.is_action_pressed("left"):
+		velocity.x = -SPEED
+		$AnimatedSprite.play("walk")
+		$AnimatedSprite.flip_h = true # ==&gt; new code</code></pre><p></p><p>We set <em>$AnimatedSprite.flip_h = true </em>when walking left, as our sprite is originally right facing. And we set it to false when walking right, as the sprite faces right to begin with. Let's test:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/12/p27.gif" class="kg-image" alt loading="lazy" width="1194" height="567"></figure><p>That's great.</p><p><strong>Adding Jumping</strong></p><p>If you remember, we added an animation for jumping, but there is no code for it. Let's fix that now.</p><p>Add this to the top of your script:</p><pre><code>const JUMP_SPEED=100</code></pre><p>And then in the function:</p><pre><code>if Input.is_action_pressed("up"):
+		$AnimatedSprite.play("jump")
+		velocity.y -= JUMP_SPEED	</code></pre><p>Let's try it:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/12/p28.gif" class="kg-image" alt loading="lazy" width="1199" height="849"></figure><p>2 problems:</p><ul><li>The jump animation isn't working perfectly</li><li>Also, if you keep pressing up, you can fly into the air like superman (see the gif above)</li></ul><p>Let's fix these.</p><p>First, the superman jump– we only want to enable jump if we are on the floor (or another ground). Luckily, godot has an inbuilt function for that</p><blockquote><a href="https://docs.godotengine.org/en/stable/classes/class_bool.html?ref=new.pythonforengineers.com#class-bool">bool</a> <strong>is_on_floor</strong> <strong>(</strong> <strong>)</strong> const</blockquote><blockquote>Returns <code>true</code> if the body collided with the floor on the last call of <a href="https://docs.godotengine.org/en/stable/classes/class_kinematicbody2d.html?highlight=is_on_floor&ref=new.pythonforengineers.com#class-kinematicbody2d-method-move-and-slide">move_and_slide</a> or <a href="https://docs.godotengine.org/en/stable/classes/class_kinematicbody2d.html?highlight=is_on_floor&ref=new.pythonforengineers.com#class-kinematicbody2d-method-move-and-slide-with-snap">move_and_slide_with_snap</a>. Otherwise, returns <code>false</code>.</blockquote><!--kg-card-begin: markdown--><p><a href="https://docs.godotengine.org/en/stable/classes/class_kinematicbody2d.html?highlight=is_on_floor&ref=new.pythonforengineers.com#class-kinematicbody2d-method-is-on-floor">https://docs.godotengine.org/en/stable/classes/class_kinematicbody2d.html?highlight=is_on_floor#class-kinematicbody2d-method-is-on-floor</a></p>
+<!--kg-card-end: markdown--><p>Let's use that.</p><pre><code>if Input.is_action_pressed("up")  and is_on_floor() :
+		velocity.y -= JUMP_SPEED	</code></pre><p>So jump is only allowed if we are on the floor.</p><p>Now for the animation– it moved to jump but immediately went to idle. That's because it only shows jump when we press up, but we want it to show it all the time we are in the air. Let's use our <em>is_on_floor()</em> function again:</p><pre><code>if not is_on_floor():
+		$AnimatedSprite.play("jump")</code></pre><p>There were 2 more things we had to do. First, I had to increase JUMP_SPEED to 500, as else the jump was too low.</p><p>Second, in order for  <em>is_on_floor()</em> to work, Godot needs to know which direction is up, so it can know if it is on the floor or ceiling. Our function <em>move_and_slide()</em> needs to be updated. From the docs:</p><blockquote>up_direction is the up direction, used to determine what is a wall and what is a floor or a ceiling. If set to the default value of Vector2(0, 0), everything is considered a wall. This is useful for topdown games.</blockquote><p></p><p>So let's update the function:</p><pre><code>velocity = move_and_slide(velocity, Vector2.UP)		</code></pre><p>I pass in the inbuilt <em>Vector2.UP</em> for <em>up_direction</em>.</p><p>Let's run the code:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/12/p29.gif" class="kg-image" alt loading="lazy" width="1199" height="849"></figure><p>Cool. </p><p><em>Update 13/12/12: I realised why when the player walks above, it looks like it has 4 hands– I had a extra standing image pasted behind the walking image, so it was displaying the standing and walking image at the same time. I fixed this in Part 4, as that's where I went to the trouble to find out what's happening.</em></p><p><em>To fix this, just look at the character animation, you will see 2 images. Delete one. If you are worried about deleting the wrong one, don't worry about making this change, as it's a minor glitch anyway.</em></p><p>For now, let's go to level design.</p><p></p>
+    </section>
+
+
+</article>
+
+
+
+<aside class="read-more-wrap">
+    <div class="read-more inner">
+
+
+                    
+<article class="post-card post no-image ">
+
+
+    <div class="post-card-content">
+
+        <a class="post-card-content-link" href="../awesome-python-library-tenacity/index.html">
+            <header class="post-card-header">
+                <h2 class="post-card-title">Awesome Python Library: Tenacity</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>Link: https://tenacity.readthedocs.io/en/latest/
+
+When writing code or tests in Python, one issue I had was when the code would fail due to random things like network issues or external peripherals not responding in time. Just rerunning the tests would make them pass. The unreliability wasn&#39;</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <a href="../../author/Shantnu/index.html" class="static-avatar">
+                        <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></span>
+                <span class="post-card-byline-date"><time datetime="2024-04-10">Apr 10, 2024</time> <span class="bull">&bull;</span> 2 min read</span>
+            </div>
+        </footer>
+
+    </div>
+
+</article>
+                    
+<article class="post-card post no-image ">
+
+
+    <div class="post-card-content">
+
+        <a class="post-card-content-link" href="../so-evidently/index.html">
+            <header class="post-card-header">
+                <h2 class="post-card-title">So Google&#x27;s Gemini Doesn&#x27;t Like Python Programming and Sanskrit?</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>I have been playing around with Googles Gemini Pro.
+
+Recently, I wanted to write a blog on Python&#39;s decorators and wanted to get some ideas for practical projects I could build with them. Tried GPT4 first, it gave me the standard &quot;log analyser&quot; that all blogs</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <a href="../../author/Shantnu/index.html" class="static-avatar">
+                        <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></span>
+                <span class="post-card-byline-date"><time datetime="2024-02-25">Feb 25, 2024</time> <span class="bull">&bull;</span> 4 min read</span>
+            </div>
+        </footer>
+
+    </div>
+
+</article>
+                    
+<article class="post-card post ">
+
+    <a class="post-card-image-link" href="../linkedin-has-become-a-piece-of-garbage-even-more-than-usual/index.html">
+        <img class="post-card-image"
+            srcset="../../content/images/size/w300/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.png 300w,
+                   ../../content/images/size/w600/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.pngg 600w,
+                  ../../content/images/size/w1000/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.pngng 1000w,
+                 ../../content/images/size/w2000/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.pngpng 2000w"
+            sizes="(max-width: 1000px) 400px, 800px"
+            src="../../content/images/size/w600/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.png"
+            alt="LinkedIn Has Become a Pile of Garbage (even more than usual)"
+            loading="lazy"
+        />
+    </a>
+
+    <div class="post-card-content">
+
+        <a class="post-card-content-link" href="../linkedin-has-become-a-piece-of-garbage-even-more-than-usual/index.html">
+            <header class="post-card-header">
+                <h2 class="post-card-title">LinkedIn Has Become a Pile of Garbage (even more than usual)</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>Online forums, especially Hacker News and Reddit, are very hostile to LinkedIn. Everyone makes fun of the self-promotion and silliness that goes there. There are complaints the site is unusable, which I didn&#39;t agree with until now.
+
+I&#39;ve had an account there for a few years.</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <a href="../../author/Shantnu/index.html" class="static-avatar">
+                        <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></span>
+                <span class="post-card-byline-date"><time datetime="2024-01-29">Jan 29, 2024</time> <span class="bull">&bull;</span> 4 min read</span>
+            </div>
+        </footer>
+
+    </div>
+
+</article>
+
+    </div>
+</aside>
+
+
+    </main>
+
+    <footer class="site-footer outer">
+        <div class="inner">
+            <section class="copyright"><a href="../../home/index.html">Python for Engineers</a> &copy; 2025</section>
+            <nav class="site-footer-nav">
+                
+            </nav>
+            
+
+        </div>
+    </footer>
+
+</div>
+
+
+<script
+    src="/assets/js/jquery-3.5.1.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+    crossorigin="anonymous">
+</script>
+<script src="../../assets/built/casper.js"></script>
+<script>
+$(document).ready(function () {
+    // Mobile Menu Trigger
+    $('.gh-burger').click(function () {
+        $('body').toggleClass('gh-head-open');
+    });
+    // FitVids - Makes video embeds responsive
+    $(".gh-content").fitVids();
+});
+</script>
+
+<script src="/assets/js/prism.min.js" integrity="sha512-axJX7DJduStuBB8ePC8ryGzacZPr3rdLaIDZitiEgWWk2gsXxEFlm4UW0iNzj2h3wp5mOylgHAzBzM4nRSvTZA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+
+<script src="/assets/js/prism-toolbar.min.js" integrity="sha512-YrvgEHAi5/3o2OT+/vh1z19oJXk/Kk0qdVKbjEFl9VRmcLTaWRYzVziZCvoGpJ2TrnV7rB8pnJcz1ioVJjgw2A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+</html>

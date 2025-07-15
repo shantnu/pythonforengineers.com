@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Xkcd Style Sql Injection Hack in Python</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="../../assets/built/screen.css" />
+
+    <link rel="canonical" href="index.html">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    
+    <meta property="og:site_name" content="Python for Engineers">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Xkcd Style Sql Injection Hack in Python">
+    <meta property="og:description" content="You must have seen this XKCD comic:
+
+
+
+Source: https://xkcd.com/327/
+
+We are going to replicate this exact hack using Python and SQlite.
+
+Learning Goal: To see how easy it is to destroy your database and all its data,
+if you don’t follow simple rules. Also, pay homage">
+    <meta property="og:url" content="https://new.pythonforengineers.com/blog/xkcd-style-sql-injection-hack-in-python/">
+    <meta property="article:published_time" content="2021-08-28T13:32:59.000Z">
+    <meta property="article:modified_time" content="2021-08-28T13:33:47.000Z">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Xkcd Style Sql Injection Hack in Python">
+    <meta name="twitter:description" content="You must have seen this XKCD comic:
+
+
+
+Source: https://xkcd.com/327/
+
+We are going to replicate this exact hack using Python and SQlite.
+
+Learning Goal: To see how easy it is to destroy your database and all its data,
+if you don’t follow simple rules. Also, pay homage">
+    <meta name="twitter:url" content="https://new.pythonforengineers.com/blog/xkcd-style-sql-injection-hack-in-python/">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Shantnu Tiwari">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Python for Engineers",
+        "url": "https://new.pythonforengineers.com/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://new.pythonforengineers.com/favicon.ico"
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Shantnu Tiwari",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://new.pythonforengineers.com/content/images/2021/08/shantnu-foto-small-1.jpg"
+        },
+        "url": "https://new.pythonforengineers.com/author/shantnu/",
+        "sameAs": []
+    },
+    "headline": "Xkcd Style Sql Injection Hack in Python",
+    "url": "https://new.pythonforengineers.com/blog/xkcd-style-sql-injection-hack-in-python/",
+    "datePublished": "2021-08-28T13:32:59.000Z",
+    "dateModified": "2021-08-28T13:33:47.000Z",
+    "description": "You must have seen this XKCD comic:\n\n\n\nSource: https://xkcd.com/327/\n\nWe are going to replicate this exact hack using Python and SQlite.\n\nLearning Goal: To see how easy it is to destroy your database and all its data,\nif you don’t follow simple rules. Also, pay homage to Little Bobby Tables!\n\nBefore we start, download the DB browser for SqLite [https://sqlitebrowser.org/]\n.\n\nCreate a simple database\n\nLet’s create the database first:\n\n#!/usr/bin/python3\nimport sqlite3\n\n\n\nWe are using sqlite3, whi",
+    "mainEntityOfPage": "https://new.pythonforengineers.com/blog/xkcd-style-sql-injection-hack-in-python/"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 5.129">
+    <link rel="alternate" type="application/rss+xml" title="Python for Engineers" href="../rss/index.html">
+        
+    
+    <link href="https://new.pythonforengineers.com/webmentions/receive/" rel="webmention">
+    <script defer src="../../public/cards.min.js%3Fv=ddf1563274"></script>
+    <link rel="stylesheet" type="text/css" href="../../public/cards.min.css%3Fv=ddf1563274.css">
+    <script defer src="../../public/member-attribution.min.js%3Fv=ddf1563274"></script><style>:root {--ghost-accent-color: #FF1A75;}</style>
+    <link rel="stylesheet" href="/assets/css/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="/assets/css/prism-toolbar.min.css" />
+
+</head>
+<body class="post-template">
+<div class="viewport">
+
+    <header id="gh-head" class="gh-head ">
+        <nav class="gh-head-inner inner gh-container">
+
+            <div class="gh-head-brand">
+                <a class="gh-head-logo" href="../../home/index.html">
+                        Python for Engineers
+                </a>
+                <a class="gh-burger" role="button">
+                    <div class="gh-burger-box">
+                        <div class="gh-burger-inner"></div>
+                    </div>
+                </a>
+            </div>
+            <div class="gh-head-menu">
+                <ul class="nav">
+    <li class="nav-home"><a href="../../home/index.html">Home</a></li>
+    <li class="nav-about-contact"><a href="../../about/index.html">About/Contact</a></li>
+    <li class="nav-books"><a href="../../books.html">Books</a></li>
+    <li class="nav-blog"><a href="../../author/Shantnu/index.html">Blog</a></li>
+    <li class="nav-search"><a href="index.html#/search">Search</a></li>
+</ul>
+
+            </div>
+            <div class="gh-head-actions">
+                <div class="gh-social">
+                </div>
+
+                    <a class="gh-head-button" href="index.html#/portal/signup">Subscribe</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        
+
+
+
+<article class="article post no-image">
+
+    <header class="article-header gh-canvas">
+
+
+        <h1 class="article-title">Xkcd Style Sql Injection Hack in Python</h1>
+
+
+        <div class="article-byline">
+            <section class="article-byline-content">
+                <ul class="author-list">
+                    <li class="author-list-item">
+                        <a href="../../author/Shantnu/index.html" class="author-avatar">
+                            <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                        </a>
+                    </li>
+                </ul>
+                <div class="article-byline-meta">
+                    <h4 class="author-name"><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></h4>
+                    <div class="byline-meta-content">
+                        <time class="byline-meta-date" datetime="2021-08-28">Aug 28, 2021</time>
+                        <span class="byline-reading-time"><span class="bull">&bull;</span> 5 min read</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </header>
+
+    <section class="gh-content gh-canvas">
+        <!--kg-card-begin: markdown--><p>You must have seen this XKCD comic:</p>
+<p><img src="https://imgs.xkcd.com/comics/exploits_of_a_mom.png" alt="" loading="lazy"></p>
+<p>Source: <a href="https://xkcd.com/327/?ref=new.pythonforengineers.com">https://xkcd.com/327/</a></p>
+<p>We are going to replicate this exact hack using Python and SQlite.</p>
+<p><strong>Learning Goal</strong>: To see how easy it is to destroy your database and all its data, if you don’t follow simple rules. Also, pay homage to Little Bobby Tables!</p>
+<p>Before we start, download the <a href="https://sqlitebrowser.org/?ref=new.pythonforengineers.com">DB browser for SqLite</a>.</p>
+<p><strong>Create a simple database</strong></p>
+<p>Let’s create the database first:</p>
+<pre><code class="language-python">#!/usr/bin/python3
+import sqlite3
+
+</code></pre>
+<p>We are using sqlite3, which comes inbuilt with Python.</p>
+<pre><code class="language-python">db = &quot;./students.db&quot;
+
+</code></pre>
+<p>The name of our database is <em>students.db</em>.</p>
+<pre><code class="language-python">conn = sqlite3.connect(db)
+c = conn.cursor()
+
+</code></pre>
+<p>We connect to our students database. SqLite will create a database file for you, if it doesn’t exist.</p>
+<pre><code class="language-python">cmd = &quot;CREATE TABLE students (Name TEXT, Age INT)&quot;
+c.execute(cmd)
+conn.commit()
+
+</code></pre>
+<p>We create a Table <em>students</em> with 2 values: Name and age.</p>
+<p>The <em>execute()</em> command runns the SQL instruction, while the <em>commit()</em> writes it to the database. You don’t need to commit after every instruction, you can do it at the end, if you want.</p>
+<pre><code class="language-python">data = [(&quot;Robert&quot;, 10), (&quot;Sally&quot;, 15), (&quot;Matthew&quot;, 7)]
+
+c.executemany(&quot;INSERT INTO students VALUES (?,?)&quot;, data)
+
+</code></pre>
+<p>We create some dummy data, and write it into our database. The <em>executemany()</em> function allows you to add multiple values in one go.</p>
+<pre><code class="language-python">conn.commit()
+
+conn.close()
+
+</code></pre>
+<p>And we commit the database, and close it.</p>
+<p>Open up the DB browser you downloaded, and open the database we just created.</p>
+<p>On the main tab, you should see our table:</p>
+<p><img src="../../content/images/2021/08/sqli_15-1024x650.png" alt="sqli_15-1024x650" loading="lazy"></p>
+<p>And if you go to the <em>Browse Data</em> tab, you should see our data too:</p>
+<p><img src="../../content/images/2021/08/sqli_16-1024x650.png" alt="sqli_16-1024x650" loading="lazy"></p>
+<p>So far, so good. We have created a simple database. Now let’s hack it.</p>
+<p><strong>Xkcd style hack on our database</strong></p>
+<pre><code class="language-python">#!/usr/bin/python3
+import sqlite3
+
+db = &quot;./students.db&quot;
+conn = sqlite3.connect(db)
+c = conn.cursor()
+
+</code></pre>
+<p>We are just opening the database we created.</p>
+<p>First, we will do a normal read:</p>
+<pre><code class="language-python">print(&quot;Without Hack: \n&quot;)
+
+c.execute(&quot;SELECT * from students WHERE Name='Robert'&quot;)
+result = c.fetchall()
+print(result)
+
+</code></pre>
+<p>We select all students whose name is Robert, and fetch the results, and print them.</p>
+<pre><code class="language-python">Without Hack:
+[('Robert', 10)]
+
+</code></pre>
+<p>We got the correct result- remember, this was the data we entered. So far, our code is working as expected.</p>
+<p>Now, let’s hack it.</p>
+<pre><code class="language-python">print(&quot;With Hack: \n&quot;)
+Name = &quot;Robert'; DROP TABLE students;--&quot;
+print(&quot;SELECT * from students WHERE Name='%s'&quot; % Name)
+
+</code></pre>
+<p>We have created the name exactly as per the xkcd script. To see why it works, we also print the exact SQL statement that will be executed.</p>
+<pre><code class="language-python">SELECT * from students WHERE Name='Robert'; DROP TABLE students;--'
+
+</code></pre>
+<p>If you look at the SQL command above, you see we end the SQL instruction with a <em>;</em>. That means that <em>DROP TABLE students;</em> is now a new instruction. The <em>drop</em> command will delete our table. The <em>– –</em>  is a comment in SQL, and is needed to comment out the last quote symbol <em>‘</em> in our instruction.</p>
+<p>Now that we know how the instruction works, let’s run it:</p>
+<pre><code class="language-python">c.executescript(&quot;SELECT * from students WHERE Name='%s'&quot; % Name)
+
+result = c.fetchall()
+print(result)
+
+[]
+
+
+</code></pre>
+<p>This time we get an empty result. Why is that? Open up our database in the browser.</p>
+<p><img src="../../content/images/2021/08/sqli_17-1024x650.png" alt="sqli_17-1024x650" loading="lazy"></p>
+<p><img src="../../content/images/2021/08/sqli_18-1024x650.png" alt="sqli_18-1024x650" loading="lazy"><br>
+We see the database is empty! Our hack has deleted everything.</p>
+<p>I hope <strong>you</strong> learnt to sanitise <strong>your</strong> database input, little Bobby Tables!</p>
+<p><strong>Fixing our hack</strong></p>
+<p>Create the database again, and check it exists by opening it in the browser.</p>
+<p><img src="../../content/images/2021/08/sqli_15-1024x650-1.png" alt="sqli_15-1024x650-1" loading="lazy"></p>
+<p>So how do you prevent SQL injection hacks?</p>
+<p>Well, you read the bloody documentation, don’t you?</p>
+<p>Right in the <a href="https://docs.python.org/2/library/sqlite3.html?ref=new.pythonforengineers.com">documentation</a>, it tells you what not to do:</p>
+<pre><code class="language-python"># Never do this -- insecure!
+symbol = 'RHAT'
+c.execute(&quot;SELECT * FROM stocks WHERE symbol = '%s'&quot; % symbol)
+
+# Do this instead
+t = ('RHAT',)
+c.execute('SELECT * FROM stocks WHERE symbol=?', t)
+print(c.fetchone())
+
+</code></pre>
+<p>What is the difference? In the first one, we are using the Python <em>%s</em> formatter to create the SQL instruction. That is because Python doesn’t know about SQL injection, and that allows our hack to work.</p>
+<p>SqLite does. Which is why you use the <em>?</em> character (instead of <em>%s</em>) to pass in values. This way, SqLite will escape any special characters we put in.</p>
+<p>Let’s give it a roll, and write the fixed code. The first half of the code is the same as before:</p>
+<pre><code class="language-python">#!/usr/bin/python3
+import sqlite3
+
+db = &quot;./students.db&quot;
+conn = sqlite3.connect(db)
+c = conn.cursor()
+
+print(&quot;Without Hack: \n&quot;)
+
+c.execute(&quot;SELECT * from students WHERE Name='Robert'&quot;)
+result = c.fetchall()
+print(result)
+
+</code></pre>
+<p>Now to the relevant part:</p>
+<pre><code class="language-python">Name = &quot;Robert'; DROP TABLE students;--&quot;
+Name_to_use = (Name,)
+print(&quot;Name to use:&quot;, Name_to_use)
+
+Name to use: (&quot;Robert'; DROP TABLE students;--&quot;,)
+
+</code></pre>
+<p>And this time, we will use the syntax recommended by the SqLite documentation:</p>
+<pre><code class="language-python">c.execute(&quot;SELECT * from students WHERE Name=(?)&quot; , Name_to_use)
+
+</code></pre>
+<p>If this works, our database should not be deleted. Open up the browser to check:</p>
+<p><img src="../../content/images/2021/08/sqli_16-1024x650-1.png" alt="sqli_16-1024x650-1" loading="lazy"></p>
+<p>Nope, still there. SqLite escaped the name, so it no longer runs as a SQL instruction.</p>
+<p>To see why this works, let’s try to add this name to our database:</p>
+<pre><code class="language-python">data = [(&quot;Robert'; DROP TABLE students;--&quot;, 10)]
+c.executemany(&quot;INSERT INTO students VALUES (?,?)&quot;, data)
+conn.commit()
+
+</code></pre>
+<p>This is the same code as the one we used earlier, except we are using our hacky name now. Run this code, and open the DB browser:</p>
+<p><img src="../../content/images/2021/08/sqli_19.png" alt="sqli_19" loading="lazy"></p>
+<p>As you can see, our injection code is now just treated as a normal string.</p>
+<p>Which means Bobby Tables will be bullied at school for having such a loser name.</p>
+<p><em>This is an extract from my book, <a href="https://leanpub.com/pythonforhackers?ref=new.pythonforengineers.com">Python For Hackers</a>.</em></p>
+<!--kg-card-end: markdown-->
+    </section>
+
+
+</article>
+
+
+
+<aside class="read-more-wrap">
+    <div class="read-more inner">
+
+
+                    
+<article class="post-card post no-image ">
+
+
+    <div class="post-card-content">
+
+        <a class="post-card-content-link" href="../awesome-python-library-tenacity/index.html">
+            <header class="post-card-header">
+                <h2 class="post-card-title">Awesome Python Library: Tenacity</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>Link: https://tenacity.readthedocs.io/en/latest/
+
+When writing code or tests in Python, one issue I had was when the code would fail due to random things like network issues or external peripherals not responding in time. Just rerunning the tests would make them pass. The unreliability wasn&#39;</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <a href="../../author/Shantnu/index.html" class="static-avatar">
+                        <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></span>
+                <span class="post-card-byline-date"><time datetime="2024-04-10">Apr 10, 2024</time> <span class="bull">&bull;</span> 2 min read</span>
+            </div>
+        </footer>
+
+    </div>
+
+</article>
+                    
+<article class="post-card post no-image ">
+
+
+    <div class="post-card-content">
+
+        <a class="post-card-content-link" href="../so-evidently/index.html">
+            <header class="post-card-header">
+                <h2 class="post-card-title">So Google&#x27;s Gemini Doesn&#x27;t Like Python Programming and Sanskrit?</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>I have been playing around with Googles Gemini Pro.
+
+Recently, I wanted to write a blog on Python&#39;s decorators and wanted to get some ideas for practical projects I could build with them. Tried GPT4 first, it gave me the standard &quot;log analyser&quot; that all blogs</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <a href="../../author/Shantnu/index.html" class="static-avatar">
+                        <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></span>
+                <span class="post-card-byline-date"><time datetime="2024-02-25">Feb 25, 2024</time> <span class="bull">&bull;</span> 4 min read</span>
+            </div>
+        </footer>
+
+    </div>
+
+</article>
+                    
+<article class="post-card post ">
+
+    <a class="post-card-image-link" href="../linkedin-has-become-a-piece-of-garbage-even-more-than-usual/index.html">
+        <img class="post-card-image"
+            srcset="../../content/images/size/w300/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.png 300w,
+                   ../../content/images/size/w600/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.pngg 600w,
+                  ../../content/images/size/w1000/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.pngng 1000w,
+                 ../../content/images/size/w2000/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.pngpng 2000w"
+            sizes="(max-width: 1000px) 400px, 800px"
+            src="../../content/images/size/w600/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.png"
+            alt="LinkedIn Has Become a Pile of Garbage (even more than usual)"
+            loading="lazy"
+        />
+    </a>
+
+    <div class="post-card-content">
+
+        <a class="post-card-content-link" href="../linkedin-has-become-a-piece-of-garbage-even-more-than-usual/index.html">
+            <header class="post-card-header">
+                <h2 class="post-card-title">LinkedIn Has Become a Pile of Garbage (even more than usual)</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>Online forums, especially Hacker News and Reddit, are very hostile to LinkedIn. Everyone makes fun of the self-promotion and silliness that goes there. There are complaints the site is unusable, which I didn&#39;t agree with until now.
+
+I&#39;ve had an account there for a few years.</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <a href="../../author/Shantnu/index.html" class="static-avatar">
+                        <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></span>
+                <span class="post-card-byline-date"><time datetime="2024-01-29">Jan 29, 2024</time> <span class="bull">&bull;</span> 4 min read</span>
+            </div>
+        </footer>
+
+    </div>
+
+</article>
+
+    </div>
+</aside>
+
+
+    </main>
+
+    <footer class="site-footer outer">
+        <div class="inner">
+            <section class="copyright"><a href="../../home/index.html">Python for Engineers</a> &copy; 2025</section>
+            <nav class="site-footer-nav">
+                
+            </nav>
+            
+
+        </div>
+    </footer>
+
+</div>
+
+
+<script
+    src="/assets/js/jquery-3.5.1.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+    crossorigin="anonymous">
+</script>
+<script src="../../assets/built/casper.js"></script>
+<script>
+$(document).ready(function () {
+    // Mobile Menu Trigger
+    $('.gh-burger').click(function () {
+        $('body').toggleClass('gh-head-open');
+    });
+    // FitVids - Makes video embeds responsive
+    $(".gh-content").fitVids();
+});
+</script>
+
+<script src="/assets/js/prism.min.js" integrity="sha512-axJX7DJduStuBB8ePC8ryGzacZPr3rdLaIDZitiEgWWk2gsXxEFlm4UW0iNzj2h3wp5mOylgHAzBzM4nRSvTZA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+
+<script src="/assets/js/prism-toolbar.min.js" integrity="sha512-YrvgEHAi5/3o2OT+/vh1z19oJXk/Kk0qdVKbjEFl9VRmcLTaWRYzVziZCvoGpJ2TrnV7rB8pnJcz1ioVJjgw2A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+</html>

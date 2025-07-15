@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>The Harsh Truth of Video Games Programming</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="../../assets/built/screen.css" />
+
+    <link rel="canonical" href="index.html">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    
+    <meta property="og:site_name" content="Python for Engineers">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="The Harsh Truth of Video Games Programming">
+    <meta property="og:description" content="I&#x27;ve been interested in games programming since I started learning programming
+as a teenager more than 25 years ago (gasp!)
+
+I started with Qbasic and Gorillas.bas, but never understood the code.
+
+Of course, I didn&#x27;t get anywhere at the time, beyond very basic games. I wrote a
+simple Shoot">
+    <meta property="og:url" content="https://new.pythonforengineers.com/blog/the-harsh-truth/">
+    <meta property="og:image" content="https://new.pythonforengineers.com/content/images/2022/02/Clipboard01.jpg">
+    <meta property="article:published_time" content="2022-02-16T17:01:00.000Z">
+    <meta property="article:modified_time" content="2022-02-16T17:01:00.000Z">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Harsh Truth of Video Games Programming">
+    <meta name="twitter:description" content="I&#x27;ve been interested in games programming since I started learning programming
+as a teenager more than 25 years ago (gasp!)
+
+I started with Qbasic and Gorillas.bas, but never understood the code.
+
+Of course, I didn&#x27;t get anywhere at the time, beyond very basic games. I wrote a
+simple Shoot">
+    <meta name="twitter:url" content="https://new.pythonforengineers.com/blog/the-harsh-truth/">
+    <meta name="twitter:image" content="https://new.pythonforengineers.com/content/images/2022/02/Clipboard01.jpg">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Shantnu Tiwari">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Python for Engineers",
+        "url": "https://new.pythonforengineers.com/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://new.pythonforengineers.com/favicon.ico"
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Shantnu Tiwari",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://new.pythonforengineers.com/content/images/2021/08/shantnu-foto-small-1.jpg"
+        },
+        "url": "https://new.pythonforengineers.com/author/shantnu/",
+        "sameAs": []
+    },
+    "headline": "The Harsh Truth of Video Games Programming",
+    "url": "https://new.pythonforengineers.com/blog/the-harsh-truth/",
+    "datePublished": "2022-02-16T17:01:00.000Z",
+    "dateModified": "2022-02-16T17:01:00.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://new.pythonforengineers.com/content/images/2022/02/Clipboard01.jpg"
+    },
+    "description": "I&#x27;ve been interested in games programming since I started learning programming\nas a teenager more than 25 years ago (gasp!)\n\nI started with Qbasic and Gorillas.bas, but never understood the code.\n\nOf course, I didn&#x27;t get anywhere at the time, beyond very basic games. I wrote a\nsimple Shoot the UFO type game in BASIC (later ported to C). All it had was a\nUFO moving left and right across the screen, and you could shoot a bullet at it.\nThe biggest problem in the game: The UFO would stop moving as t",
+    "mainEntityOfPage": "https://new.pythonforengineers.com/blog/the-harsh-truth/"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 5.129">
+    <link rel="alternate" type="application/rss+xml" title="Python for Engineers" href="../rss/index.html">
+        
+    
+    <link href="https://new.pythonforengineers.com/webmentions/receive/" rel="webmention">
+    <script defer src="../../public/cards.min.js%3Fv=ddf1563274"></script>
+    <link rel="stylesheet" type="text/css" href="../../public/cards.min.css%3Fv=ddf1563274.css">
+    <script defer src="../../public/member-attribution.min.js%3Fv=ddf1563274"></script><style>:root {--ghost-accent-color: #FF1A75;}</style>
+    <link rel="stylesheet" href="/assets/css/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="/assets/css/prism-toolbar.min.css" />
+
+</head>
+<body class="post-template">
+<div class="viewport">
+
+    <header id="gh-head" class="gh-head ">
+        <nav class="gh-head-inner inner gh-container">
+
+            <div class="gh-head-brand">
+                <a class="gh-head-logo" href="../../home/index.html">
+                        Python for Engineers
+                </a>
+                <a class="gh-burger" role="button">
+                    <div class="gh-burger-box">
+                        <div class="gh-burger-inner"></div>
+                    </div>
+                </a>
+            </div>
+            <div class="gh-head-menu">
+                <ul class="nav">
+    <li class="nav-home"><a href="../../home/index.html">Home</a></li>
+    <li class="nav-about-contact"><a href="../../about/index.html">About/Contact</a></li>
+    <li class="nav-books"><a href="../../books.html">Books</a></li>
+    <li class="nav-blog"><a href="../../author/Shantnu/index.html">Blog</a></li>
+    <li class="nav-search"><a href="index.html#/search">Search</a></li>
+</ul>
+
+            </div>
+            <div class="gh-head-actions">
+                <div class="gh-social">
+                </div>
+
+                    <a class="gh-head-button" href="index.html#/portal/signup">Subscribe</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        
+
+
+
+<article class="article post">
+
+    <header class="article-header gh-canvas">
+
+
+        <h1 class="article-title">The Harsh Truth of Video Games Programming</h1>
+
+
+        <div class="article-byline">
+            <section class="article-byline-content">
+                <ul class="author-list">
+                    <li class="author-list-item">
+                        <a href="../../author/Shantnu/index.html" class="author-avatar">
+                            <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                        </a>
+                    </li>
+                </ul>
+                <div class="article-byline-meta">
+                    <h4 class="author-name"><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></h4>
+                    <div class="byline-meta-content">
+                        <time class="byline-meta-date" datetime="2022-02-16">Feb 16, 2022</time>
+                        <span class="byline-reading-time"><span class="bull">&bull;</span> 5 min read</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <figure class="article-image">
+            <img
+                srcset="../../content/images/size/w300/2022/02/Clipboard01.jpg 300w,
+                       ../../content/images/size/w600/2022/02/Clipboard01.jpgg 600w,
+                      ../../content/images/size/w1000/2022/02/Clipboard01.jpgpg 1000w,
+                     ../../content/images/size/w2000/2022/02/Clipboard01.jpgjpg 2000w"
+                sizes="(min-width: 1400px) 1400px, 92vw"
+                src="../../content/images/size/w2000/2022/02/Clipboard01.jpg"
+                alt="The Harsh Truth of Video Games Programming"
+            />
+        </figure>
+    </header>
+
+    <section class="gh-content gh-canvas">
+        <p>I've been interested in games programming since I started learning programming as a teenager more than 25 years ago (gasp!)</p><p>I started with Qbasic and Gorillas.bas, but never understood the code.</p><figure class="kg-card kg-image-card"><img src="../../content/images/2022/02/qb.gif" class="kg-image" alt loading="lazy" width="992" height="596"></figure><p>Of course, I didn't get anywhere at the time, beyond very basic games. I wrote a simple <em>Shoot the UFO</em> type game in BASIC (later ported to C). All it had was a UFO moving left and right across the screen, and you could shoot a bullet at it. The biggest problem in the game: The UFO would stop moving as the bullet was fired, as I didn't know the concept of background processing. Which meant the game was stupidly easy to win.</p><p>And for the next 15-20 years, I didn't make much progress beyond that. Sure, I learnt background processing, but the games didn't get any more complex. Game coding was hard.</p><h3 id="enter-unity-unreal-godot">Enter Unity / Unreal / Godot</h3><p></p><p>Last 5-10 years, we've had a bunch of tools to make games programming easy. Unreal and Unity are industry standards, Godot is racing to catch up with them. It suddenly became easier to make games, as these tools did a lot of the heavy lifting for you. Level design, physics, collision detection, player animation – a lot of the things we did with code can now be done by the tools. </p><p>Not only that, these gaming platforms come with a lot of prebuilt examples you can just copy and use. Even Godot comes with an awesome 3d shooter demo:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2022/02/qb--2-.gif" class="kg-image" alt loading="lazy" width="900" height="431"></figure><p>Unity is the top player here– you can buy full skeletons for whatever game you want to make– all the code done for you, just tweak for your own use case.</p><p>So making games is now easy right?</p><h3 id="the-sad-truth-%E2%80%93-most-developers-will-never-finish-their-game">The sad truth – most developers will never finish their game</h3><p></p><p>I myself have abandoned 2 dozen games, in platforms ranging from PhaserJs to Unity to Godot.</p><p>Browsing online forums, it looks like I'm not alone. Most people never finish games. I've seen beautiful demos, that developers spent multi-years working on and then just abandoned. I asked one guy when he sent me the files to his last game (on Google drive, no less): "This is awesome! Why don't you release it? At least put it on Github?"</p><p>His answer: He had abandoned the games months ago. Just didn't care anymore.</p><p>I struggled with Unity for a long time before discovering Godot. Godot is awesome, it is very easy to get started with (at least for 2d games).</p><p>Here's what I found in my own journey: No matter how easy the tools make complex things the simple truth is: <strong>Games programming is still a lot of work</strong></p><p>Even designing and completing a whole level is tons of work. Even worse, <em>it looks like never ending work.</em></p><p>It took me just a month to get a simple mechanism in my game working– the player throws a grenade and the enemy can kick it back.</p><figure class="kg-card kg-image-card"><img src="../../content/images/2022/02/pb.gif" class="kg-image" alt loading="lazy" width="1526" height="905"></figure><p>Granted, it took a month because:</p><p>a) I'm still learning Godot</p><p>b) I have limited time to work on this in the evenings.</p><p>c) I found a lot of gotchas in how Godot works– things you only learn by doing</p><p>Now, some of this stuff might become easier over time.</p><p>But still– this is just one enemy. Ideally, you need multiple enemies with their own quirks/attacks, coins, environmental hazards (like spikes), parallax (moving backgrounds) etc</p><p>And my biggest fear– designing a whole level just seems like a nightmare; maybe because I've never done it before, maybe cause my design skills suck.</p><p>When I looked at how much work there is just to create one simple level, I can understand how people can spend months/years on a simple game, just to abandon it.</p><h3 id="the-skills-are-not-transferable">The skills are not transferable</h3><p>So I spent a lot of time learning the quirks and gotchas of Godot (and before that, Unity). Here is the problem though: these skills aren't transferable.</p><p>And worse, they have little to no market value.</p><p>What do I mean by this?</p><p>I also spent some time learning about AWS(and still learning and crying. <em>Is it normal to cry when learning 'bout Aws</em>?). </p><p>It's a huge ugly monster with dozens of keywords (buzzwords?). You spend 6 months passing an AWS exam, and all you have learnt is how AWS works.</p><p>Except– some of these skills transfer. IAM might be an AWS specific tool, but similar tools exist for Azure, GCP and every other platform, and the concepts will transfer.</p><p>I had already managed Linux servers, so working with EC2 servers wasn't that big a learning curve.</p><p>So even though AWS has a steep learning curve, those skills can be used elsewhere. </p><p><strong>Not so with game engines</strong></p><p>You learn the quirks of how Godot handles a physics object colliding with a player object, it doesn't help you at all in Unity. And vice versa.</p><p>Plus, the gaming industry is very exploitative and low paying, so it's not like you are learning any "in demand" skills. Your boring programmer maintaining a 10 year old Java app written with vanilla Js earns more than most game programmers.</p><p>And it isn't any better for indie devs– most indie games (I don't have any statistics on hand, just my feeling based on talking to other devs) rarely make enough money to even justify the cost of their game assets, let alone their own coding time.</p><p>Gaming, like Hollywood, is a hit-driven industry, where a few big players take in 90-95% of the profits, while most others barely survive.</p><h3 id="games-programming-is-more-than-just-code-monkeying">Games Programming is more than just code monkeying</h3><p>To be a games programmer you have to know about art, music, AI, level design, dialogue, story, just to mention a few.</p><p>Sure you can outsource or buy art (and there are dozens of free resources). And it's not like most games have much of a "story". </p><p>Sample video game story: <em>Evil gubbamint has taken over, rather than fighting elections, take this machine gun and kill everyone </em>(which might be how things work in America, from what we hear).</p><p> But you as the developer still need to know the basics of these. Even if you end up buying art/music, you need to understand how it works in your genre of gaming.</p><p>Especially for an indie dev– you are more than just a code monkey. You will have to know a <u>bit of everything.</u>  And even in traditional gaming, most developers seem to know more than their narrow field of coding (just my impression from interviews etc).</p><h3 id="a-tldr-of-why-games-programming-is-so-hard">A tldr of why games programming is so hard</h3><p></p><ul><li>Completing a full game can take years</li><li>It's hard work– and I mean this literally. Hours and hours of coding</li><li>There is no treasure at the end of this rainbow: You can spend years with nothing to show for it</li><li>It's easy to lose heart and just quit. Or move to a different game, different engine, try another library etc</li></ul><p>And that is the harsh truth of game programming: <em>Recent technologies have made the process much easier and smoother, but it's still a lot of work, and it's very easy to become disillusioned and give up.</em></p><p>If anyone has a good solution, I'd be happy to hear your thoughts.</p>
+    </section>
+
+
+</article>
+
+
+
+<aside class="read-more-wrap">
+    <div class="read-more inner">
+
+
+                    
+<article class="post-card post no-image ">
+
+
+    <div class="post-card-content">
+
+        <a class="post-card-content-link" href="../awesome-python-library-tenacity/index.html">
+            <header class="post-card-header">
+                <h2 class="post-card-title">Awesome Python Library: Tenacity</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>Link: https://tenacity.readthedocs.io/en/latest/
+
+When writing code or tests in Python, one issue I had was when the code would fail due to random things like network issues or external peripherals not responding in time. Just rerunning the tests would make them pass. The unreliability wasn&#39;</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <a href="../../author/Shantnu/index.html" class="static-avatar">
+                        <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></span>
+                <span class="post-card-byline-date"><time datetime="2024-04-10">Apr 10, 2024</time> <span class="bull">&bull;</span> 2 min read</span>
+            </div>
+        </footer>
+
+    </div>
+
+</article>
+                    
+<article class="post-card post no-image ">
+
+
+    <div class="post-card-content">
+
+        <a class="post-card-content-link" href="../so-evidently/index.html">
+            <header class="post-card-header">
+                <h2 class="post-card-title">So Google&#x27;s Gemini Doesn&#x27;t Like Python Programming and Sanskrit?</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>I have been playing around with Googles Gemini Pro.
+
+Recently, I wanted to write a blog on Python&#39;s decorators and wanted to get some ideas for practical projects I could build with them. Tried GPT4 first, it gave me the standard &quot;log analyser&quot; that all blogs</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <a href="../../author/Shantnu/index.html" class="static-avatar">
+                        <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></span>
+                <span class="post-card-byline-date"><time datetime="2024-02-25">Feb 25, 2024</time> <span class="bull">&bull;</span> 4 min read</span>
+            </div>
+        </footer>
+
+    </div>
+
+</article>
+                    
+<article class="post-card post ">
+
+    <a class="post-card-image-link" href="../linkedin-has-become-a-piece-of-garbage-even-more-than-usual/index.html">
+        <img class="post-card-image"
+            srcset="../../content/images/size/w300/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.png 300w,
+                   ../../content/images/size/w600/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.pngg 600w,
+                  ../../content/images/size/w1000/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.pngng 1000w,
+                 ../../content/images/size/w2000/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.pngpng 2000w"
+            sizes="(max-width: 1000px) 400px, 800px"
+            src="../../content/images/size/w600/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.png"
+            alt="LinkedIn Has Become a Pile of Garbage (even more than usual)"
+            loading="lazy"
+        />
+    </a>
+
+    <div class="post-card-content">
+
+        <a class="post-card-content-link" href="../linkedin-has-become-a-piece-of-garbage-even-more-than-usual/index.html">
+            <header class="post-card-header">
+                <h2 class="post-card-title">LinkedIn Has Become a Pile of Garbage (even more than usual)</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>Online forums, especially Hacker News and Reddit, are very hostile to LinkedIn. Everyone makes fun of the self-promotion and silliness that goes there. There are complaints the site is unusable, which I didn&#39;t agree with until now.
+
+I&#39;ve had an account there for a few years.</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <a href="../../author/Shantnu/index.html" class="static-avatar">
+                        <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></span>
+                <span class="post-card-byline-date"><time datetime="2024-01-29">Jan 29, 2024</time> <span class="bull">&bull;</span> 4 min read</span>
+            </div>
+        </footer>
+
+    </div>
+
+</article>
+
+    </div>
+</aside>
+
+
+    </main>
+
+    <footer class="site-footer outer">
+        <div class="inner">
+            <section class="copyright"><a href="../../home/index.html">Python for Engineers</a> &copy; 2025</section>
+            <nav class="site-footer-nav">
+                
+            </nav>
+            
+
+        </div>
+    </footer>
+
+</div>
+
+
+<script
+    src="/assets/js/jquery-3.5.1.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+    crossorigin="anonymous">
+</script>
+<script src="../../assets/built/casper.js"></script>
+<script>
+$(document).ready(function () {
+    // Mobile Menu Trigger
+    $('.gh-burger').click(function () {
+        $('body').toggleClass('gh-head-open');
+    });
+    // FitVids - Makes video embeds responsive
+    $(".gh-content").fitVids();
+});
+</script>
+
+<script src="/assets/js/prism.min.js" integrity="sha512-axJX7DJduStuBB8ePC8ryGzacZPr3rdLaIDZitiEgWWk2gsXxEFlm4UW0iNzj2h3wp5mOylgHAzBzM4nRSvTZA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+
+<script src="/assets/js/prism-toolbar.min.js" integrity="sha512-YrvgEHAi5/3o2OT+/vh1z19oJXk/Kk0qdVKbjEFl9VRmcLTaWRYzVziZCvoGpJ2TrnV7rB8pnJcz1ioVJjgw2A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+</html>

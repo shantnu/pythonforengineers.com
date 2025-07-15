@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>How To Structure Your Godot Project (so You Don&#x27;t Get Confused)</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="../../assets/built/screen.css" />
+
+    <link rel="canonical" href="index.html">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    
+    <meta property="og:site_name" content="Python for Engineers">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="How To Structure Your Godot Project (so You Don&#x27;t Get Confused)">
+    <meta property="og:description" content="This is a guest post by KP, whom I found by a very detailed and thoughtful
+comment he posted on Reddit /r/godot [https://old.reddit.com/r/godot/]. If you
+like the post, make sure to check out his Youtube channel
+[https://www.youtube.com/channel/UC7rTlSePagQ4wsRkP2ChL0A]
+
+
+A tale">
+    <meta property="og:url" content="https://new.pythonforengineers.com/blog/how-to-structure-your-godot-project-so-you-dont-get-confused/">
+    <meta property="article:published_time" content="2022-10-12T10:42:14.000Z">
+    <meta property="article:modified_time" content="2022-10-13T13:08:34.000Z">
+    <meta property="article:tag" content="game">
+    <meta property="article:tag" content="godot">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="How To Structure Your Godot Project (so You Don&#x27;t Get Confused)">
+    <meta name="twitter:description" content="This is a guest post by KP, whom I found by a very detailed and thoughtful
+comment he posted on Reddit /r/godot [https://old.reddit.com/r/godot/]. If you
+like the post, make sure to check out his Youtube channel
+[https://www.youtube.com/channel/UC7rTlSePagQ4wsRkP2ChL0A]
+
+
+A tale">
+    <meta name="twitter:url" content="https://new.pythonforengineers.com/blog/how-to-structure-your-godot-project-so-you-dont-get-confused/">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Shantnu Tiwari">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="game, godot">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Python for Engineers",
+        "url": "https://new.pythonforengineers.com/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://new.pythonforengineers.com/favicon.ico"
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Shantnu Tiwari",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://new.pythonforengineers.com/content/images/2021/08/shantnu-foto-small-1.jpg"
+        },
+        "url": "https://new.pythonforengineers.com/author/shantnu/",
+        "sameAs": []
+    },
+    "headline": "How To Structure Your Godot Project (so You Don&#x27;t Get Confused)",
+    "url": "https://new.pythonforengineers.com/blog/how-to-structure-your-godot-project-so-you-dont-get-confused/",
+    "datePublished": "2022-10-12T10:42:14.000Z",
+    "dateModified": "2022-10-13T13:08:34.000Z",
+    "keywords": "game, godot",
+    "description": "This is a guest post by KP, whom I found by a very detailed and thoughtful\ncomment he posted on Reddit /r/godot [https://old.reddit.com/r/godot/]. If you\nlike the post, make sure to check out his Youtube channel\n[https://www.youtube.com/channel/UC7rTlSePagQ4wsRkP2ChL0A]\n\n\nA tale as old as time. You just started to get familiar with Godot, and your\nproject is starting to get huge. You have a mess of folders with scenes and\nnodes and resources and images and audio files and every time you look at ",
+    "mainEntityOfPage": "https://new.pythonforengineers.com/blog/how-to-structure-your-godot-project-so-you-dont-get-confused/"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 5.129">
+    <link rel="alternate" type="application/rss+xml" title="Python for Engineers" href="../rss/index.html">
+        
+    
+    <link href="https://new.pythonforengineers.com/webmentions/receive/" rel="webmention">
+    <script defer src="../../public/cards.min.js%3Fv=ddf1563274"></script>
+    <link rel="stylesheet" type="text/css" href="../../public/cards.min.css%3Fv=ddf1563274.css">
+    <script defer src="../../public/member-attribution.min.js%3Fv=ddf1563274"></script><style>:root {--ghost-accent-color: #FF1A75;}</style>
+    <link rel="stylesheet" href="/assets/css/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="/assets/css/prism-toolbar.min.css" />
+
+</head>
+<body class="post-template tag-game tag-godot">
+<div class="viewport">
+
+    <header id="gh-head" class="gh-head ">
+        <nav class="gh-head-inner inner gh-container">
+
+            <div class="gh-head-brand">
+                <a class="gh-head-logo" href="../../home/index.html">
+                        Python for Engineers
+                </a>
+                <a class="gh-burger" role="button">
+                    <div class="gh-burger-box">
+                        <div class="gh-burger-inner"></div>
+                    </div>
+                </a>
+            </div>
+            <div class="gh-head-menu">
+                <ul class="nav">
+    <li class="nav-home"><a href="../../home/index.html">Home</a></li>
+    <li class="nav-about-contact"><a href="../../about/index.html">About/Contact</a></li>
+    <li class="nav-books"><a href="../../books.html">Books</a></li>
+    <li class="nav-blog"><a href="../../author/Shantnu/index.html">Blog</a></li>
+    <li class="nav-search"><a href="index.html#/search">Search</a></li>
+</ul>
+
+            </div>
+            <div class="gh-head-actions">
+                <div class="gh-social">
+                </div>
+
+                    <a class="gh-head-button" href="index.html#/portal/signup">Subscribe</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        
+
+
+
+<article class="article post tag-game tag-godot no-image">
+
+    <header class="article-header gh-canvas">
+
+        <section class="article-tag">
+            <a href="../../tag/game/index.html">game</a>
+        </section>
+
+        <h1 class="article-title">How To Structure Your Godot Project (so You Don&#x27;t Get Confused)</h1>
+
+
+        <div class="article-byline">
+            <section class="article-byline-content">
+                <ul class="author-list">
+                    <li class="author-list-item">
+                        <a href="../../author/Shantnu/index.html" class="author-avatar">
+                            <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                        </a>
+                    </li>
+                </ul>
+                <div class="article-byline-meta">
+                    <h4 class="author-name"><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></h4>
+                    <div class="byline-meta-content">
+                        <time class="byline-meta-date" datetime="2022-10-12">Oct 12, 2022</time>
+                        <span class="byline-reading-time"><span class="bull">&bull;</span> 17 min read</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </header>
+
+    <section class="gh-content gh-canvas">
+        <p><em>This is a guest post by KP, whom I found by a very detailed and thoughtful comment he posted on Reddit <a href="https://old.reddit.com/r/godot/?ref=new.pythonforengineers.com">/r/godot</a>. If you like the post, make sure to check out his <a href="https://www.youtube.com/channel/UC7rTlSePagQ4wsRkP2ChL0A?ref=new.pythonforengineers.com">Youtube channel</a></em></p><!--kg-card-begin: markdown--><h1 id=""></h1>
+<p>A tale as old as time. You just started to get familiar with Godot, and your project is starting to get huge. You have a mess of folders with scenes and nodes and resources and images and audio files and every time you look at the 'FileSystem' tab you feel totally lost. You went <a href="https://docs.godotengine.org/en/stable/getting_started/first_2d_game/01.project_setup.html?ref=new.pythonforengineers.com#organizing-the-project">here</a> and left feeling unsatisfied.</p>
+<p>Don't worry! I have some tips for you that will make all your problems melt away. This is just how I do it. Some of it is based on Godot's best practices, but as far as I can tell there isn't a consensus on how to set up your FilesSystem in the way there is with Java for example. So we're all on our own. But it doesn't have to be this way!</p>
+<h2 id="setting-up-your-file-system">Setting up your file system</h2>
+<p>I like to have a 'scenes' folder, an 'assets' folder, and a 'src' folder (for autoload scripts).</p>
+<p><img src="../../content/images/2022/09/filesystem.PNG" alt="filesystem" loading="lazy"></p>
+<p>For more complex games, I also include a 'utils' folder at the top level for any type of menu that is used for development but isn't going to be part of the main game. That way you can easily exclude it when exporting. Also you'll have an 'addons' folder here if you install any plugins.</p>
+<p>Personally I think the top level part is mostly preference, so do whatever makes sense to you. But do think about it early and stick with your structure, because moving stuff around can break things. If you <em>do</em> need to move stuff around, (especially important because I know some of you are going to be applying this to your already large messy projects) right click on the file in the file system and use 'Move To...'.</p>
+<p><img src="../../content/images/2022/09/move_to.PNG" alt="move_to" loading="lazy"></p>
+<p>Dragging and dropping works too, but I often find that the 'FileSystem' tab isn't very clear on where it's going to put stuff and I end up moving things to some folder that I can't see and have no idea where my stuff went. Either way, when you move stuff in godot it does some things in the background so it doesn't lose track of where things are, but you'll still probably have to fix some things if you're moving a resource and are referencing it somewhere.</p>
+<p><img src="../../content/images/2022/09/broken_list.PNG" alt="broken_list" loading="lazy"></p>
+<p>Even if you think you've done everything right, be careful; if you reference a path anywhere in your code using a string, you'll have to go through every script and change it, and Godot won't help you. It'll just throw an error at runtime when it can't find the file. In this case I reccomend using a text editor to find and replace on all of your files. This is a big reason to reference scene and resource paths using <code>export var resource_inst : Resource</code> rather than using Strings.</p>
+<p>Whatever else you do, <strong>don't move files around outside of Godot</strong>. You'll wish you handn't I promise. I'll explain why later.</p>
+<h2 id="making-a-main-scene-and-telling-godot-where-to-start">Making a main scene, and telling Godot where to start</h2>
+<p>It's good to have somewhere to start and set everything up. Make a scene called 'main.tscn' in the 'scenes' folder with a generic node object called 'Main', and attach a script called 'main.gd'. This node will always be around, and you can use it to set things up when your game starts. If your game has a main menu, you will probably want to start with that, so make a control node that is a child of the Main node.</p>
+<p><img src="../../content/images/2022/09/scene_tab.PNG" alt="scene_tab" loading="lazy"></p>
+<p>You can set this as the 'Main Scene' in project settings. This tells godot where to start when you click the 'play' button, and this is the scene that will start first when you export your application.</p>
+<p><img src="../../content/images/2022/09/project_settings.PNG" alt="project_settings" loading="lazy"></p>
+<p><img src="../../content/images/2022/09/project_settings_main_scene.PNG" alt="project_settings_main_scene" loading="lazy"></p>
+<p>If you don't already have one set, you can also do this from the right-click menu in the 'FileSystem' tab.</p>
+<p><img src="../../content/images/2022/09/filesystem_set_as_main_scene.PNG" alt="filesystem_set_as_main_scene" loading="lazy"></p>
+<p>There's something important you should know about this though. When you set a scene as the main scene, Godot will load it when the application starts. Meaning the Godot application, not your game. Meaning if you do something to the main scene that prevents Godot from opening it, (Like moving stuff around outside of Godot, like I already told you not to) Godot will not be able to open your project. To fix this you can open the project.properties file in a text editor and delete this line:</p>
+<p><img src="../../content/images/2022/09/projectprops_main.PNG" alt="projectprops_main" loading="lazy"></p>
+<p>You might be wondering; &quot;Why not just put the stuff that should stay around in an autoload?&quot; One word; Encapsulation. Autoloads are accessable from everywhere, and you don't want this stuff to be accessable from everywhere, you just want it to be around. Globals can be dangerous, and are a fantastic way to <em>get confused</em> when things go wrong.</p>
+<h2 id="names-and-why-theyre-important">Names and why they're important</h2>
+<p>Styling is important when thinking about project structure if you want to keep yourself from <em>getting confused</em>. Refer to Godot's <a href="https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_styleguide.html?ref=new.pythonforengineers.com#naming-conventions">style guide</a> for best practices about scripting style and file naming conventions.</p>
+<p>From the Godot documentation:</p>
+<blockquote>
+<p>Use snake_case for file names. For named classes, convert the PascalCase class name to snake_case:</p>
+<blockquote>
+<p># This file should be saved as `weapon.gd`.<br>
+class_name Weapon<br>
+extends Node</p>
+<p># This file should be saved as `yaml_parser.gd`.<br>
+class_name YAMLParser<br>
+extends Object</p>
+</blockquote>
+<p>This is consistent with how C++ files are named in Godot's source code. This also avoids case sensitivity issues that can crop up when exporting a project from Windows to other platforms.</p>
+</blockquote>
+<p>This applies to all types of files. Scenes, scripts, resources, everything. Note that Godot automatically suggests filenames as whatever the root node is named, which should be <code>PascalCase</code> (like camelCase but first letter capitalized). So you should always rename them to snake_case for readability, and in some cases, system compatibility. Do use <code>PascalCase</code> when naming nodes and classes, and <code>snake_case</code> for properties and functions. That's how the engine does it and you want things to be consistent, again, so you <em>don't get confused</em>.</p>
+<p>A quick sidebar while we're on the subject of naming; You should <em><strong>always</strong></em> rename every new node you create. Try really hard not to leave them with the default name. The reason for this is that node names are keywords in GDScript. So if you leave all your sprites named &quot;Sprite&quot;, in your scripts &quot;Sprite&quot; and &quot;$Sprite&quot; mean two very different things. And what if you have more than one Sprite in a scene? You want to know which one is which. If you leave them as their defaults it won't break anything, but you're just <em>asking</em> to <em>get confused</em>.</p>
+<p>As you start making more and more scenes, you're going to want to make some sub-folders. I like to put main.tscn at the top level of the scenes folder along with any scenes that are going to be autoloaded, or used by Main but don't have any children. Then for everything else, I roughly break things into 'levels', 'characters', 'menus', and possibly 'items' (I'm tempted to use 'objects' instead of 'items' but since an Object is an actual type in Godot it's not a great name for a folder). 'network' goes at this level if the game needs it. Of course what folders you use and how you name them depends on the type of game you're making, but that schema is pretty generic I think.</p>
+<p>When making scenes, the ones that mostly stand alone go at the top level of their sub-folder, and any that contain sub-scenes or have inherited scenes get their own sub-folder. If a scene uses resources that are very situational that are saved as files and only ever used by that small group of scenes (themes and button groups for menus are a good example), they go in their own 'resources' sub-folder alongside the highest-level scene that uses them.</p>
+<p>I usually also have a '_debug' folder in the 'scenes' folder, prefixed with underscore so it gets sorted to the top of the folder. This is where things like debug overlays or testing levels go. You can also exclude that folder in your export configuration as long as you don't change your mind and reference your debug code in your actual game :^)</p>
+<p>For assets I group roughly into 'sprites' (or something like 'models' then 'meshes', 'textures', and 'materials' for 3D), 'audio', 'fonts', and 'json'. I also put my custom resource scripts here in a 'custom_types' folder. I do this for two reasons: First, because I want any additions I'm making to the engine to be in one place at a very high-level, and second because many of the custom resources I make will also get their own sub-folder in this assets folder. (Since assets are also loaded as resources it does make sense, to me anyway). I'm not totally sure I like that yet, but I think it's too late for me to change now :^) :^) :^)</p>
+<h2 id="dividing-your-content-into-scenes-running-scenes-on-their-own-and-why-you-should-never-use-getparent">Dividing your content into scenes, running scenes on their own, and why you should <em><strong>NEVER</strong></em> use <code>get_parent()</code></h2>
+<p>Any group of nodes you want to have more than one instance of should be its own scene. For instance, the player should be its own scene, areas should have their own scene, enemies should have their own scene, and bullets should have their own scene. Dividing things up like this has implications for how you structure your file system, because you might need to reference the path to other scenes. So it's good to keep scenes that are instances of other scenes in sub-folders and group them in whatever way makes sense.</p>
+<p><img src="../../content/images/2022/09/filesystem_subfolders.PNG" alt="filesystem_subfolders" loading="lazy"></p>
+<p>Sometimes this isn't possible, because some scenes need to be referred to all over the place. That's fine, just try to keep it to a minimum if possible. Even if only because it makes things less confusing.</p>
+<p>You can run scenes on their own with the 'Play Scene' button at the top right of the editor. Try it and watch the remote tab. Godot will treat it as though the scene you have open is the main scene. Your autoloads will still be there, but none of your other nodes.<br>
+This is why you should try to avoid using <code>get_parent()</code>. If your nodes only know about their children that are guaranteed to exist at runtime, you can break <em>any</em> branch of the tree off into its own scene and run it to test things out without any problems.</p>
+<p>If you use <code>get_parent()</code>, your logic will behave differently when running the scene on its own versus running your actual game. Sometimes that's okay, like if you want to add a child alongside the node that has the script attached, because what the parent is doesn't really matter. In that case you're just adding a child to it which is possible with any type of node so it'll behave the same way no matter where you're running it from. Even then I still try to avoid that whenever possible.</p>
+<h2 id="the-lie-of-the-changescene-function-what-it-actually-does-and-how-to-think-about-scenes">The lie of the <code>change_scene()</code> function, what it actually does, and how to think about scenes</h2>
+<p>Once you're running your game, your scenes aren't really scenes that are 'running' anymore. Scenes are <em>definitions</em> of a group of nodes that can be instanced. When you run a scene in the editor, Godot starts the scene tree with the root node of your scene as the main node. When the game is running, you aren't ever '<em>in a scene</em>'. You're in the <em>scene tree</em>, and within the scene tree, your scenes are instantiated and now you have instances of the nodes they contain.</p>
+<p>When you use <code>change_scene()</code>, Godot frees the main node and replaces it with the nodes in whatever scene you pass it. You can watch the 'remote' tab to see what's happening.</p>
+<p><img src="../../content/images/2022/09/remote.PNG" alt="remote" loading="lazy"></p>
+<p>So if you want to 'change scenes', you <em>can</em> use <code>change_scene()</code>, but know that it is replacing <em><strong>everything</strong></em> you have loaded other than autoload singletons. No matter where in the tree you called it from. That's fine in simple games, but it doesn't scale well. The bigger your game gets, the more data you will need to pass between scenes, and storing and passing tons of data between scenes isn't something you want to be doing with AutoLoads (How to use AutoLoads effectivley for large projects is a whole other topic.) Personally I never use <code>change_scene()</code> because I always want the Main node around to pass data between things, and there's usually a player node I want around all the time.</p>
+<p>I like to have a 'main_menu' and a 'game_world' scene, the first being a Control node and second being Node2D or Spatial for 3D. Then when you want to go from your main menu into the game, you can free the main menu node and make an instance of the game world.</p>
+<pre><code>export var game_scene : PackedScene
+var game_world : Node2D
+
+func start_game():
+    $MainMenu.queue_free()
+    game_world = load(game_scene).instance()
+    add_child(game_world)
+</code></pre>
+<p>Voila! You have 'changed scenes', from the main menu to the game world, but you still have your &quot;Main&quot; node. This has the added benefit of letting you do any other setup you want <em>in between</em> changing scenes, which wouldn't be possible if you had freed the entire scene tree. For instance, you can have a transition that fades to black and fades back in that exists in the main scene, and reuse that when you start the game and when you change levels in the game.</p>
+<p>Once you're <em>in</em> the game, we can use this same construct to change &quot;room&quot; or &quot;level&quot; scenes or whatever you want to call them without losing our player node. Keep the player node as a child of the game world, and when you want to move to a new room, have the game world free the current room and instance the next one.</p>
+<h2 id="inheritance-sharing-and-extending-scripts-and-editable-children">Inheritance, sharing and extending scripts, and editable children</h2>
+<p>There are a bunch of ways to have scenes and nodes share properties and behaviors, and they all have implications for how you organize your project. A very common one is the 'inherited scene'.</p>
+<p><img src="../../content/images/2022/09/new_inherited_scene.PNG" alt="new_inherited_scene" loading="lazy"></p>
+<p>This creates a new scene with instances of all the parent scene's nodes, except all but the main one are greyed-out.</p>
+<p><img src="../../content/images/2022/09/base_guy_scene_tab.PNG" alt="base_guy_scene_tab" loading="lazy"><br>
+<img src="../../content/images/2022/09/player_scene_tab.PNG" alt="player_scene_tab" loading="lazy"></p>
+<p>When you start it that way, it's exactly the same as its parent. You can add nodes, change properties on the children, and 'extend' the scripts they're using. The one thing you <em>can't</em> do is delete nodes that are children of the parent.</p>
+<p>You can also have the scripts in your inherited scene add their own specific logic to the parents' scripts using the 'extend script' option in the right-click menu of the scene tab.</p>
+<p><img src="../../content/images/2022/09/extend_scripts.PNG" alt="extend_scripts" loading="lazy"></p>
+<p>This creates a new script with 'extends &quot;parent_script.gd&quot; at the top, and it will have access to all the functions and variables of the parent.</p>
+<p><img src="../../content/images/2022/09/extended_script.PNG" alt="extended_script" loading="lazy"></p>
+<p>You can add functions that will replace the functionality of the functions in the parent. To run the parent method in the extended script, you can call it like this:</p>
+<pre><code>func my_function():
+    .my_function()
+</code></pre>
+<p>So that the parent's function will run and then your new code will run after.</p>
+<p>When extending these scripts, I like to keep them alongside the scene that is instancing the child, or in a sub-folder depending on how many there are.<br>
+Try to name them similarly to the script they're extending so it's more obvious what they're referencing and what they do.</p>
+<p>Another thing that behaves very much like inherited scenes is 'editable children'. It is an option that is available when you instance a scene in another scene. This basically creates a one-time inherited scene that is local to the scene you are using it in, so you can make changes to that one instance.</p>
+<p><img src="../../content/images/2022/09/editable_children.PNG" alt="editable_children" loading="lazy"><br>
+<img src="../../content/images/2022/09/edited_child.PNG" alt="edited_child" loading="lazy"></p>
+<p>The things you can do to an editable child are basically the same as how you can interact with the nodes of an inherited scene. You can add children, change anything on the node's children, and extend any of the scripts of the children, but you can't delete any of the instanced scene's children (the greyed-out ones).</p>
+<p>Yet another way to re-use stuff from one scene to create another is 'Duplicate...&quot;.</p>
+<p><img src="../../content/images/2022/09/duplicate.PNG" alt="duplicate" loading="lazy"></p>
+<p>This creates a new scene that is seperate from the scene you duplicated, but still has the same nodes as the old one. Any changes you make to the old one won't be applied to the duplicate. However, the duplicate <em><strong>Does not create new resources if they are referencing an external file</strong></em>. Any resources loaded into the original will also be referenced in the duplicate. This is a good thing! Image textures are resources. If you make a duplicate of a bullet you don't want it to copy your bullet png, you're going to already have the new texture you want and tell it which texture to use yourself. This includes scripts! Sometimes you want to keep the script attached, and sometimes you might want to make a new script. Also, stuff like shape resources applied to collision shapes might be shared if you saved any of them as a file. This does not apply to sub resources, (Resources that aren't saved as files) since sub resources are fully contained within the scene file.</p>
+<h2 id="how-to-get-nodes-and-why-you-should-never-use-getnodepathtonode">How to get nodes, and why you should <em><strong>never</strong></em> use <code>get_node(&quot;PathToNode&quot;)</code></h2>
+<p>There are a couple ways to reference child nodes in a script. Two very common ones are:</p>
+<pre><code>get_node(&quot;PathToNode&quot;)
+$PathToNode
+</code></pre>
+<p>There's a better way to use <code>get_node()</code> though:</p>
+<pre><code>var path_to_node := NodePath(&quot;PathToNode&quot;)
+get_node(path_to_node)
+</code></pre>
+<p>Although using &quot;$&quot; is usually still preferable when you know exactly which node you want.</p>
+<p>Any text typed out in quotes is called a &quot;String literal&quot; in the programming world. The problem with using string literals is that they are imperfect. You can type in anything you want and the compiler/interpreter will accept it until it has to deal with with your messy typos and by then it's already too late. <code>get_node(&quot;PathToNode&quot;)</code> and <code>$PathToNode</code> operate basically the same way in the background, but the $ operator has the bonus of identifying the nodes that you are accessing directly via their name, which helps you <em>not get confused</em>. The use of &quot;$&quot; isn't a string literal, but it isn't checked by the compiler either, it just converts everything after it into a node path object and calls <code>get_node()</code> during runtime. In my oppinon, it enforces good programming practices. As an example, you can't <em>pass</em> a string literal you defined somewhere else to the $ operator. However, it's even better to avoid referencing nodes by their names at all! The name of a node isn't always something that is set in stone. If you duplicate a node, add the duplicate as a child of the parent and free the original, the duplicate will be named something else. You can even just change a node's name using <code>get_node(&quot;PathToNode&quot;).name=&quot;NowIDontWorkAnymore&quot;</code>. It's better to figure out the path to the node you need in some other way like using an exported NodePath variable, and then keep a reference to it like this:</p>
+<pre><code>export var path_to_character : NodePath
+var character : KinematicBody2D
+
+func _ready() -&gt; null:
+    character = get_node(path_to_character)
+</code></pre>
+<p>Since you might want to refer to different characters here, you <em><strong>have to</strong></em> and <em><strong>should</strong></em> use get_node.</p>
+<p>Oh yeah and whatever you do, don't you <strong>EVER EVER EVER</strong> use <code>get_node(&quot;/root&quot;)</code>. I'm not gonna explain myself on this one, I feel like you should be able to figure it out by now.</p>
+<h1 id="splitting-off-branches-now-you-can-too">Splitting off branches, now you can too!</h1>
+<p>You might be asking yourself, &quot;How is any of this relevant? I only care about where to put my files&quot;. Hold your horses, I'm getting there! The reason all of that node naming stuff is important is that the way your scripts interact with their children has big implications for splitting branches of your scene off into their own scenes. And splitting branches off into their own scenes is very very helpful for keeping your project well organized.</p>
+<p><img src="../../content/images/2022/09/save_branch_as_scene.PNG" alt="save_branch_as_scene" loading="lazy"></p>
+<p><img src="../../content/images/2022/09/instance_child_scene_context.PNG" alt="instance_child_scene_context" loading="lazy"><br>
+<img src="../../content/images/2022/09/instance_child_menu.PNG" alt="instance_child_menu" loading="lazy"><br>
+<img src="../../content/images/2022/09/instanced_floatpath.PNG" alt="instanced_floatpath" loading="lazy"></p>
+<p>Try to make sure your nodes only interact with their direct children, or at least very near children. If you can keep everything that way, you can <em>always</em> break any branch of the scene tree off into its own scene and have its logic fully contained in that scene. When a node's behavior depends on its parent, it will behave differently when you run it on its own and when it's instantiated in other places. In other words, making sure that your nodes only interact with their near children promotes modularity and encapsulation which is very important in any language that is even remotely object-oriented (which Godot is. Nobody's perfect.)</p>
+<p>When you absolutely <em>need</em> to deal with distant children, use signals or groups.</p>
+<p>So instead of</p>
+<pre><code>$Me/World/Level/House/Room/Guys/Enemy1.hp -= 100
+$Me/World/Level/House/Room/Guys/Enemy2.hp -= 100
+$Me/World/Level/House/Room/Guys/Enemy3.hp -= 100
+</code></pre>
+<p>Put the enemy nodes in a group, give them a <code>take_damage(dmg:int)</code> function, and use something like:</p>
+<pre><code>func explode() -&gt; void:
+    get_tree().call_group(&quot;enemies&quot;, &quot;take_damage&quot;, 100)
+</code></pre>
+<p>or</p>
+<pre><code>signal exploded(damage)
+
+func _ready_() -&gt; void:
+    for enemy in get_tree().get_nodes_in_group(&quot;enemies&quot;):
+        connect(&quot;exploded&quot;, enemy, &quot;take_damage&quot;)
+
+func explode() -&gt; void:
+    emit_signal(&quot;exploded&quot;, 100)
+</code></pre>
+<p>This way, it doesn't matter if the enemies exist or not or if there's even a house or room or level. It will just throw the signal to explode into the void and keep doing its thing.</p>
+<p>Of course, the platonic ideal of a godot project would only ever interact with nodes by using <code>get_children()</code> or exporting node paths or putting things in groups, but at some point you're going to have to reference nodes by their names. There's really no way around it. When you do have to, just try to make sure it's a node that is guaranteed to be in the scene and won't ever be freed, moved, or duplicated.</p>
+<h2 id="so-anyway">So anyway...</h2>
+<p>I should say that other than the Godot style guide stuff and use of signals and groups, I don't think any of this could be called a 'standard'. It's what works for me, and informed by my experience as a software developer. A lot of my statments about what you &quot;should&quot; and &quot;shouldn't&quot; do are very debatable. Lots of people use <code>change_scene()</code> just fine. I'd be willing to hear arguments about keeping image and audio resources in the same folder as the scenes that use them instead of splitting them off. In any case, if something works for you, by all means keep doing it. But hopefully something I said can help dispel some <em>confusion</em>.</p>
+<p>I put together a small template project that you can find <a href="https://github.com/kpkpkpkpkpkpkpkp/dontgetconfused_template?ref=new.pythonforengineers.com">on my github</a>. This is based on a demo game that's a more fleshed out, showing some examples of the more complex structes I talked about, like changing levels while keeping the player node around. The link to that github is <a href="https://github.com/kpkpkpkpkpkpkpkp/happy_adventure?ref=new.pythonforengineers.com">here</a>, and you can <a href="https://kpkpkpkpkpkpkpkp.itch.io/happy-adventure?ref=new.pythonforengineers.com">play it on itch.io.</a></p>
+<p>If you want to see a video on how to use the template, here is a simple example:</p>
+<!--kg-card-end: markdown--><figure class="kg-card kg-embed-card"><iframe width="200" height="113" src="https://www.youtube.com/embed/IVMTxudQi48?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="GODOT TUTORIAL - HOW TO STRUCTURE YOUR PROJECT (So you don&#39;t get confused)"></iframe></figure><!--kg-card-begin: markdown--><p>And finally, if you made it this far but also hate reading, consider checking out <a href="https://www.youtube.com/channel/UC7rTlSePagQ4wsRkP2ChL0A?ref=new.pythonforengineers.com">my youtube channel</a> where I post devlogs and go in depth on some more intermediate Godot topics.</p>
+<p>So what are you waiting for? Get to work!!!</p>
+<!--kg-card-end: markdown--><p></p><p><em>Shantnu: We have planned more in Godot articles, sign up below to know when they are out.</em></p>
+    </section>
+
+
+</article>
+
+
+
+<aside class="read-more-wrap">
+    <div class="read-more inner">
+
+
+                    
+<article class="post-card post no-image ">
+
+
+    <div class="post-card-content">
+
+        <a class="post-card-content-link" href="../awesome-python-library-tenacity/index.html">
+            <header class="post-card-header">
+                <h2 class="post-card-title">Awesome Python Library: Tenacity</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>Link: https://tenacity.readthedocs.io/en/latest/
+
+When writing code or tests in Python, one issue I had was when the code would fail due to random things like network issues or external peripherals not responding in time. Just rerunning the tests would make them pass. The unreliability wasn&#39;</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <a href="../../author/Shantnu/index.html" class="static-avatar">
+                        <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></span>
+                <span class="post-card-byline-date"><time datetime="2024-04-10">Apr 10, 2024</time> <span class="bull">&bull;</span> 2 min read</span>
+            </div>
+        </footer>
+
+    </div>
+
+</article>
+                    
+<article class="post-card post no-image ">
+
+
+    <div class="post-card-content">
+
+        <a class="post-card-content-link" href="../so-evidently/index.html">
+            <header class="post-card-header">
+                <h2 class="post-card-title">So Google&#x27;s Gemini Doesn&#x27;t Like Python Programming and Sanskrit?</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>I have been playing around with Googles Gemini Pro.
+
+Recently, I wanted to write a blog on Python&#39;s decorators and wanted to get some ideas for practical projects I could build with them. Tried GPT4 first, it gave me the standard &quot;log analyser&quot; that all blogs</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <a href="../../author/Shantnu/index.html" class="static-avatar">
+                        <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></span>
+                <span class="post-card-byline-date"><time datetime="2024-02-25">Feb 25, 2024</time> <span class="bull">&bull;</span> 4 min read</span>
+            </div>
+        </footer>
+
+    </div>
+
+</article>
+                    
+<article class="post-card post ">
+
+    <a class="post-card-image-link" href="../linkedin-has-become-a-piece-of-garbage-even-more-than-usual/index.html">
+        <img class="post-card-image"
+            srcset="../../content/images/size/w300/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.png 300w,
+                   ../../content/images/size/w600/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.pngg 600w,
+                  ../../content/images/size/w1000/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.pngng 1000w,
+                 ../../content/images/size/w2000/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.pngpng 2000w"
+            sizes="(max-width: 1000px) 400px, 800px"
+            src="../../content/images/size/w600/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.png"
+            alt="LinkedIn Has Become a Pile of Garbage (even more than usual)"
+            loading="lazy"
+        />
+    </a>
+
+    <div class="post-card-content">
+
+        <a class="post-card-content-link" href="../linkedin-has-become-a-piece-of-garbage-even-more-than-usual/index.html">
+            <header class="post-card-header">
+                <h2 class="post-card-title">LinkedIn Has Become a Pile of Garbage (even more than usual)</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>Online forums, especially Hacker News and Reddit, are very hostile to LinkedIn. Everyone makes fun of the self-promotion and silliness that goes there. There are complaints the site is unusable, which I didn&#39;t agree with until now.
+
+I&#39;ve had an account there for a few years.</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <a href="../../author/Shantnu/index.html" class="static-avatar">
+                        <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></span>
+                <span class="post-card-byline-date"><time datetime="2024-01-29">Jan 29, 2024</time> <span class="bull">&bull;</span> 4 min read</span>
+            </div>
+        </footer>
+
+    </div>
+
+</article>
+
+    </div>
+</aside>
+
+
+    </main>
+
+    <footer class="site-footer outer">
+        <div class="inner">
+            <section class="copyright"><a href="../../home/index.html">Python for Engineers</a> &copy; 2025</section>
+            <nav class="site-footer-nav">
+                
+            </nav>
+            
+
+        </div>
+    </footer>
+
+</div>
+
+
+<script
+    src="/assets/js/jquery-3.5.1.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+    crossorigin="anonymous">
+</script>
+<script src="../../assets/built/casper.js"></script>
+<script>
+$(document).ready(function () {
+    // Mobile Menu Trigger
+    $('.gh-burger').click(function () {
+        $('body').toggleClass('gh-head-open');
+    });
+    // FitVids - Makes video embeds responsive
+    $(".gh-content").fitVids();
+});
+</script>
+
+<script src="/assets/js/prism.min.js" integrity="sha512-axJX7DJduStuBB8ePC8ryGzacZPr3rdLaIDZitiEgWWk2gsXxEFlm4UW0iNzj2h3wp5mOylgHAzBzM4nRSvTZA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+
+<script src="/assets/js/prism-toolbar.min.js" integrity="sha512-YrvgEHAi5/3o2OT+/vh1z19oJXk/Kk0qdVKbjEFl9VRmcLTaWRYzVziZCvoGpJ2TrnV7rB8pnJcz1ioVJjgw2A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+</html>

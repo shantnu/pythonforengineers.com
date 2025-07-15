@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Build a Reddit Bot Part 1</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="../../assets/built/screen.css" />
+
+    <link rel="canonical" href="index.html">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    
+    <meta property="og:site_name" content="Python for Engineers">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Build a Reddit Bot Part 1">
+    <meta property="og:description" content="Part 1: Read posts from reddit
+[https://new.pythonforengineers.com/blog/build-a-reddit-bot-part-1/]
+
+Part 2: Reply to posts
+[https://new.pythonforengineers.com/blog/build-a-reddit-bot-part-2-reply-to-posts/]
+
+Part 3: Automate our Bot
+[https://new.pythonforengineers.com/blog/build-a-reddit-bot-part-3-automate-your-bot/]
+
+Part 4: Marvin the Depressed Bot
+[https://new.pythonforengineers.com/blog/build-marvin-the-depressed-reddit-bot-in-python/]
+
+Introduction
+So we are">
+    <meta property="og:url" content="https://new.pythonforengineers.com/blog/build-a-reddit-bot-part-1/">
+    <meta property="article:published_time" content="2021-08-16T14:12:37.000Z">
+    <meta property="article:modified_time" content="2021-08-16T14:19:15.000Z">
+    <meta property="article:tag" content="bot">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Build a Reddit Bot Part 1">
+    <meta name="twitter:description" content="Part 1: Read posts from reddit
+[https://new.pythonforengineers.com/blog/build-a-reddit-bot-part-1/]
+
+Part 2: Reply to posts
+[https://new.pythonforengineers.com/blog/build-a-reddit-bot-part-2-reply-to-posts/]
+
+Part 3: Automate our Bot
+[https://new.pythonforengineers.com/blog/build-a-reddit-bot-part-3-automate-your-bot/]
+
+Part 4: Marvin the Depressed Bot
+[https://new.pythonforengineers.com/blog/build-marvin-the-depressed-reddit-bot-in-python/]
+
+Introduction
+So we are">
+    <meta name="twitter:url" content="https://new.pythonforengineers.com/blog/build-a-reddit-bot-part-1/">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Shantnu Tiwari">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="bot">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Python for Engineers",
+        "url": "https://new.pythonforengineers.com/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://new.pythonforengineers.com/favicon.ico"
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Shantnu Tiwari",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://new.pythonforengineers.com/content/images/2021/08/shantnu-foto-small-1.jpg"
+        },
+        "url": "https://new.pythonforengineers.com/author/shantnu/",
+        "sameAs": []
+    },
+    "headline": "Build a Reddit Bot Part 1",
+    "url": "https://new.pythonforengineers.com/blog/build-a-reddit-bot-part-1/",
+    "datePublished": "2021-08-16T14:12:37.000Z",
+    "dateModified": "2021-08-16T14:19:15.000Z",
+    "keywords": "bot",
+    "description": "Part 1: Read posts from reddit\n[https://new.pythonforengineers.com/blog/build-a-reddit-bot-part-1/]\n\nPart 2: Reply to posts\n[https://new.pythonforengineers.com/blog/build-a-reddit-bot-part-2-reply-to-posts/]\n\nPart 3: Automate our Bot\n[https://new.pythonforengineers.com/blog/build-a-reddit-bot-part-3-automate-your-bot/]\n\nPart 4: Marvin the Depressed Bot\n[https://new.pythonforengineers.com/blog/build-marvin-the-depressed-reddit-bot-in-python/]\n\nIntroduction\nSo we are going to build a simple Reddit",
+    "mainEntityOfPage": "https://new.pythonforengineers.com/blog/build-a-reddit-bot-part-1/"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 5.129">
+    <link rel="alternate" type="application/rss+xml" title="Python for Engineers" href="../rss/index.html">
+        
+    
+    <link href="https://new.pythonforengineers.com/webmentions/receive/" rel="webmention">
+    <script defer src="../../public/cards.min.js%3Fv=ddf1563274"></script>
+    <link rel="stylesheet" type="text/css" href="../../public/cards.min.css%3Fv=ddf1563274.css">
+    <script defer src="../../public/member-attribution.min.js%3Fv=ddf1563274"></script><style>:root {--ghost-accent-color: #FF1A75;}</style>
+    <link rel="stylesheet" href="/assets/css/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="/assets/css/prism-toolbar.min.css" />
+
+</head>
+<body class="post-template tag-bot">
+<div class="viewport">
+
+    <header id="gh-head" class="gh-head ">
+        <nav class="gh-head-inner inner gh-container">
+
+            <div class="gh-head-brand">
+                <a class="gh-head-logo" href="../../home/index.html">
+                        Python for Engineers
+                </a>
+                <a class="gh-burger" role="button">
+                    <div class="gh-burger-box">
+                        <div class="gh-burger-inner"></div>
+                    </div>
+                </a>
+            </div>
+            <div class="gh-head-menu">
+                <ul class="nav">
+    <li class="nav-home"><a href="../../home/index.html">Home</a></li>
+    <li class="nav-about-contact"><a href="../../about/index.html">About/Contact</a></li>
+    <li class="nav-books"><a href="../../books.html">Books</a></li>
+    <li class="nav-blog"><a href="../../author/Shantnu/index.html">Blog</a></li>
+    <li class="nav-search"><a href="index.html#/search">Search</a></li>
+</ul>
+
+            </div>
+            <div class="gh-head-actions">
+                <div class="gh-social">
+                </div>
+
+                    <a class="gh-head-button" href="index.html#/portal/signup">Subscribe</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        
+
+
+
+<article class="article post tag-bot no-image">
+
+    <header class="article-header gh-canvas">
+
+        <section class="article-tag">
+            <a href="../../tag/bot/index.html">bot</a>
+        </section>
+
+        <h1 class="article-title">Build a Reddit Bot Part 1</h1>
+
+
+        <div class="article-byline">
+            <section class="article-byline-content">
+                <ul class="author-list">
+                    <li class="author-list-item">
+                        <a href="../../author/Shantnu/index.html" class="author-avatar">
+                            <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                        </a>
+                    </li>
+                </ul>
+                <div class="article-byline-meta">
+                    <h4 class="author-name"><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></h4>
+                    <div class="byline-meta-content">
+                        <time class="byline-meta-date" datetime="2021-08-16">Aug 16, 2021</time>
+                        <span class="byline-reading-time"><span class="bull">&bull;</span> 5 min read</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </header>
+
+    <section class="gh-content gh-canvas">
+        <p><a href="index.html">Part 1: Read posts from reddit</a></p><p><a href="../build-a-reddit-bot-part-2-reply-to-posts/index.html">Part 2: Reply to posts</a></p><p><a href="../build-a-reddit-bot-part-3-automate-your-bot/index.html">Part 3: Automate our Bot</a></p><p><a href="../build-marvin-the-depressed-reddit-bot-in-python/index.html">Part 4: Marvin the Depressed Bot</a></p><h2 id="introduction">Introduction</h2><p>So we are going to build a simple Reddit Bot that will do two things:</p><p>It will monitor a particular subreddit for new posts, and when someone posts “I love Python”, it will reply “Me too!”.</p><p>It will also monitor all comments to recent posts, and if it finds one that says “I hate Python”, it will post a link to /r/learnpython and ask the commenter to ask a question there.</p><h2 id="prerequisite-knowledge">Prerequisite knowledge</h2><p>Only a basic knowledge of Python is required, as building bots is fairly easy.</p><h2 id="part-1">Part 1</h2><p>In part one, we will see how we can read data from Reddit using the Reddit API. The source code is available at <a href="https://github.com/shantnu/RedditBot/blob/master/Part1/bot_read.py?ref=new.pythonforengineers.com">Github</a>:</p><p>COMMENT: Reader <strong>Farid</strong> reports that <em>Reddit has updated it’s website to a new look. If you come across a link above that does not work, then you will have to change the url. For example the link <a href="https://www.reddit.com/dev/api?ref=new.pythonforengineers.com">https://www.reddit.com/dev/api</a> says not found. If we change the link to <a href="https://old.reddit.com/dev/api?ref=new.pythonforengineers.com">https://old.reddit.com/dev/api</a> then the link should work.</em> In short, if a reddit link does not work change the “www” to “old”, so the link looks like “old.reddit.com”</p><h2 id="software-bot">Software bot</h2><p>A software bot is a program that can interact with websites autonomously. They can be as simple or as complex as you want them to be.</p><p>The bot runs in the background and monitors a website. When it sees a change (like a post on Reddit), it can reply to it, upvote, or do any other task it was programmed to.</p><h2 id="monitoring-websites">Monitoring websites</h2><p>There are many ways to monitor websites. You can use web scraping tools like urllib or Beautifulsoup any anything similar. There is a slight problem with this, though. Bots can make thousands of requests a second, and this can overload servers. So most big websites ban bots. <em>Ignore this at your own risk</em>. I have been banned from Google for hours, had my Gmail locked till I entered a dozen captachas, my mobile and the name of my first cat.</p><p>If you want to do this properly, stick to any rules the website has.</p><h2 id="the-reddit-api">The Reddit API</h2><p>Reddit provides an API, and unlike some websites, it’s actually quite easy to use. It’s based on REST and json, so in theory doesn’t require any fancy setup.</p><p><a href="https://www.reddit.com/dev/api?ref=new.pythonforengineers.com">https://www.reddit.com/dev/api</a></p><p>The important thing is to follow the rules they set. Two of the most important ones are:</p><ul><li>You can’t make more than 1 request every 2 seconds (or 30 a minute)</li><li>You must not lie about your user agent</li></ul><p>Read the rest <a href="https://github.com/reddit/reddit/wiki/API?ref=new.pythonforengineers.com">here</a>.</p><p>The user agent is what identifies your browser. Libraries like Python’s urllib are severely restricted by Reddit to prevent abuse. Reddit recommends you use your own special user agent, and that’s what we’ll do.</p><h2 id="using-the-api">Using the API</h2><p>The API is quite easy to use, like I said. You make a REST request, and this can be done via urllib2 (as long as you set the user agent properly). This is how you would do it. I have put two links below. Open both in a new tab:</p><p><a href="https://www.reddit.com/r/learnPython/?ref=new.pythonforengineers.com">https://www.reddit.com/r/learnPython/</a></p><p><a href="https://www.reddit.com/r/learnPython/hot/.json?ref=new.pythonforengineers.com">https://www.reddit.com/r/learnPython/hot/.json</a></p><p>The first is how a human would see it. The second is how your code sees it. As you can see, getting the json is fairly easy.</p><p>The problem with this approach is that you still have to make sure you rate limit your requests. You also have to parse the json yourself. Json is easy to parse in Python, as it’s essentially a Python dictionary, but if you actually look at the json, there is a lot of data.</p><h2 id="introducing-praw">Introducing PRAW</h2><p>[<em>Update Dec 2016: Reddit and Praw now force you to use Oauth. I’ve updated the article to use that</em>]</p><p>Praw is a library that fixes many of these problems for you. It limits how many requests you can make, and makes it easy to extract the json. Install it by:</p><pre><code class="language-python">pip install praw
+</code></pre><p>You need to do some setup first.</p><h2 id="create-reddit-app">Create Reddit App</h2><p>Go to: <a href="https://www.reddit.com/prefs/apps/?ref=new.pythonforengineers.com">https://www.reddit.com/prefs/apps/</a></p><p>And select <em>Create App</em>:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/08/redditbot1-1.jpg" class="kg-image" alt loading="lazy" width="1488" height="552" srcset="../../content/images/size/w600/2021/08/redditbot1-1.jpg 600w, ../../content/images/size/w1000/2021/08/redditbot1-1.jpg 1000w, ../../content/images/2021/08/redditbot1-1.jpg 1488w" sizes="(min-width: 720px) 720px"></figure><p>You will now get a client_id (red box below) and secret (blue box below). Note it down, but keep it secret.</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/08/redditbot2-1.jpg" class="kg-image" alt loading="lazy" width="1444" height="644" srcset="../../content/images/size/w600/2021/08/redditbot2-1.jpg 600w, ../../content/images/size/w1000/2021/08/redditbot2-1.jpg 1000w, ../../content/images/2021/08/redditbot2-1.jpg 1444w" sizes="(min-width: 720px) 720px"></figure><p>This page describes how to change praw.ini files: <a href="https://praw.readthedocs.io/en/v4.0.0/getting_started/configuration/prawini.html?ref=new.pythonforengineers.com">https://praw.readthedocs.io/en/v4.0.0/getting_started/configuration/prawini.html</a></p><p>You will find the file in your Python install folder, under <em>Lib\Site-Packages\praw\praw.ini</em></p><p>COMMENT: As <strong>Bryce</strong> points out in the comments: <em>I don’t recommend modifying the package-level <code>praw.ini</code> as those changes will be overwritten every time the package is updated. Instead <code>praw.ini</code> should be placed in the directory that the program is run from (often the same directory as the file).</em> Other options are specified <a href="https://praw.readthedocs.io/en/latest/getting_started/configuration/prawini.html?ref=new.pythonforengineers.com#praw-ini-files">here</a>.</p><p>Add the values we noted down:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/08/redditbot3-1.jpg" class="kg-image" alt loading="lazy" width="1067" height="975" srcset="../../content/images/size/w600/2021/08/redditbot3-1.jpg 600w, ../../content/images/size/w1000/2021/08/redditbot3-1.jpg 1000w, ../../content/images/2021/08/redditbot3-1.jpg 1067w" sizes="(min-width: 720px) 720px"></figure><p>There is a new field: user_agent.</p><p>Remember I said the Reddit rules say you have to have a specific user agent? I’m choosing the name _PyEng Bot. _The number at the end is the version. This is recommended, because once your code is out there, people might abuse it. If someone spams Reddit with your code, Reddit will ban that user agent.</p><p>In that case, you just move the version up. Not ideal, but you have to accept that your code may be misused by spammers.</p><p>Let’s go over the code now. Download it at <a href="https://github.com/shantnu/RedditBot/blob/master/Part1/bot_read.py?ref=new.pythonforengineers.com">Github</a>.</p><pre><code class="language-python">import praw
+</code></pre><p>We import praw.</p><pre><code class="language-python">reddit = praw.Reddit('bot1')
+
+subreddit = r.subreddit("learnpython")
+</code></pre><p>We create a Reddit instance using the values we saved under <em>bot1</em>.</p><p>Then we get the subreddit <em>learnpython</em>.</p><p>Now, if you look on the subreddit, you can see that there is a <em>hot</em> tab. This does not indicate the temperature there is high or that there are racy swimsuit models. It means the most popular posts. That’s what we are going to read now. The function to do so is <em>get_hot()</em>.</p><pre><code class="language-python">for submission in subreddit.hot(limit=5):
+</code></pre><p>We get the top 5 hot submissions. At this stage, you can do this to see which functions are available (you can do that at any stage, or look at Praw’s documentation).</p><p>Seeing a snipped list:</p><pre><code class="language-python"> dir(submission)
+
+['approve',
+'approved_by',
+'author',
+
+'domain',
+'downs',
+'downvote',
+'edit',
+'edited',
+
+'saved',
+
+'score',
+'secure_media',
+'secure_media_embed',
+'selftext',
+'selftext_html',
+
+'title',
+
+'ups',
+'upvote',
+'url',
+'user_reports',
+'visited',
+'vote']
+</code></pre><p>I’ll point out a few important ones. <em>Title</em> is the title, as it appears on Reddit’s main page. <em>Selftext</em> is the optional text you can put on posts- most posts don’t have these. <em>learnpython</em> is unique in that most posts do have text (usually the poster asking their question), which is why I’ve chosen it. <em>score</em> is the total score, adding upvotes and downvotes (both of which are also available).</p><p>These are the three we will print:</p><pre><code class="language-python">for submission in subreddit.hot(limit=5):
+    print("Title: ", submission.title)
+    print("Text: ", submission.selftext)
+    print("Score: ", submission.score)
+    print("---------------------------------\n")
+</code></pre><p>That’s it. Run the script, and open Reddit in a browser at the same time. Check that you are getting the right results.</p><p><strong>Next time</strong></p><p>Next time we will look at how to send a reply to a post on Reddit. <a href="../build-a-reddit-bot-part-2-reply-to-posts/index.html">Next Part</a></p>
+    </section>
+
+
+</article>
+
+
+
+<aside class="read-more-wrap">
+    <div class="read-more inner">
+
+
+                    
+<article class="post-card post no-image ">
+
+
+    <div class="post-card-content">
+
+        <a class="post-card-content-link" href="../awesome-python-library-tenacity/index.html">
+            <header class="post-card-header">
+                <h2 class="post-card-title">Awesome Python Library: Tenacity</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>Link: https://tenacity.readthedocs.io/en/latest/
+
+When writing code or tests in Python, one issue I had was when the code would fail due to random things like network issues or external peripherals not responding in time. Just rerunning the tests would make them pass. The unreliability wasn&#39;</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <a href="../../author/Shantnu/index.html" class="static-avatar">
+                        <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></span>
+                <span class="post-card-byline-date"><time datetime="2024-04-10">Apr 10, 2024</time> <span class="bull">&bull;</span> 2 min read</span>
+            </div>
+        </footer>
+
+    </div>
+
+</article>
+                    
+<article class="post-card post no-image ">
+
+
+    <div class="post-card-content">
+
+        <a class="post-card-content-link" href="../so-evidently/index.html">
+            <header class="post-card-header">
+                <h2 class="post-card-title">So Google&#x27;s Gemini Doesn&#x27;t Like Python Programming and Sanskrit?</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>I have been playing around with Googles Gemini Pro.
+
+Recently, I wanted to write a blog on Python&#39;s decorators and wanted to get some ideas for practical projects I could build with them. Tried GPT4 first, it gave me the standard &quot;log analyser&quot; that all blogs</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <a href="../../author/Shantnu/index.html" class="static-avatar">
+                        <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></span>
+                <span class="post-card-byline-date"><time datetime="2024-02-25">Feb 25, 2024</time> <span class="bull">&bull;</span> 4 min read</span>
+            </div>
+        </footer>
+
+    </div>
+
+</article>
+                    
+<article class="post-card post ">
+
+    <a class="post-card-image-link" href="../linkedin-has-become-a-piece-of-garbage-even-more-than-usual/index.html">
+        <img class="post-card-image"
+            srcset="../../content/images/size/w300/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.png 300w,
+                   ../../content/images/size/w600/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.pngg 600w,
+                  ../../content/images/size/w1000/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.pngng 1000w,
+                 ../../content/images/size/w2000/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.pngpng 2000w"
+            sizes="(max-width: 1000px) 400px, 800px"
+            src="../../content/images/size/w600/2024/01/ae223740-840b-4d4a-9467-2522a67dcbbc.png"
+            alt="LinkedIn Has Become a Pile of Garbage (even more than usual)"
+            loading="lazy"
+        />
+    </a>
+
+    <div class="post-card-content">
+
+        <a class="post-card-content-link" href="../linkedin-has-become-a-piece-of-garbage-even-more-than-usual/index.html">
+            <header class="post-card-header">
+                <h2 class="post-card-title">LinkedIn Has Become a Pile of Garbage (even more than usual)</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>Online forums, especially Hacker News and Reddit, are very hostile to LinkedIn. Everyone makes fun of the self-promotion and silliness that goes there. There are complaints the site is unusable, which I didn&#39;t agree with until now.
+
+I&#39;ve had an account there for a few years.</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <a href="../../author/Shantnu/index.html" class="static-avatar">
+                        <img class="author-profile-image" src="../../content/images/size/w100/2021/08/shantnu-foto-small-1.jpg" alt="Shantnu Tiwari" />
+                    </a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span><a href="../../author/Shantnu/index.html">Shantnu Tiwari</a></span>
+                <span class="post-card-byline-date"><time datetime="2024-01-29">Jan 29, 2024</time> <span class="bull">&bull;</span> 4 min read</span>
+            </div>
+        </footer>
+
+    </div>
+
+</article>
+
+    </div>
+</aside>
+
+
+    </main>
+
+    <footer class="site-footer outer">
+        <div class="inner">
+            <section class="copyright"><a href="../../home/index.html">Python for Engineers</a> &copy; 2025</section>
+            <nav class="site-footer-nav">
+                
+            </nav>
+            
+
+        </div>
+    </footer>
+
+</div>
+
+
+<script
+    src="/assets/js/jquery-3.5.1.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+    crossorigin="anonymous">
+</script>
+<script src="../../assets/built/casper.js"></script>
+<script>
+$(document).ready(function () {
+    // Mobile Menu Trigger
+    $('.gh-burger').click(function () {
+        $('body').toggleClass('gh-head-open');
+    });
+    // FitVids - Makes video embeds responsive
+    $(".gh-content").fitVids();
+});
+</script>
+
+<script src="/assets/js/prism.min.js" integrity="sha512-axJX7DJduStuBB8ePC8ryGzacZPr3rdLaIDZitiEgWWk2gsXxEFlm4UW0iNzj2h3wp5mOylgHAzBzM4nRSvTZA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+
+<script src="/assets/js/prism-toolbar.min.js" integrity="sha512-YrvgEHAi5/3o2OT+/vh1z19oJXk/Kk0qdVKbjEFl9VRmcLTaWRYzVziZCvoGpJ2TrnV7rB8pnJcz1ioVJjgw2A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+</html>
