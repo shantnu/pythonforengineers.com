@@ -12,8 +12,8 @@
 
     <link rel="canonical" href="index.html">
     <meta name="referrer" content="no-referrer-when-downgrade">
-    
-    
+
+
     <meta property="og:site_name" content="Python for Engineers">
     <meta property="og:type" content="article">
     <meta property="og:title" content="Your First Game in Python: Create an Arkanoid Clone in less than 30 minutes">
@@ -30,7 +30,7 @@ The images are from Kenney">
     <meta property="article:published_time" content="2021-09-18T15:34:00.000Z">
     <meta property="article:modified_time" content="2021-09-29T12:48:22.000Z">
     <meta property="article:tag" content="game">
-    
+
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Your First Game in Python: Create an Arkanoid Clone in less than 30 minutes">
     <meta name="twitter:description" content="We&#x27;re going to write a clone of Arkanoid (Breakout) using Python and PyGame
@@ -47,7 +47,7 @@ The images are from Kenney">
     <meta name="twitter:data1" content="Shantnu Tiwari">
     <meta name="twitter:label2" content="Filed under">
     <meta name="twitter:data2" content="game">
-    
+
     <script type="application/ld+json">
 {
     "@context": "https://schema.org",
@@ -87,8 +87,8 @@ The images are from Kenney">
 
     <meta name="generator" content="Ghost 5.129">
     <link rel="alternate" type="application/rss+xml" title="Python for Engineers" href="../rss/index.html">
-        
-    
+
+
     <link href="https://new.pythonforengineers.com/webmentions/receive/" rel="webmention">
     <script defer src="../../public/cards.min.js%3Fv=ddf1563274"></script>
     <link rel="stylesheet" type="text/css" href="../../public/cards.min.css%3Fv=ddf1563274.css">
@@ -123,17 +123,12 @@ The images are from Kenney">
 </ul>
 
             </div>
-            <div class="gh-head-actions">
-                <div class="gh-social">
-                </div>
 
-                    <a class="gh-head-button" href="index.html#/portal/signup">Subscribe</a>
-            </div>
         </nav>
     </header>
 
     <main>
-        
+
 
 
 
@@ -207,7 +202,7 @@ ball.y = 300</code></pre><p><em>Actor </em>is how Pygame zero displays images. T
 paddle.y = 420</code></pre><p>These values can be anything, I got the above by trial and error.</p><p>So we have the images loaded in memory but we are not displaying them yet. Let's fix that now. Pgzero has an inbuilt <em>draw()</em> function that's called automatically when you start the game. There is also an update function that gets called 60 times a second and updates the screen as you move.</p><p><strong>Update vs Draw function</strong></p><p>The update and draw functions are similar– except the update is called 60 times a second, while draw is only called if something changes.</p><p>There are no hard and fast rules, but I'd use update for things that change a lot, like keyboard movement, the ball movement etc, while background images can be in draw. </p><p><strong>Drawing the paddle and ball</strong></p><p>For now, we will only draw on the screen, and leave update empty:</p><p></p><pre><code>def draw():
     paddle.draw()
     ball.draw()
-    
+
 def update():
     pass    </code></pre><figure class="kg-card kg-image-card"><img src="../../content/images/2021/09/image-8.png" class="kg-image" alt loading="lazy" width="1192" height="738" srcset="../../content/images/size/w600/2021/09/image-8.png 600w, ../../content/images/size/w1000/2021/09/image-8.png 1000w, ../../content/images/2021/09/image-8.png 1192w" sizes="(min-width: 720px) 720px"></figure><p>There is one more thing I will do. The background is boring– let's jazz it up.</p><p>Let's update the draw function:</p><p></p><pre><code>def draw():
     screen.blit("background.png", (0,0))
@@ -225,7 +220,7 @@ def draw():
         bar.x = bar_x
         bar.y = bar_y
         bar.draw()
-        
+
         bar_x += 70
         </code></pre><p>We create starting x and y variables- <em>bar_x </em>initialised to 120 and <em>bar_y </em>initialised to 100</p><p>We loop 8 times. Why 8? Because that's how many bars we can comfortably sit on the screen.</p><p>For each loop, we create an Actor and initialise its x and y, and draw it to the screen. We then do:</p><pre><code>bar_x += 70</code></pre><p>so that the next bar is moved 70 pixels to the left. Again, I found 70 by trial and error. Try changing the value and see the bars either overlap or be too far apart.</p><p>Run the code:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/09/image-11.png" class="kg-image" alt loading="lazy" width="1192" height="759" srcset="../../content/images/size/w600/2021/09/image-11.png 600w, ../../content/images/size/w1000/2021/09/image-11.png 1000w, ../../content/images/2021/09/image-11.png 1192w" sizes="(min-width: 720px) 720px"></figure><p>Good. Now we need to lay out all the other bars as well. I plan to have 3 rows with different colours.</p><p>The first thing I'm going to do is extract the above code into a function:</p><pre><code>def draw():
     screen.blit("background.png", (0,0))
@@ -253,7 +248,7 @@ def place_blue_bars():
     x = 120
     y = 100</code></pre><p>We have a list with our 3 images, and we initialise the x and y values. We then loop over our list:</p><pre><code>    for coloured_box in coloured_box_list:
         place_bars(x, y, coloured_box)
-        y += 50</code></pre><p>We need to do a <em>y+= 50</em> in each loop, otherwise, the bars will be placed on top of each other.</p><p>The final code:</p><pre><code> coloured_box_list = 
+        y += 50</code></pre><p>We need to do a <em>y+= 50</em> in each loop, otherwise, the bars will be placed on top of each other.</p><p>The final code:</p><pre><code> coloured_box_list =
  ["element_blue_rectangle_glossy.png",
  "element_green_rectangle_glossy.png",
  "element_red_rectangle_glossy.png"]
@@ -317,7 +312,7 @@ ball_y_speed = 1</code></pre><p>The speed is 1 pixel for left/right and up/down.
     <div class="read-more inner">
 
 
-                    
+
 <article class="post-card post no-image ">
 
 
@@ -351,7 +346,7 @@ When writing code or tests in Python, one issue I had was when the code would fa
     </div>
 
 </article>
-                    
+
 <article class="post-card post no-image ">
 
 
@@ -385,7 +380,7 @@ Recently, I wanted to write a blog on Python&#39;s decorators and wanted to get 
     </div>
 
 </article>
-                    
+
 <article class="post-card post ">
 
     <a class="post-card-image-link" href="../linkedin-has-become-a-piece-of-garbage-even-more-than-usual/index.html">
@@ -442,9 +437,9 @@ I&#39;ve had an account there for a few years.</p>
         <div class="inner">
             <section class="copyright"><a href="../../home/index.html">Python for Engineers</a> &copy; 2025</section>
             <nav class="site-footer-nav">
-                
+
             </nav>
-            
+
 
         </div>
     </footer>

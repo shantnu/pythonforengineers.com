@@ -12,8 +12,8 @@
 
     <link rel="canonical" href="index.html">
     <meta name="referrer" content="no-referrer-when-downgrade">
-    
-    
+
+
     <meta property="og:site_name" content="Python for Engineers">
     <meta property="og:type" content="article">
     <meta property="og:title" content="Getting Started with Godot Game Programming for Complete Beginners">
@@ -26,7 +26,7 @@ directory with the code. I&#x27;m using Godot version 3.x for this tutorial.">
     <meta property="article:published_time" content="2021-12-05T14:44:00.000Z">
     <meta property="article:modified_time" content="2021-12-05T14:43:59.000Z">
     <meta property="article:tag" content="game">
-    
+
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Getting Started with Godot Game Programming for Complete Beginners">
     <meta name="twitter:description" content="In this post, we will start with a very basic Godot script, that will move a
@@ -39,7 +39,7 @@ directory with the code. I&#x27;m using Godot version 3.x for this tutorial.">
     <meta name="twitter:data1" content="Shantnu Tiwari">
     <meta name="twitter:label2" content="Filed under">
     <meta name="twitter:data2" content="game">
-    
+
     <script type="application/ld+json">
 {
     "@context": "https://schema.org",
@@ -75,8 +75,8 @@ directory with the code. I&#x27;m using Godot version 3.x for this tutorial.">
 
     <meta name="generator" content="Ghost 5.129">
     <link rel="alternate" type="application/rss+xml" title="Python for Engineers" href="../rss/index.html">
-        
-    
+
+
     <link href="https://new.pythonforengineers.com/webmentions/receive/" rel="webmention">
     <script defer src="../../public/cards.min.js%3Fv=ddf1563274"></script>
     <link rel="stylesheet" type="text/css" href="../../public/cards.min.css%3Fv=ddf1563274.css">
@@ -111,17 +111,12 @@ directory with the code. I&#x27;m using Godot version 3.x for this tutorial.">
 </ul>
 
             </div>
-            <div class="gh-head-actions">
-                <div class="gh-social">
-                </div>
 
-                    <a class="gh-head-button" href="index.html#/portal/signup">Subscribe</a>
-            </div>
         </nav>
     </header>
 
     <main>
-        
+
 
 
 
@@ -177,7 +172,7 @@ func _physics_process(_delta):
 	velocity = move_and_slide(velocity)		</code></pre><p>Run the game:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/p11.gif" class="kg-image" alt loading="lazy" width="1893" height="924"></figure><p>Our character can move left and right. Let's add gravity now.</p><h3 id="adding-gravity-to-our-game">Adding gravity to our game</h3><p></p><p>Adding gravity is easy. In the script, add:</p><pre><code>const GRAVITY = 20
 
 func _physics_process(_delta):
- 
+
 	velocity.y += GRAVITY</code></pre><p>And run the game:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/p12.gif" class="kg-image" alt loading="lazy" width="1893" height="924"></figure><p>The character just falls off the screen. We need to give it a place to stand.</p><p>Later on, we'll create proper levels, but for now, we'll just create a dummy platform for our player to land on.</p><p>Create a new scene of type StaticBody2d:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/p13.gif" class="kg-image" alt loading="lazy" width="1550" height="745"></figure><p>Like we did for the player, we need to add a sprite and collision body. Do it, same as before:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/p14.gif" class="kg-image" alt loading="lazy" width="1677" height="842"></figure><p>In the image above, I use the recent node list to pick up the 2 nodes I want. This is faster than typing the name.</p><p>We now need to add a sprite and a shape. For the sprite, we will just use the standard Godot icon that comes inbuilt with the project. The shape will be a rectangle.</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/p15.gif" class="kg-image" alt loading="lazy" width="1895" height="897"></figure><p>The next thing to do is to zoom in and increase the size of the icon (and the collision layer), so they are big enough for our player to land on.</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/p16.gif" class="kg-image" alt loading="lazy" width="1895" height="897"></figure><p>Before we go on, choose the ground layer we created and click this button:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/image-15.png" class="kg-image" alt loading="lazy"></figure><p>This will make sure when we move the ground around, its children, both the sprite and the collision layer, move with it.</p><p>Next, we need to add this ground to the main level. You've done this before. Click on Level1, then the link button, and add the ground. Move the ground to below the player, but remember to keep it on the screen (the purple and green lines I showed you before):</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/p17.gif" class="kg-image" alt loading="lazy" width="1895" height="897"></figure><p>Run the game:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/p19.gif" class="kg-image" alt loading="lazy" width="1871" height="912"></figure><p>The player falls to the ground and stays there. Why? Because the ground is also a physics object, and Godot figures out the player will land on it. We chose a StaticBody2d node, which is used for immovable objects that don't react or move with the player.</p><p>You can move the player around, and it falls off the screen if you go too far.</p><p></p><p>Phew! That was a lot. Next time, we'll add animation, so the player appears to be walking:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/p20.gif" class="kg-image" alt loading="lazy" width="857" height="462"></figure><p>We'll also start creating and designing the level:</p><figure class="kg-card kg-image-card"><img src="../../content/images/2021/11/image-16.png" class="kg-image" alt loading="lazy"></figure><p></p><p>Sign up below to know when the next part is out.</p>
     </section>
 
@@ -190,7 +185,7 @@ func _physics_process(_delta):
     <div class="read-more inner">
 
 
-                    
+
 <article class="post-card post no-image ">
 
 
@@ -224,7 +219,7 @@ When writing code or tests in Python, one issue I had was when the code would fa
     </div>
 
 </article>
-                    
+
 <article class="post-card post no-image ">
 
 
@@ -258,7 +253,7 @@ Recently, I wanted to write a blog on Python&#39;s decorators and wanted to get 
     </div>
 
 </article>
-                    
+
 <article class="post-card post ">
 
     <a class="post-card-image-link" href="../linkedin-has-become-a-piece-of-garbage-even-more-than-usual/index.html">
@@ -315,9 +310,9 @@ I&#39;ve had an account there for a few years.</p>
         <div class="inner">
             <section class="copyright"><a href="../../home/index.html">Python for Engineers</a> &copy; 2025</section>
             <nav class="site-footer-nav">
-                
+
             </nav>
-            
+
 
         </div>
     </footer>
